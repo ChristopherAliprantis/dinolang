@@ -20,14 +20,22 @@ public partial class GetCode
             {
                 if (opt.File != null)
                 {
-                    code = System.IO.File.ReadAllText(opt.File);
+                    try
+                    {
+                        code = System.IO.File.ReadAllText(opt.File);
+                    } 
+                    catch 
+                    {
+                        Console.WriteLine($"File {opt.File} not found!");
+                    }
+
                 }
                 else if (opt.Code != null)
                 {
                     code = opt.Code;
                 }
             });
-        List<string> Code = Strip(code);
+        List<string> Code = ToReadableLines(code);
         for (int i = 0;i < Code.Count; i++)
         {
             Console.WriteLine(Code[i]);
