@@ -3,27 +3,28 @@ using CommandLine;
 
 namespace dinolang;
 
-public class Getfl
+public class GetCode
 {
     [Option('m', "mode", Default = "debug", HelpText = "The mode to run in: debug or release.")]
-    public static string? Mode { get; set; }
+    public string? Mode { get; set; }
     [Option('f', "file", Default = null, HelpText = "The file to run.")]
-    public static string? File { get; set; }
+    public string? File { get; set; }
 
     [Option('c', "code", Default = "", HelpText = "The code to run if you dont have a file.")]
-    public static string? Code { get; set; }
+    public string? Code { get; set; }
     static void Main(string[] args)
     {
+        string code;
         Parser.Default.ParseArguments<Getfl>(args)
             .WithParsed(opt =>
             {
                 if (opt.File != null)
                 {
-                    string code = System.IO.File.ReadAllText(opt.File);
+                    code = System.IO.File.ReadAllText(opt.File);
                 }
                 else if (opt.Code != null)
                 {
-                    Console.WriteLine($"Running direct code: {opt.Code}");
+                    code = opt.Code;
                 }
             });
     }
