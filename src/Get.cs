@@ -3,7 +3,7 @@ using CommandLine;
 
 namespace dinolang;
 
-public class GetCode
+public partial class GetCode
 {
     [Option('m', "mode", Default = "debug", HelpText = "The mode to run in: debug or release.")]
     public string? Mode { get; set; }
@@ -14,8 +14,8 @@ public class GetCode
     public string? Code { get; set; }
     static void Main(string[] args)
     {
-        string code;
-        Parser.Default.ParseArguments<Getfl>(args)
+        string code = "";
+        Parser.Default.ParseArguments<GetCode>(args)
             .WithParsed(opt =>
             {
                 if (opt.File != null)
@@ -27,5 +27,10 @@ public class GetCode
                     code = opt.Code;
                 }
             });
+        List<string> Code = Strip(code);
+        for (int i = 0;i < Code.Count; i++)
+        {
+            Console.WriteLine(Code[i]);
+        }
     }
 }
