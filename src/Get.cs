@@ -15,7 +15,7 @@ public partial class GetCode
     [Option('c', "code", Default = "", HelpText = "The code to run if you don't have a file.")]
     public string? Code { get; set; }
 
-    [Option('h', Default = false, HelpText = "The wiki link(which includes command line usage).")]
+    [Option('h', Default = "false", HelpText = "The wiki link(which includes command line usage).")]
     public string? Help { get; set; }
     static void Main(string[] args)
     {
@@ -39,7 +39,7 @@ public partial class GetCode
                 {
                     code = opt.Code;
                 }
-                if (opt.Help != false) Console.WriteLine("https://github.com/ChristopherAliprantis/dinolang/wiki");
+                if (opt.Help == "true") Console.WriteLine("https://github.com/ChristopherAliprantis/dinolang/wiki");
             });
         List<string> Code = ToReadableLines(code);
         for (int i = 0;i < Code.Count; i++)
