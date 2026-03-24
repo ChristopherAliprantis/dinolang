@@ -12,7 +12,7 @@ public partial class GetCode
     [Option('f', "file", Default = null, HelpText = "The file to run.")]
     public string? File { get; set; }
 
-    [Option('c', "code", Default = "", HelpText = "The code to run if you dont have a file.")]
+    [Option('c', "code", Default = "", HelpText = "The code to run if you don't have a file.")]
     public string? Code { get; set; }
     static void Main(string[] args)
     {
