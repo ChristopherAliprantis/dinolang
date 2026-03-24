@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace dinolang.Interpreter
+namespace dinolang.interpreter
 {
     public class Globals
     {
