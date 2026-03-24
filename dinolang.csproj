@@ -5,12 +5,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <AssemblyTitle>Dino</AssemblyTitle>
-	  <AssemblyName>Dino</AssemblyName>
+	<AssemblyTitle>Dino</AssemblyTitle>
+	<AssemblyName>Dino</AssemblyName>
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Title>Dino</Title>
-    <Authors>Christopher Aliprantis</Authors>
     <Product>$(AssemblyName)</Product>
 	<ApplicationIcon>Assets\DinoLogo.ico</ApplicationIcon>
     <Description>Dino programming language</Description>
