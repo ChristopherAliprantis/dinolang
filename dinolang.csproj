@@ -11,7 +11,8 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <Title>Dino</Title>
     <Product>$(AssemblyName)</Product>
-	<ApplicationIcon>Assets\DinoLogo.ico</ApplicationIcon>
+	  <Copyright>No One</Copyright>
+	  <ApplicationIcon>Assets\DinoLogo.ico</ApplicationIcon>
     <Description>Dino programming language</Description>
     <RepositoryUrl>https://github.com/ChristopherAliprantis/dinolang</RepositoryUrl>
   </PropertyGroup>
