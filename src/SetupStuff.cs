@@ -6,7 +6,7 @@ namespace dinolang.Interpreter
 {
     public class Globals
     {
-        public static Dictionary<String, Variable> Vars = new();
+        public static Dictionary<string, Variable> Vars = new();
         public static Dictionary<string, Function> Funcs = new();
     }
 
