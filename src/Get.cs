@@ -3,6 +3,7 @@ using CommandLine;
 
 namespace dinolang;
 
+[Assembly: AssemblyCopyright("None")]
 public partial class GetCode
 {
     [Option('m', "mode", Default = "debug", HelpText = "The mode to run in: debug or release.")]
