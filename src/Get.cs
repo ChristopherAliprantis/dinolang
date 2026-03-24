@@ -1,11 +1,14 @@
 ﻿using System;
 using CommandLine;
+using System.Reflection;
 
 namespace dinolang;
 
-[Assembly: AssemblyCopyright("None")]
+
 public partial class GetCode
 {
+    [Assembly: AssemblyCopyright("None")]
+
     [Option('m', "mode", Default = "debug", HelpText = "The mode to run in: debug or release.")]
     public string? Mode { get; set; }
     [Option('f', "file", Default = null, HelpText = "The file to run.")]
