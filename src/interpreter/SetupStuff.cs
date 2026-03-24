@@ -14,12 +14,12 @@ namespace dinolang.interpreter
 
 public class Variable
 {
-    dynamic? value;
-    string? type;
+    public dynamic? value;
+    public string? type;
 }
 
 public class Function
 {
-    List<dynamic>? parameters;
-    string? code;
+    public List<dynamic>? parameters;
+    public string? code;
 }
