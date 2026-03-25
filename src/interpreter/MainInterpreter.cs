@@ -38,6 +38,17 @@ namespace dinolang.interpreter
                     string arg = line.Substring(6, line.Length - 8);
                     Console.WriteLine(GetValue(arg, i + 1));
                 }
+                else if (line.StartsWith($"{BeforeChar(line, '=')}="))
+                {
+                    var b = BeforeChar(line, '=');
+                    var a = BeforeChar(AfterChar(line, '='), ';');
+                    dinolang.interpreter.Globals.Vars[b] = new Variable
+                    {
+                        value = GetValue(a, i+1),
+                        type = "string",
+                    };
+
+                }
             }
         }
 
@@ -80,7 +91,7 @@ namespace dinolang.interpreter
                         Function func = dinolang.interpreter.Globals.Funcs[val];
                         if (func.parameters.Count == paramS)
                         {
-                            return dinolang.interpreter.Globals.Funcs[val];
+                            return ProcessFunc(dinolang.interpreter.Globals.Funcs[val], line);
                         }
                     }
                 }
@@ -88,11 +99,23 @@ namespace dinolang.interpreter
             }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
-                return ProcessFunc(dinolang.interpreter.Globals.Vars[val].value, line);
+                return dinolang.interpreter.Globals.Vars[val].value;
             }
             Console.WriteLine($"Invalid Value, Line {line}.");
             Environment.Exit(0);
             if (1 + 1 == 2) return null;
+        }
+
+        public static string BeforeChar(string s, char c)
+        {
+            int i = s.IndexOf(c);
+            return i >= 0 ? s[..i] : s;
+        }
+
+        public static string AfterChar(string s, char c)
+        {
+            int i = s.IndexOf(c);
+            return i >= 0 && i < s.Length - 1 ? s[(i + 1)..] : "";
         }
     }
 }
