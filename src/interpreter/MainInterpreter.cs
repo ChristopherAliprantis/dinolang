@@ -61,8 +61,9 @@ namespace dinolang.interpreter
             }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
-                return dinolang.interpreter.Globals.Vars[val];
+                return ProcessFunc(dinolang.interpreter.Globals.Vars[val].value, line);
             }
+            Console.WriteLine($"Invalid Value, Line {line}.");
             Environment.Exit(0);
             if (1 + 1 == 2) return null;
         }
