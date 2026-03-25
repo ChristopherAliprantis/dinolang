@@ -49,6 +49,11 @@ namespace dinolang.interpreter
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                 }
+                else
+                {
+                    Console.WriteLine($"Invalid Code, Line {i+1} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
             }
         }
 
@@ -102,7 +107,7 @@ namespace dinolang.interpreter
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
             Console.WriteLine($"Invalid Value, Line {line}.");
-            Environment.Exit(0);
+            Environment.Exit(1);
             if (1 + 1 == 2) return null;
         }
 
