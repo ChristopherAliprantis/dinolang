@@ -9,25 +9,17 @@ namespace dinolang.interpreter
     {
         public static void Interpret(List<string> lines)
         {
-            var newlines = lines;
-            int back = 0;
-            for (int i = 0; i < lines.Count; i++)
+            List<string> newlines = new();
+
+            foreach (var line in lines)
             {
-                if (string.IsNullOrWhiteSpace(lines[i]))
-                {
-                    newlines.RemoveAt(i - back);
-                    back++;
-                }
-                if (lines[i].StartsWith("//"))
-                {
-                    newlines.RemoveAt(i - back);
-                    back++;
-                }
-                if (string.IsNullOrWhiteSpace(lines[i]) && i == lines.Count - 1)
-                {
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                if (line.StartsWith("//")) continue;
+
+                newlines.Add(line);
             }
+
+            lines = newlines;
             lines = newlines;
   
             for (int i = 0; i < lines.Count; i++) 
