@@ -35,16 +35,13 @@ public partial class GetCode
                     }
 
                 }
-                else if (opt.Code != null)
+                if (opt.Code != "")
                 {
                     code = opt.Code;
                 }
                 if (opt.Help == "true") Console.WriteLine("https://github.com/ChristopherAliprantis/dinolang/wiki");
             });
         List<string> Code = ToReadableLines(code);
-        for (int i = 0;i < Code.Count; i++)
-        {
-            Console.WriteLine(Code[i]);
-        }
+        interpreter.Interpreter.Interpret(Code);
     }
 }

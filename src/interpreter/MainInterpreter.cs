@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace dinolang.interpreter
@@ -8,9 +9,35 @@ namespace dinolang.interpreter
     {
         public static void Interpret(List<string> lines)
         {
+            var newlines = lines;
+            int back = 0;
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                {
+                    newlines.RemoveAt(i - back);
+                    back++;
+                }
+                if (lines[i].StartsWith("//"))
+                {
+                    newlines.RemoveAt(i - back);
+                    back++;
+                }
+                if (string.IsNullOrWhiteSpace(lines[i]) && i == lines.Count - 1)
+                {
+                    return;
+                }
+            }
+            lines = newlines;
+  
             for (int i = 0; i < lines.Count; i++) 
             {
-                
+                var line = lines[i];
+                if (line.StartsWith("print(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(6, line.Length - 8);
+                    Console.WriteLine(GetValue(arg, i + 1));
+                }
             }
         }
 
@@ -26,14 +53,14 @@ namespace dinolang.interpreter
             string? value2;
             if (val.StartsWith(':') && val.EndsWith(':'))
             {
-                value2 = val.Substring(1, val.Length - 1);
+                value2 = val.Substring(1, val.Length - 2);
                 return value2;
             }
             
             if (dinolang.interpreter.Globals.Funcs.ContainsKey(val))
             {
                 var poses = (0, 0); 
-                for (int i = 0; i <= val.Length; i++)
+                for (int i = 0; i < val.Length; i++)
                 {
                     if (val[i] == '(')
                     {
