@@ -17,6 +17,7 @@ public partial class GetCode
     public string? Help { get; set; }
     static void Main(string[] args)
     {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
         string code = "";
         Parser.Default.ParseArguments<GetCode>(args)
             .WithParsed(opt =>
