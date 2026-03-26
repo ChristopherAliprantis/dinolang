@@ -20,6 +20,6 @@ public class Variable
 
 public class Function
 {
-    public List<dynamic>? parameters;
-    public string? code;
+    public List<string>? parameters;
+    public List<string>? code;
 }

@@ -18,17 +18,65 @@ namespace dinolang.interpreter
 
                 newlines.Add(line);
             }
-
+            
             lines = newlines;
             lines = newlines;
   
             for (int i = 0; i < lines.Count; i++) 
             {
+                bool mf = false;
+                List<string> mfl = new();
+                List<string> mfp = new List<string>();
                 var line = lines[i];
-                if (line.StartsWith("print(") && line.EndsWith(");"))
+                string? name = "";
+                string? Ps = "";
+                if (line.StartsWith("#func") && mf == false)
                 {
-                    string arg = line.Substring(6, line.Length - 8);
-                    Console.WriteLine(GetValue(arg, i + 1));
+                    mf = true;
+                    name = BeforeChar(AfterChar(line, 'c'), '(');
+                    Ps = BeforeChar(AfterChar(line, name[^1]), ';');
+                    if (Ps.StartsWith('(') && Ps.EndsWith(')'))
+                    {
+                        Ps.Remove(0);
+                        Ps.Remove(Ps.Length -1);
+                        mfp = Ps.Split(',').ToList();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid Function declaration, Line {i + 1} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                else if (mf)
+                {
+                    mfl.Add(line);
+                    continue;
+                }
+                else if (line == "#endfunc;")
+                {
+                    dinolang.interpreter.Globals.Funcs[name] = new Function
+                    {
+                        parameters = mfp,
+                        code = mfl,
+                    };
+                    
+                }
+                else if (line.StartsWith("print(") && line.EndsWith(");"))
+                {
+                    string arg = BeforeChar(AfterChar(line, '('), ')');
+                    Console.WriteLine(GetValue(arg, i + 1, null));
+                }
+                else if (Globals.Funcs.ContainsKey(BeforeChar(line, '(')))
+                {
+                    var f = Globals.Funcs[BeforeChar(line, '(')];
+                    var p = BeforeChar(AfterChar(line, '('), ')');
+                    var sP = p.Split(',').ToList();
+                    List<dynamic> dP = new();
+                    for (int h = 0; h < sP.Count; h++)
+                    {
+                        dP.Add(GetValue(sP[h], i+1, null));
+                    }
+                    GetValue(line, i+1, dP);
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
@@ -36,7 +84,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, '='), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, i+1),
+                        value = GetValue(a, i+1, null),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -49,8 +97,9 @@ namespace dinolang.interpreter
             }
         }
 
-        public static dynamic? GetValue(string val, int line)
+        public static dynamic? GetValue(string val, int line, List<dynamic>? vals)
         {
+            if (vals == null) vals = new();
             decimal? value1;
             try
             {
@@ -88,7 +137,7 @@ namespace dinolang.interpreter
                         Function func = dinolang.interpreter.Globals.Funcs[val];
                         if (func.parameters.Count == paramS)
                         {
-                            return ProcessFunc(dinolang.interpreter.Globals.Funcs[val], line);
+                            return ProcessFunc(dinolang.interpreter.Globals.Funcs[val], line, vals);
                         }
                     }
                 }
@@ -98,7 +147,7 @@ namespace dinolang.interpreter
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
-            Console.WriteLine($"Invalid Value, Line {line}.");
+            Console.WriteLine($"Invalid Value, Line {line}");
             Environment.Exit(1);
             if (1 + 1 == 2) return null;
         }
