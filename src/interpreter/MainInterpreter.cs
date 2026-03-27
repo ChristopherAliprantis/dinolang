@@ -20,13 +20,12 @@ namespace dinolang.interpreter
             }
             
             lines = newlines;
-            lines = newlines;
-  
+            bool mf = false;
+            List<string> mfl = new();
+            List<string> mfp = new List<string>();
             for (int i = 0; i < lines.Count; i++) 
             {
-                bool mf = false;
-                List<string> mfl = new();
-                List<string> mfp = new List<string>();
+                
                 var line = lines[i];
                 string? name = "";
                 string? Ps = "";
@@ -37,8 +36,7 @@ namespace dinolang.interpreter
                     Ps = BeforeChar(AfterChar(line, name[^1]), ';');
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
-                        Ps.Remove(0);
-                        Ps.Remove(Ps.Length -1);
+                        Ps = Ps.Substring(1, Ps.Length - 2);
                         mfp = Ps.Split(',').ToList();
                     }
                     else
@@ -52,9 +50,13 @@ namespace dinolang.interpreter
                     dinolang.interpreter.Globals.Funcs[name] = new Function
                     {
                         parameters = mfp,
-                        code = mfl,
+                        code = new List<string>(mfl)
                     };
-                    
+                    mf = false;
+                    mfl.Clear();
+                    mfp.Clear();
+                    name = "";
+
                 }
                 else if (mf)
                 {
@@ -64,19 +66,12 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
+                    if (string.IsNullOrWhiteSpace(arg)) arg = "::";
                     Console.WriteLine(GetValue(arg, i + 1, null));
                 }
-                else if (Globals.Funcs.ContainsKey(BeforeChar(line, '(')))
+                else if (line.Contains("(") && line.EndsWith(");"))
                 {
-                    var f = Globals.Funcs[BeforeChar(line, '(')];
-                    var p = BeforeChar(AfterChar(line, '('), ')');
-                    var sP = p.Split(',').ToList();
-                    List<dynamic> dP = new();
-                    for (int h = 0; h < sP.Count; h++)
-                    {
-                        dP.Add(GetValue(sP[h], i+1, dP));
-                    }
-                    GetValue(line, i+1, dP);
+                    GetValue(BeforeChar(line, ';'), i + 1, null);
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
@@ -113,35 +108,22 @@ namespace dinolang.interpreter
                 value2 = val.Substring(1, val.Length - 2);
                 return value2;
             }
-            
-            if (dinolang.interpreter.Globals.Funcs.ContainsKey(val))
+            if (val == $"{BeforeChar(val, '(')}({BeforeChar(AfterChar(val, '('), ')')})")
             {
-                var poses = (0, 0); 
-                for (int i = 0; i < val.Length; i++)
+                string fname = BeforeChar(val, '(').Trim();
+
+                if (Globals.Funcs.ContainsKey(fname))
                 {
-                    if (val[i] == '(')
+                    string inside = BeforeChar(AfterChar(val, '('), ')');
+
+                    List<dynamic> args = new List<dynamic>();
+                    if (!string.IsNullOrWhiteSpace(inside))
                     {
-                        poses.Item1 = i;
+                        string[] split = inside.Split(',');
                     }
-                    if (val[i] == ')')
-                    {
-                        poses.Item2 = i;
-                        string brackets = val.Substring(poses.Item1, poses.Item2).Trim();
-                        int j;
-                        int paramS = 0;
-                        for (j = 0; j <= brackets.Length; j++)
-                        {
-                            if (brackets[j] != ',') paramS++;
-                        }
-                        if (j == 0) break;
-                        Function func = dinolang.interpreter.Globals.Funcs[val];
-                        if (func.parameters.Count == paramS)
-                        {
-                            return ProcessFunc(dinolang.interpreter.Globals.Funcs[val], line, vals);
-                        }
-                    }
+
+                    return ProcessFunc(Globals.Funcs[fname], line, args);
                 }
-                
             }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
@@ -154,12 +136,20 @@ namespace dinolang.interpreter
 
         public static string BeforeChar(string s, char c)
         {
+            if (!s.Contains(c))
+            {
+                return s;
+            }
             int i = s.IndexOf(c);
             return i >= 0 ? s[..i] : s;
         }
 
         public static string AfterChar(string s, char c)
         {
+            if (!s.Contains(c))
+            {
+                return s;
+            }
             int i = s.IndexOf(c);
             return i >= 0 && i < s.Length - 1 ? s[(i + 1)..] : "";
         }

@@ -8,9 +8,9 @@ namespace dinolang.interpreter
     {
         public static dynamic? ProcessFunc(Function func, int Line, List<dynamic> vals)
         {
-            var lines = func.code;
+            var lines = new List<string>(func.code);
             var p = func.parameters;
-            if (lines.Any(item => item.StartsWith("return") == false)) 
+            if (!lines.Any(item => item.StartsWith("return")))
             {
                 Console.WriteLine($"Function does not return anything, Line {Line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
@@ -24,13 +24,12 @@ namespace dinolang.interpreter
                     {
                         string val = vals[i];
                         if (val is string) val = $":{val}:";
-                        lines.Insert(i, $"{p[i]}={val};");
+                        lines.Insert(0, $"{p[i]}={val};");
                         if (Globals.Vars.ContainsKey(p[i]))
                         {
                             Nvs[p[i]] = Globals.Vars[p[i]];
                             Nvsk.Add(p[i]);
                         }
-                        Console.WriteLine(val);
                     }
                 }
             }
@@ -40,19 +39,8 @@ namespace dinolang.interpreter
                 if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
+                    if (string.IsNullOrWhiteSpace(arg)) arg = "::";
                     Console.WriteLine(GetValue(arg, Line, null));
-                }
-                else if (Globals.Funcs.ContainsKey(BeforeChar(line, '(')))
-                {
-                    var f = Globals.Funcs[BeforeChar(line, '(')];
-                    var P = BeforeChar(AfterChar(line, '('), ')');
-                    var sP = P.Split(',').ToList();
-                    List<dynamic> dP = new();
-                    for (int h = 0; h < sP.Count; h++)
-                    {
-                        dP.Add(GetValue(sP[h], Line, null));
-                    }
-                    GetValue(line, i+1, dP);
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
@@ -68,9 +56,15 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
+                    Console.WriteLine(arg);
                     var th = GetValue(arg, Line, null);
                     RestoreDI(Nvsk, Nvs);
+                    
                     return th;
+                }
+                else if (line.Contains("(") && line.EndsWith(");"))
+                {
+                    GetValue(BeforeChar(line, ';'), i + 1, null);
                 }
                 else
                 {
