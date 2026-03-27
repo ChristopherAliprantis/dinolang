@@ -74,7 +74,7 @@ namespace dinolang.interpreter
                     List<dynamic> dP = new();
                     for (int h = 0; h < sP.Count; h++)
                     {
-                        dP.Add(GetValue(sP[h], i+1, null));
+                        dP.Add(GetValue(sP[h], i+1, dP));
                     }
                     GetValue(line, i+1, dP);
                 }
@@ -89,11 +89,11 @@ namespace dinolang.interpreter
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                 }
-                /* else
+                else
                 {
                     Console.WriteLine($"Invalid Code, Line {i+1} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
-                } */
+                }
             }
         }
 

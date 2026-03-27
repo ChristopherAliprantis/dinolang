@@ -30,6 +30,7 @@ namespace dinolang.interpreter
                             Nvs[p[i]] = Globals.Vars[p[i]];
                             Nvsk.Add(p[i]);
                         }
+                        Console.WriteLine(val);
                     }
                 }
             }
@@ -39,7 +40,7 @@ namespace dinolang.interpreter
                 if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
-                    Console.WriteLine(GetValue(arg, Line + i, null));
+                    Console.WriteLine(GetValue(arg, Line, null));
                 }
                 else if (Globals.Funcs.ContainsKey(BeforeChar(line, '(')))
                 {
@@ -49,7 +50,7 @@ namespace dinolang.interpreter
                     List<dynamic> dP = new();
                     for (int h = 0; h < sP.Count; h++)
                     {
-                        dP.Add(GetValue(sP[h], Line+i, null));
+                        dP.Add(GetValue(sP[h], Line, null));
                     }
                     GetValue(line, i+1, dP);
                 }
@@ -59,7 +60,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, '='), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, Line + i, null),
+                        value = GetValue(a, Line, null),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -67,15 +68,15 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
-                    var th = GetValue(arg, Line + i, null);
+                    var th = GetValue(arg, Line, null);
                     RestoreDI(Nvsk, Nvs);
                     return th;
                 }
-                /* else
+                else
                 {
-                    Console.WriteLine($"Invalid Code, Line {Line + i} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Invalid Code, Line {Line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
-                }*/
+                }
             }
             
             
