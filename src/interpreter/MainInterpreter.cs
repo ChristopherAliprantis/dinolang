@@ -47,11 +47,6 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                 }
-                else if (mf)
-                {
-                    mfl.Add(line);
-                    continue;
-                }
                 else if (line == "#endfunc;")
                 {
                     dinolang.interpreter.Globals.Funcs[name] = new Function
@@ -60,6 +55,11 @@ namespace dinolang.interpreter
                         code = mfl,
                     };
                     
+                }
+                else if (mf)
+                {
+                    mfl.Add(line);
+                    continue;
                 }
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
@@ -89,11 +89,11 @@ namespace dinolang.interpreter
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                 }
-                else
+                /* else
                 {
                     Console.WriteLine($"Invalid Code, Line {i+1} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
-                }
+                } */
             }
         }
 

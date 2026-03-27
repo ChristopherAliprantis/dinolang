@@ -15,12 +15,21 @@ namespace dinolang.interpreter
                 Console.WriteLine($"Function does not return anything, Line {Line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
+            var Nvs = new Dictionary<string, Variable>();
+            var Nvsk = new List<string>();
             if (p.Count != 0)
             {
                 for (int i = 0; i < p.Count; i++)
                 {
                     {
-                        lines.Insert(0, $"{p[i]}={vals[i]};");
+                        string val = vals[i];
+                        if (val is string) val = $":{val}:";
+                        lines.Insert(i, $"{p[i]}={val};");
+                        if (Globals.Vars.ContainsKey(p[i]))
+                        {
+                            Nvs[p[i]] = Globals.Vars[p[i]];
+                            Nvsk.Add(p[i]);
+                        }
                     }
                 }
             }
@@ -30,7 +39,7 @@ namespace dinolang.interpreter
                 if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
-                    Console.WriteLine(GetValue(arg, i + 1, null));
+                    Console.WriteLine(GetValue(arg, Line + i, null));
                 }
                 else if (Globals.Funcs.ContainsKey(BeforeChar(line, '(')))
                 {
@@ -40,7 +49,7 @@ namespace dinolang.interpreter
                     List<dynamic> dP = new();
                     for (int h = 0; h < sP.Count; h++)
                     {
-                        dP.Add(GetValue(sP[h], i+1, null));
+                        dP.Add(GetValue(sP[h], Line+i, null));
                     }
                     GetValue(line, i+1, dP);
                 }
@@ -50,7 +59,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, '='), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, i + 1, null),
+                        value = GetValue(a, Line + i, null),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -58,17 +67,27 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ')');
-                    return GetValue(arg, i + 1, null);
+                    var th = GetValue(arg, Line + i, null);
+                    RestoreDI(Nvsk, Nvs);
+                    return th;
                 }
-                else
+                /* else
                 {
-                    Console.WriteLine($"Invalid Code, Line {i + 1} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Invalid Code, Line {Line + i} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
-                }
+                }*/
             }
-            Console.WriteLine($"Invalid Value, Line {Line}.");
-            Environment.Exit(1);
+            
+            
             return null;
+        }
+
+        public static void RestoreDI(List<string> it, Dictionary<string, Variable> from)
+        {
+            for (int i = 0; i < it.Count; i++)
+            {
+                Globals.Vars[it[i]] = from[it[i]];
+            }
         }
     }
 }
