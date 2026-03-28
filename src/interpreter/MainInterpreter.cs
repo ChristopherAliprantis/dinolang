@@ -110,7 +110,7 @@ namespace dinolang.interpreter
             {
                 value2 = val.Substring(1, val.Length - 2);
                 return value2;
-            } 
+            }
             string fname = BeforeChar(val, '(');
 
             if (val.Contains("(") && val.EndsWith(")"))
@@ -118,13 +118,20 @@ namespace dinolang.interpreter
                 string inside = BeforeChar(AfterChar(val, '('), ')');
 
                 List<dynamic> args = new List<dynamic>();
+
                 if (!string.IsNullOrWhiteSpace(inside))
                 {
                     string[] split = inside.Split(',');
+
+                    foreach (var s in split)
+                    {
+                        args.Add(s);
+                    }
                 }
+
                 return ProcessFunc(Globals.Funcs[fname], args, line);
             }
-       
+
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
