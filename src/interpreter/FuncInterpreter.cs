@@ -15,10 +15,23 @@ namespace dinolang.interpreter
                 Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
+            var Nvs = new Dictionary<string, Variable>();
+            var Nvsk = new List<string>();                
+            for (int i = 0; i < p.Count; i++)
+            {
+                {
+                    string val = vals[i];
+                    lines.Insert(0, $"{p[i]}={val};");
+                    if (Globals.Vars.ContainsKey(p[i]))
+                    {
+                        Nvs[p[i]] = Globals.Vars[p[i]];
+                        Nvsk.Add(p[i]);
+                    }
+                }
+            }
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
-                lines[i] = line;
                 if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ");");
@@ -39,7 +52,8 @@ namespace dinolang.interpreter
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ");");
                     var th = GetValue(arg, line, null);
-                    
+                    RestoreDI(Nvsk, Nvs);
+
                     return th;
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
@@ -52,17 +66,17 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
-            
-            
+
+
             return null;
         }
 
-        /* public static void RestoreDI(List<string> it, Dictionary<string, Variable> from)
+        public static void RestoreDI(List<string> it, Dictionary<string, Variable> from)
         {
             for (int i = 0; i < it.Count; i++)
             {
                 Globals.Vars[it[i]] = from[it[i]];
             }
-        } */
+        }
     }
 }
