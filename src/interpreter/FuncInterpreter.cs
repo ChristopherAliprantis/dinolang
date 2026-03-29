@@ -18,13 +18,6 @@ namespace dinolang.interpreter
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
-
-                foreach (var param in p)
-                {
-                    string val = vals[p.IndexOf(param)].ToString();
-                    line = line.Replace(param, val);
-                }
-
                 lines[i] = line;
                 if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
