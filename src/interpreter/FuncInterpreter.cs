@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace dinolang.interpreter
         {
             var lines = new List<string>(func.code);
             var p = func.parameters;
+            Console.WriteLine($"param count: {p.Count}, vals count: {vals.Count}");
             if (!lines.Any(item => item.StartsWith("return")))
             {
                 Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -20,8 +22,8 @@ namespace dinolang.interpreter
             for (int i = 0; i < p.Count; i++)
             {
                 {
-                    string val = vals[i];
-                    lines.Insert(0, $"{p[i]}={val};");
+                    dynamic val = vals[i];
+                    Insert(lines ,0, $"{p[i]}={val};");
                     if (Globals.Vars.ContainsKey(p[i]))
                     {
                         Nvs[p[i]] = Globals.Vars[p[i]];
@@ -29,6 +31,7 @@ namespace dinolang.interpreter
                     }
                 }
             }
+            Console.WriteLine(string.Join(", ", lines));
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
@@ -77,6 +80,25 @@ namespace dinolang.interpreter
             {
                 Globals.Vars[it[i]] = from[it[i]];
             }
+        }
+
+        public static List<string> Insert(List<string> input, int pos, string value)
+        {
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+
+            if (pos < 0 || pos > input.Count)
+                throw new ArgumentOutOfRangeException(nameof(pos));
+
+            input.Add(default);
+
+            for (int i = input.Count - 1; i > pos; i--)
+            {
+                input[i] = input[i - 1];
+            }
+            input[pos] = value;
+
+            return input;
         }
     }
 }

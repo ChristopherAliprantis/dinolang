@@ -32,8 +32,10 @@ namespace dinolang.interpreter
                 {
                     mf = true;
                     string? Ps = "";
-                    name = BeforeChar(AfterChar(line, 'c'), '(');
-                    Ps = BeforeChar(AfterChar(line, name[^1]), ';');
+                    name = BeforeChar(AfterChar(line, "#func"), '(');
+                    Ps = AfterChar(line, '(');
+                    Ps = BeforeChar(Ps, ')');
+                    Ps = "(" + Ps + ")";
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
@@ -41,7 +43,7 @@ namespace dinolang.interpreter
                     }
                     else
                     {
-                        Console.WriteLine($"Invalid Function declaration, Line {i + 1} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Function declaration, Line {lines[i]} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -113,7 +115,7 @@ namespace dinolang.interpreter
             }
             string fname = BeforeChar(val, '(');
 
-            if (val.Contains("(") && val.EndsWith(")"))
+            if ((val.Contains("(") && val.EndsWith(")")) && Globals.Funcs.ContainsKey(fname))
             {
                 string inside = BeforeChar(AfterChar(val, '('), ')');
 
