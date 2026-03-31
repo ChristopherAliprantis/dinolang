@@ -128,7 +128,6 @@ namespace dinolang.interpreter
                         args.Add(s);
                     }
                 }
-
                 return ProcessFunc(Globals.Funcs[fname], args, line);
             }
 
