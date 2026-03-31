@@ -31,14 +31,13 @@ namespace dinolang.interpreter
                 if (line.StartsWith("#func") && mf == false)
                 {
                     mf = true;
-                    string? Ps = "";
                     name = BeforeChar(AfterChar(line, "#func"), '(');
-                    Ps = AfterChar(line, '(');
+                    string Ps = AfterChar(line, '(');
                     Ps = BeforeChar(Ps, ')');
-                    Ps = "(" + Ps + ")";
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
+                        
                         mfp = Ps.Split(',').ToList();
                     }
                     else
@@ -115,7 +114,7 @@ namespace dinolang.interpreter
             }
             string fname = BeforeChar(val, '(');
 
-            if ((val.Contains("(") && val.EndsWith(")")) && Globals.Funcs.ContainsKey(fname))
+            if (val.Contains("(") && val.EndsWith(")"))
             {
                 string inside = BeforeChar(AfterChar(val, '('), ')');
 
