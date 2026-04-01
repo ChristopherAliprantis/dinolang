@@ -158,12 +158,10 @@ namespace dinolang.interpreter
 
         public static string AfterChar(string s, string c)
         {
-            if (!s.Contains(c))
-            {
-                return s;
-            }
-            int i = s.IndexOf(c);
-            return i >= 0 && i < s.Length - 1 ? s[(i + 1)..] : "";
+            if (!s.Contains(c)) return s;
+
+            int i = s.IndexOf(c) + c.Length;
+            return i >= 0 && i < s.Length ? s[i..] : "";
         }
         public static string BeforeChar(string s, char c)
         {
@@ -177,10 +175,8 @@ namespace dinolang.interpreter
 
         public static string AfterChar(string s, char c)
         {
-            if (!s.Contains(c))
-            {
-                return s;
-            }
+            if (!s.Contains(c)) return s;
+
             int i = s.IndexOf(c);
             return i >= 0 && i < s.Length - 1 ? s[(i + 1)..] : "";
         }
