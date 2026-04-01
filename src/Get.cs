@@ -42,5 +42,6 @@ public partial class GetCode
             });
         List<string> Code = ToReadableLines(code);
         interpreter.Interpreter.Interpret(Code);
+        Environment.Exit(1);
     }
 }

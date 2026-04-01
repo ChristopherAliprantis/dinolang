@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace dinolang.interpreter
@@ -31,9 +32,9 @@ namespace dinolang.interpreter
                 if (line.StartsWith("#func") && mf == false)
                 {
                     mf = true;
-                    name = BeforeChar(AfterChar(line, "#func"), '(');
-                    string Ps = AfterChar(line, '(');
-                    Ps = BeforeChar(Ps, ')');
+                    name = BeforeChar(line.Substring(5), '(');
+                    string Ps = AfterChar(line, name[^1]);
+                    Ps = BeforeChar(Ps, ';');
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
@@ -42,12 +43,17 @@ namespace dinolang.interpreter
                     }
                     else
                     {
-                        Console.WriteLine($"Invalid Function declaration, Line {lines[i]} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Function declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
                 else if (line == "#endfunc;")
                 {
+                    if (mf == false)
+                    {
+                        Console.WriteLine($"No function in making, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     dinolang.interpreter.Globals.Funcs[name] = new Function
                     {
                         parameters = mfp,
@@ -113,8 +119,7 @@ namespace dinolang.interpreter
                 return value2;
             }
             string fname = BeforeChar(val, '(');
-
-            if (val.Contains("(") && val.EndsWith(")"))
+            if (Globals.Funcs.ContainsKey(fname))
             {
                 string inside = BeforeChar(AfterChar(val, '('), ')');
 
