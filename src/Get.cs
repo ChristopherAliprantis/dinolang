@@ -31,6 +31,7 @@ public partial class GetCode
                     catch 
                     {
                         Console.WriteLine($"File {opt.File} not found!");
+                        Environment.Exit(1);
                     }
 
                 }

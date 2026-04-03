@@ -71,7 +71,8 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
-                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    string arg = line.Substring(0, line.Length - 2);
+                    arg = AfterChar(arg, '(');
                     Console.WriteLine(GetValue(arg, line, null));
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))

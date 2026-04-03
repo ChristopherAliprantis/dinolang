@@ -9,10 +9,12 @@ namespace dinolang
         {
             List<char> charlist = new();
             List<string> New = new();
+            bool In2 = false;
             for (int i = 0; i < code.Length; i++)
             {
                 charlist.Add(code[i]);
-                if (code[i] == ';')
+                if (code[i] == ':') In2 = !In2;
+                if (code[i] == ';' && In2 == false)
                 {
                     string line = "";
                     for (int j = 0; j < charlist.Count; j++)
