@@ -13,7 +13,7 @@ public partial class GetCode
     [Option('c', "code", Default = "", HelpText = "The code to run if you don't have a file.")]
     public string? Code { get; set; }
 
-    [Option('h', Default = "false", HelpText = "The wiki link(which includes command line usage).")]
+    [Option('h', Default = "false", HelpText = "The wiki link(which includes command line usage). Use like -h true")]
     public string? Help { get; set; }
     static void Main(string[] args)
     {
