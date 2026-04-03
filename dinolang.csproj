@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<AssemblyTitle>Dino</AssemblyTitle>
-	<Version>0.0.1</Version>
+	<Version>0.0.0.8</Version>
 	<Copyright>No Copyright</Copyright>
 	<AssemblyName>Dino</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>

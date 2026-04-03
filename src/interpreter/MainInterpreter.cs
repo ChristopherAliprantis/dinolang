@@ -56,7 +56,7 @@ namespace dinolang.interpreter
                     }
                     dinolang.interpreter.Globals.Funcs[name] = new Function
                     {
-                        parameters = mfp,
+                        parameters = new List<string>(mfp),
                         code = new List<string>(mfl)
                     };
                     mf = false;
