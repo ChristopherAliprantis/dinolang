@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using NCalc;
 
 namespace dinolang.interpreter
 {
@@ -101,6 +102,11 @@ namespace dinolang.interpreter
 
         public static dynamic? GetValue(string val, string line, List<dynamic>? vals)
         {
+            return rGetValue(val, line, vals);
+        } 
+
+        public static dynamic? rGetValue(string val, string line, List<dynamic>? vals)
+        {
             if (vals == null) vals = new();
             if (string.IsNullOrWhiteSpace(val))
             {
@@ -141,11 +147,11 @@ namespace dinolang.interpreter
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
-            } 
+            }
             Console.WriteLine($"Invalid Value, Line {line}");
-            Environment.Exit(1); 
-            if (1 + 1 == 2) return " "; 
-        } 
+            Environment.Exit(1);
+            if (1 + 1 == 2) return " ";
+        }
 
         public static string BeforeChar(string s, string c)
         {
