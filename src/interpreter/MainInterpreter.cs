@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
-using NCalc;
+using System.Linq;
 
 namespace dinolang.interpreter
 {
@@ -74,7 +74,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, '(');
-                    Console.WriteLine(GetValue(arg, line, null));
+                    Console.WriteLine(GetValue(arg, line));
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
@@ -82,7 +82,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, '='), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, line, null),
+                        value = GetValue(a, line),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -90,7 +90,7 @@ namespace dinolang.interpreter
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
                     var Var = BeforeChar(line, ';');
-                    GetValue(Var, line, null);
+                    GetValue(Var, line);
                 }
                 else
                 {
@@ -99,15 +99,8 @@ namespace dinolang.interpreter
                 }
             }
         }
-
-        public static dynamic? GetValue(string val, string line, List<dynamic>? vals)
+        public static dynamic? GetValue(string val, string line)
         {
-            return rGetValue(val, line, vals);
-        } 
-
-        public static dynamic? rGetValue(string val, string line, List<dynamic>? vals)
-        {
-            if (vals == null) vals = new();
             if (string.IsNullOrWhiteSpace(val))
             {
                 val = "::";
@@ -143,7 +136,41 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, line);
             }
+            if (val.StartsWith("+(") && val.EndsWith(')'))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length < 2)
+                {
+                    Console.WriteLine($"Need at least 2 parameters to add Line {line}");
+                    Environment.Exit(1);
+                }
+                List<dynamic> Vals = new();
+                for (int i = 0; i < VALS.Length; i++)
+                {
+                    Vals.Add(GetValue(VALS[i], line));
+                }
+                bool allsame = Vals.Count == 0 ||
+                    Vals.All(x => x.GetType() == Vals[0].GetType());
+                if (!allsame)
+                {
+                    Console.WriteLine($"Not all values are the same Line {line}");
+                    Environment.Exit(1);
+                }
+                else
+                {
+                    dynamic? result = 0;
+                    if (Vals[0] is string)
+                    {
+                        result = "";
+                    }
+                    foreach (var v in Vals)
+                    {
+                        result += v;
+                    }
+                    return result;
+                }
 
+            }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
                 return dinolang.interpreter.Globals.Vars[val].value;

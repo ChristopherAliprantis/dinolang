@@ -36,7 +36,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, '(');
-                    Console.WriteLine(GetValue(arg, line, null));
+                    Console.WriteLine(GetValue(arg, line));
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
@@ -44,7 +44,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, '='), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, line, null),
+                        value = GetValue(a, line),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -52,14 +52,14 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
                     string arg = BeforeChar(AfterChar(line, '('), ");");
-                    var th = GetValue(arg, line, null);
+                    var th = GetValue(arg, line);
                     RestoreDI(Nvsk, Nvs);
 
                     return th;
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
-                    GetValue(BeforeChar(line, ';'), line, null);
+                    GetValue(BeforeChar(line, ';'), line);
                 }
                 else
                 {
