@@ -8,6 +8,7 @@
 	<AssemblyTitle>Dino</AssemblyTitle>
 	<Version>0.0.0.8</Version>
 	<Copyright>No Copyright</Copyright>
+	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
 	<AssemblyName>Dino</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Title>Dino</Title>

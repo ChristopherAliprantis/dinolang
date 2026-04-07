@@ -179,28 +179,22 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Need at least 2 parameters to subtract, Line {line}");
                     Environment.Exit(1);
                 }
-                List<dynamic> Vals = new();
+                List<decimal> Vals = new();
                 for (int i = 0; i < VALS.Length; i++)
                 {
-                    Vals.Add(GetValue(VALS[i], line));
-                }
-                bool allsame = Vals.Count == 0 ||
-                    Vals.All(x => x.GetType() == Vals[0].GetType());
-                if (!allsame)
+                     try { Vals.Add(GetValue(VALS[i], line)); }
+                     catch
+                     {
+                         Console.WriteLine($"Invalid Value, Line {line}");
+                         Environment.Exit(1);
+                     }
+                }  
+                decimal? result = 0.0m;
+                foreach (var v in Vals)
                 {
-                    Console.WriteLine($"Not all values are the same, Line {line}");
-                    Environment.Exit(1);
+                    result -= v;
                 }
-                else
-                {
-                    decimal? result = 0.0m;
-                    foreach (var v in Vals)
-                    {
-                        result -= v;
-                    }
-                    return result;
-                }
-
+                return result;
             }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
