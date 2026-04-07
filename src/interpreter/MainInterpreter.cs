@@ -182,7 +182,10 @@ namespace dinolang.interpreter
                 List<decimal> Vals = new();
                 for (int i = 0; i < VALS.Length; i++)
                 {
-                     try { Vals.Add(GetValue(VALS[i], line)); }
+                     try 
+                     { 
+                        Vals.Add(GetValue(VALS[i], line)); 
+                     }
                      catch
                      {
                          Console.WriteLine($"Invalid Value, Line {line}");
