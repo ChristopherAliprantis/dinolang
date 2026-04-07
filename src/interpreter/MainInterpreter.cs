@@ -158,7 +158,7 @@ namespace dinolang.interpreter
                 }
                 else
                 {
-                    dynamic? result = 0;
+                    dynamic? result = 0.0m;
                     if (Vals[0] is string)
                     {
                         result = "";
@@ -166,6 +166,37 @@ namespace dinolang.interpreter
                     foreach (var v in Vals)
                     {
                         result += v;
+                    }
+                    return result;
+                }
+
+            }
+            if (val.StartsWith("-(") && val.EndsWith(')'))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length < 2)
+                {
+                    Console.WriteLine($"Need at least 2 parameters to subtract, Line {line}");
+                    Environment.Exit(1);
+                }
+                List<dynamic> Vals = new();
+                for (int i = 0; i < VALS.Length; i++)
+                {
+                    Vals.Add(GetValue(VALS[i], line));
+                }
+                bool allsame = Vals.Count == 0 ||
+                    Vals.All(x => x.GetType() == Vals[0].GetType());
+                if (!allsame)
+                {
+                    Console.WriteLine($"Not all values are the same, Line {line}");
+                    Environment.Exit(1);
+                }
+                else
+                {
+                    decimal? result = 0.0m;
+                    foreach (var v in Vals)
+                    {
+                        result -= v;
                     }
                     return result;
                 }
