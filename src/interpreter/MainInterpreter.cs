@@ -192,10 +192,11 @@ namespace dinolang.interpreter
                          Environment.Exit(1);
                      }
                 }  
-                decimal? result = 0.0m;
-                foreach (var v in Vals)
+                decimal? result = Vals[0];
+                for (int I = 0; I < Vals.Count; I++)
                 {
-                    result -= v;
+                    if (I == 0) continue;
+                    result -= Vals[I];
                 }
                 return result;
             }
