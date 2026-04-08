@@ -11,6 +11,7 @@
 	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
 	<AssemblyName>Dino</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
+	<PublishReadyToRun>true</PublishReadyToRun>
     <Title>Dino</Title>
     <Product>$(AssemblyName)</Product>
 	<ApplicationIcon>Assets\DinoLogo.ico</ApplicationIcon>
