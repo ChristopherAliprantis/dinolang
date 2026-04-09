@@ -43,6 +43,12 @@ namespace dinolang.interpreter
                     arg = AfterChar(arg, '(');
                     Console.WriteLine(GetValue(arg, line));
                 }
+                else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(0, line.Length - 2);
+                    arg = AfterChar(arg, '(');
+                    Console.Write(((string)GetValue(arg, line).ToString()));
+                }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
                     var b = BeforeChar(line, '=');
