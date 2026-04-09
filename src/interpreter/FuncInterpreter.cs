@@ -15,6 +15,11 @@ namespace dinolang.interpreter
                 Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
+            if (vals.Count != p.Count)
+            {
+                Console.WriteLine($"Function {name} expects {p.Count} arguments but got {vals.Count} arguments Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                Environment.Exit(1);
+            }
             var Nvs = new Dictionary<string, Variable>();
             var Nvsk = new List<string>();                
             for (int i = 0; i < p.Count; i++)

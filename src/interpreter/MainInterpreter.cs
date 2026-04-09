@@ -141,7 +141,7 @@ namespace dinolang.interpreter
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
-                    Console.WriteLine($"Need at least 2 parameters to add, Line {line}");
+                    Console.WriteLine($"Need at least 2 parameters to add, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 List<dynamic> Vals = new();
@@ -153,7 +153,7 @@ namespace dinolang.interpreter
                     Vals.All(x => x.GetType() == Vals[0].GetType());
                 if (!allsame)
                 {
-                    Console.WriteLine($"Not all values are the same, Line {line}");
+                    Console.WriteLine($"Not all values are the same, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 else
@@ -176,7 +176,7 @@ namespace dinolang.interpreter
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
-                    Console.WriteLine($"Need at least 2 parameters to subtract, Line {line}");
+                    Console.WriteLine($"Need at least 2 parameters to subtract, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 List<decimal> Vals = new();
@@ -188,7 +188,7 @@ namespace dinolang.interpreter
                      }
                      catch
                      {
-                         Console.WriteLine($"Invalid Value, Line {line}");
+                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                          Environment.Exit(1);
                      }
                 }  
@@ -200,11 +200,77 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
+            if (val.StartsWith("/(") && val.EndsWith(')'))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length < 2)
+                {
+                    Console.WriteLine($"Need at least 2 parameters to divide, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                List<decimal> Vals = new();
+                for (int i = 0; i < VALS.Length; i++)
+                {
+                    try
+                    {
+                        Vals.Add(GetValue(VALS[i], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                decimal? result = Vals[0];
+                for (int I = 0; I < Vals.Count; I++)
+                {
+                    if (I == 0) continue;
+                    try
+                    {
+                        result /= Vals[I];
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Cannot divide by {Vals[I]} Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                return result;
+            }
+            if (val.StartsWith("*(") && val.EndsWith(')'))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length < 2)
+                {
+                    Console.WriteLine($"Need at least 2 parameters to multiply, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                List<decimal> Vals = new();
+                for (int i = 0; i < VALS.Length; i++)
+                {
+                    try
+                    {
+                        Vals.Add(GetValue(VALS[i], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                decimal? result = Vals[0];
+                for (int I = 0; I < Vals.Count; I++)
+                {
+                    if (I == 0) continue;
+                    result *= Vals[I];
+                }
+                return result;
+            }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
-            Console.WriteLine($"Invalid Value, Line {line}");
+            Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
             Environment.Exit(1);
             if (1 + 1 == 2) return " ";
         }
