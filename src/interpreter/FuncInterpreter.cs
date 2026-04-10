@@ -84,7 +84,7 @@ namespace dinolang.interpreter
                         Console.WriteLine($"No loop in making, Line {line} Try going on  https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    ProcessLoop(loopLines, Convert.ToInt32(times));
+                    ProcessLoop(loopLines, Convert.ToInt32(times), varto);
                     POL = false;
                     times = 0;
                     varto = "";
