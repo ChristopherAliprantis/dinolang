@@ -36,7 +36,6 @@ namespace dinolang.interpreter
                 }
             }
             bool POL = false;
-            string varto = "";
             List<string> loopLines = new();
             decimal times = 0;
             for (int i = 0; i < lines.Count; i++)
@@ -48,15 +47,9 @@ namespace dinolang.interpreter
                     {
                         string thing = BeforeChar(AfterChar(line, "#loop"), ';');
                         string args = AfterChar(BeforeChar(thing, ')'), '(');
-                        string[] argsl = args.Split(',');
-                        if (argsl.Length != 2)
-                        {
-                            Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                            Environment.Exit(1);
-                        }
                         try
                         {
-                            times = GetValue(argsl[0], line);
+                            times = GetValue(args, line);
                             if (times % 1 == 0) ;
                             else
                             {
@@ -68,7 +61,6 @@ namespace dinolang.interpreter
                         {
                             Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         }
-                        varto = argsl[1];
                         POL = true;
                     }
                     else
@@ -86,13 +78,11 @@ namespace dinolang.interpreter
                     }
                     for (int l = 0; l < Convert.ToInt32(times); l++)
                     {
-                        if (l != 0) Interpret(new List<string> { $"{varto}=+({varto},1);" });
-                        int st = ProcessLoop(loopLines, Convert.ToInt32(times), varto);
+                        int st = ProcessLoop(loopLines, Convert.ToInt32(times));
                         if (st == 0) break;
                     }
                     POL = false;
                     times = 0;
-                    varto = "";
                     loopLines.Clear();
                 }
                 else if (POL == true) loopLines.Add(line);
