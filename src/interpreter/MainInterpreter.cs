@@ -26,6 +26,10 @@ namespace dinolang.interpreter
             List<string> mfl = new();
             List<string> mfp = new List<string>();
             string? name = "";
+            bool POL = false;
+            string varto = "";
+            List<string> loopLines = new();
+            decimal times = 0;
             for (int i = 0; i < lines.Count; i++) 
             {
                 
@@ -39,7 +43,7 @@ namespace dinolang.interpreter
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
-                        
+
                         mfp = Ps.Split(',').ToList();
                     }
                     else
@@ -70,6 +74,55 @@ namespace dinolang.interpreter
                     mfl.Add(line);
                     continue;
                 }
+                else if (line.StartsWith("#loop"))
+                {
+                    if (AfterChar(line, "#loop") != ";")
+                    {
+                        string thing = BeforeChar(AfterChar(line, "#loop"), ';');
+                        string args = AfterChar(BeforeChar(thing, ')'), '(');
+                        string[] argsl = args.Split(',');
+                        if (argsl.Length != 2)
+                        {
+                            Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                        try
+                        {
+                            times = decimal.Parse(argsl[0]);
+                            if (times % 1 == 0) ;
+                            else
+                            {
+                                Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                                Environment.Exit(1);
+                            }
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        }
+                        varto = argsl[1];
+                        POL = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                else if (line == "#endloop;")
+                {
+                    if (POL == false)
+                    {
+                        Console.WriteLine($"No loop in making, Line {line} Try going on  https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    ProcessLoop(loopLines, Convert.ToInt32(times), varto);
+                    POL = false;
+                    times = 0;
+                    varto = "";
+                    loopLines.Clear();
+                }
+                else if (POL == true) loopLines.Add(line);
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);
