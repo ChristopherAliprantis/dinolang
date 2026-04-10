@@ -88,7 +88,7 @@ namespace dinolang.interpreter
                         }
                         try
                         {
-                            times = decimal.Parse(argsl[0]);
+                            times = GetValue(argsl[0], line);
                             if (times % 1 == 0) ;
                             else
                             {
@@ -116,7 +116,12 @@ namespace dinolang.interpreter
                         Console.WriteLine($"No loop in making, Line {line} Try going on  https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    ProcessLoop(loopLines, Convert.ToInt32(times), varto);
+                    for (int l = 0; l < Convert.ToInt32(times); l++)
+                    {
+                        if (l != 0) Interpret(new List<string> { $"{varto}=+({varto},1);" });
+                        int st = ProcessLoop(loopLines, Convert.ToInt32(times), varto);
+                        if (st == 0) break;
+                    }
                     POL = false;
                     times = 0;
                     varto = "";
