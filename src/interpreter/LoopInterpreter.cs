@@ -8,7 +8,7 @@ public partial class Interpreter
 {
     public static int ProcessLoop(List<string> lines, int times, string varto)
     {
-        Interpret(new List<string> { $"{varto}={times};"});
+        Interpret(new List<string> { $"{varto}=0;"});
 
         for (int i = 0; i < lines.Count; i++)
         {
