@@ -37,7 +37,7 @@ namespace dinolang.interpreter
                 {
                     mf = true;
                     name = BeforeChar(line.Substring(5), '(');
-                    string Ps = AfterChar(line, name[^1]);
+                    string Ps = AfterChar(line, "#func" + name);
                     Ps = BeforeChar(Ps, ';');
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
