@@ -322,7 +322,8 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("Ntostring(") && val.EndsWith(")"))
             {
-                string arg = BeforeChar(AfterChar(val, "Ntostring("), ")");
+                string arg = line.Substring(0, line.Length - 1);
+                arg = AfterChar(arg, '(');
                 var VAL = GetValue(arg, line);
                 if (VAL is not decimal)
                 {
