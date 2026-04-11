@@ -320,18 +320,6 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
-            if (val.StartsWith("Ntostring(") && val.EndsWith(")"))
-            {
-                string arg = line.Substring(0, line.Length - 1);
-                arg = AfterChar(arg, '(');
-                var VAL = GetValue(arg, line);
-                if (VAL is not decimal)
-                {
-                    Console.WriteLine($"Only nums allowed as input, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                return VAL.ToString();
-            }
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
