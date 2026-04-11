@@ -20,7 +20,7 @@ namespace dinolang.interpreter
 
                 newlines.Add(line);
             }
-            
+
             lines = newlines;
             bool mf = false;
             List<string> mfl = new();
@@ -29,9 +29,9 @@ namespace dinolang.interpreter
             bool POL = false;
             List<string> loopLines = new();
             decimal times = 0;
-            for (int i = 0; i < lines.Count; i++) 
+            for (int i = 0; i < lines.Count; i++)
             {
-                
+
                 var line = lines[i];
                 if (line.StartsWith("#func") && mf == false)
                 {
@@ -236,16 +236,16 @@ namespace dinolang.interpreter
                 List<decimal> Vals = new();
                 for (int i = 0; i < VALS.Length; i++)
                 {
-                     try 
-                     { 
-                        Vals.Add(GetValue(VALS[i], line)); 
-                     }
-                     catch
-                     {
-                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                         Environment.Exit(1);
-                     }
-                }  
+                    try
+                    {
+                        Vals.Add(GetValue(VALS[i], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
                 decimal? result = Vals[0];
                 for (int I = 0; I < Vals.Count; I++)
                 {
