@@ -172,6 +172,10 @@ namespace dinolang.interpreter
                 value2 = val.Substring(1, val.Length - 2);
                 return value2;
             }
+            if (val == "COLON")
+            {
+                return ":";
+            }
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
             {
