@@ -6,8 +6,11 @@ namespace dinolang.interpreter;
 
 public partial class Interpreter
 {
-    public static int ProcessLoop(List<string> lines, int times)
+    public static int ProcessLoop(List<string> lines)
     {
+        bool POL = false;
+        List<string> loopLines = new();
+        decimal times = 0;
 
         for (int i = 0; i < lines.Count; i++)
         {
@@ -17,7 +20,7 @@ public partial class Interpreter
             {
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, '(');
-                Console.WriteLine(GetValue(arg, line));
+                Console.WriteLine(((string)GetValue(arg, line).ToString()));
             }
             else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
             {
@@ -41,6 +44,7 @@ public partial class Interpreter
                 };
                 if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                 else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
+                else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
             }
             else if (line.Contains("(") && line.EndsWith(");"))
             {

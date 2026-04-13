@@ -110,7 +110,7 @@ namespace dinolang.interpreter
                     }
                     for (int l = 0; l < Convert.ToInt32(times); l++)
                     {
-                        int st = ProcessLoop(loopLines, Convert.ToInt32(times));
+                        int st = ProcessLoop(loopLines);
                         if (st == 0) break;
                     }
                     POL = false;
@@ -122,7 +122,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, '(');
-                    Console.WriteLine(GetValue(arg, line));
+                    Console.WriteLine(((string)GetValue(arg, line).ToString()));
                 }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
@@ -140,6 +140,7 @@ namespace dinolang.interpreter
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -166,6 +167,8 @@ namespace dinolang.interpreter
                 return value1;
             }
             catch { }
+            if (val == "false") return false; 
+            if (val == "true") return true;
             string? value2;
             if (val.StartsWith(':') && val.EndsWith(':'))
             {
@@ -175,6 +178,10 @@ namespace dinolang.interpreter
             if (val == "COLON")
             {
                 return ":";
+            }
+            if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
+            {
+                return dinolang.interpreter.Globals.Vars[val].value;
             }
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
@@ -193,6 +200,20 @@ namespace dinolang.interpreter
                     }
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, line);
+            }
+            if (val.StartsWith("!(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(2, val.Length - 3);
+                var Out = GetValue(arg, line);
+                if (Out is not bool)
+                {
+                    Console.WriteLine($"Cannot reverse non-boolean value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                else
+                {
+                    return !(bool)Out;
+                }
             }
             if (val.StartsWith("+(") && val.EndsWith(')'))
             {
@@ -324,10 +345,7 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
-            if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
-            {
-                return dinolang.interpreter.Globals.Vars[val].value;
-            }
+            
             Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
             Environment.Exit(1);
             if (1 + 1 == 2) return " ";

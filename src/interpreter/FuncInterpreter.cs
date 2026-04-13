@@ -78,7 +78,7 @@ namespace dinolang.interpreter
                     }
                     for (int l = 0; l < Convert.ToInt32(times); l++)
                     {
-                        int st = ProcessLoop(loopLines, Convert.ToInt32(times));
+                        int st = ProcessLoop(loopLines);
                         if (st == 0) break;
                     }
                     POL = false;
@@ -90,7 +90,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, '(');
-                    Console.WriteLine(GetValue(arg, line));
+                    Console.WriteLine(((string)GetValue(arg, line).ToString()));
                 }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
@@ -108,6 +108,7 @@ namespace dinolang.interpreter
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 }
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
