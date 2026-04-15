@@ -208,6 +208,54 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, line);
             }
+            if (val.StartsWith(">(") && val.EndsWith(")"))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                decimal[] decimals = new decimal[2] { 0, 0 };
+                for (int i = 0; i < 2; i++)
+                {
+                    var Var = GetValue(VALS[i], line);
+                    if (Var is not decimal)
+                    {
+                        Console.WriteLine($"Cannot compare non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    else
+                    {
+                        decimals[i] = (decimal)Var;
+                    }
+                }
+                return decimals[0] > decimals[1];
+            }
+            if (val.StartsWith("<(") && val.EndsWith(")"))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                decimal[] decimals = new decimal[2] { 0, 0};
+                for (int i = 0; i < 2; i++)
+                {
+                    var Var = GetValue(VALS[i], line);
+                    if (Var is not decimal)
+                    {
+                        Console.WriteLine($"Cannot compare non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    else
+                    {
+                        decimals[i] = (decimal)Var;
+                    }
+                }
+                return decimals[0] < decimals[1];
+            }
             if (val.StartsWith("==(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(3, val.Length - 4).Split(',');
