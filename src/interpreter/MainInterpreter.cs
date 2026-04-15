@@ -141,6 +141,7 @@ namespace dinolang.interpreter
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -169,6 +170,7 @@ namespace dinolang.interpreter
             catch { }
             if (val == "false") return false; 
             if (val == "true") return true;
+            if (val == "null") return null;
             string? value2;
             if (val.StartsWith(':') && val.EndsWith(':'))
             {
