@@ -24,7 +24,7 @@ namespace dinolang.interpreter
             lines = newlines;
             bool mf = false;
             List<string> mfl = new();
-            List<string> mfp = new List<string>();
+            List<string> mfp = new List<string>(0);
             string? name = "";
             bool POL = false;
             List<string> loopLines = new();
@@ -43,7 +43,7 @@ namespace dinolang.interpreter
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
 
-                        mfp = Ps.Split(',').ToList();
+                        if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
                     else
                     {
