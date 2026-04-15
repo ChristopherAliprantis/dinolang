@@ -201,6 +201,17 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, line);
             }
+            if (val.StartsWith("==(") && val.EndsWith(")"))
+            {
+                string[] VALS = val.Substring(3, val.Length - 4).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], line), GetValue(VALS[1], line) };
+                return dynamics[0] == dynamics[1];
+            }
             if (val.StartsWith("!(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(2, val.Length - 3);
