@@ -190,15 +190,18 @@ namespace dinolang.interpreter
             {
                 string inside = BeforeChar(AfterChar(val, '('), ')');
 
-                List<dynamic> args = new List<dynamic>();
+                List<dynamic> args = new List<dynamic>(0);
 
-                if (!string.IsNullOrWhiteSpace(inside))
+                if (inside != "") 
                 {
-                    string[] split = inside.Split(',');
+                    if (!string.IsNullOrWhiteSpace(inside))
+                    { 
+                        string[] split = inside.Split(',');
 
-                    foreach (var s in split)
-                    {
-                        args.Add(s);
+                        foreach (var s in split)
+                        {
+                            args.Add(s);
+                        }
                     }
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, line);
