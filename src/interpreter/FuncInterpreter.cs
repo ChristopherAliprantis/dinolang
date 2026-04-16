@@ -11,11 +11,6 @@ namespace dinolang.interpreter
         {
             var lines = new List<string>(func.code);
             var p = func.parameters;
-            if (!lines.Any(item => item.StartsWith("return")))
-            {
-                Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                Environment.Exit(1);
-            }
             if (vals.Count != p.Count)
             {
                 Console.WriteLine($"Function {name} expects {p.Count} arguments but got {vals.Count} arguments Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -41,7 +36,12 @@ namespace dinolang.interpreter
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
-                if (line.StartsWith("#loop"))
+                if (i == lines.Count - 1 && !line.StartsWith("return"))
+                {
+                    Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                else if (line.StartsWith("#loop"))
                 {
                     if (AfterChar(line, "#loop") != ";")
                     {

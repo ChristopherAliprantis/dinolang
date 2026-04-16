@@ -232,6 +232,31 @@ namespace dinolang.interpreter
                 }
                 return decimals[0] > decimals[1];
             }
+            if (val.StartsWith("or(") && val.EndsWith(")"))
+            {
+                string[] VALS = val.Substring(3, val.Length - 4).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to evaluate, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                bool[] bools = new bool[2] { false, false };
+
+                for (int i = 0; i < 2; i++)
+                {
+                    var Var = GetValue(VALS[i], line);
+                    if (Var is not bool)
+                    {
+                        Console.WriteLine($"Cannot evaluate non-boolean value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    else
+                    {
+                        bools[i] = (bool)Var;
+                    }
+                }
+                return bools[0] || bools[1];
+            }
             if (val.StartsWith("<(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');

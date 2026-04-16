@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<AssemblyTitle>Dino</AssemblyTitle>
-	<Version>0.0.1</Version>
+	<Version>0.0.2.6</Version>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
