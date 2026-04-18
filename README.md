@@ -5,3 +5,5 @@ File Extension: ".dno"
 NOTE: this project is not affiliated at all with https://github.com/dino-lang/dino.
 
 When building the code yourself use make.ps1 in root and when publishing use publish.ps1 in root. 
+
+Wiki: https://github.com/ChristopherAliprantis/dinolang/wiki/

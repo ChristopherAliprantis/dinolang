@@ -32,7 +32,8 @@ namespace dinolang.interpreter
             }
             bool POL = false;
             List<string> loopLines = new();
-            decimal times = 0;
+            dynamic times = 0;
+            string args = "";
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
@@ -45,21 +46,24 @@ namespace dinolang.interpreter
                 {
                     if (AfterChar(line, "#loop") != ";")
                     {
-                        string thing = BeforeChar(AfterChar(line, "#loop"), ';');
-                        string args = AfterChar(BeforeChar(thing, ')'), '(');
+                        args = AfterChar(BeforeChar(line, ");"), "#loop(");
                         try
                         {
-                            times = GetValue(args, line);
-                            if (times % 1 == 0) ;
-                            else
+                            times = (bool)GetValue(args, line);
+                            if (times is not bool)
                             {
-                                Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                                Environment.Exit(1);
+                                if (times % 1 == 0) ;
+                                else
+                                {
+                                    Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                                    Environment.Exit(1);
+                                }
                             }
                         }
                         catch
                         {
                             Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
                         }
                         POL = true;
                     }
@@ -76,10 +80,25 @@ namespace dinolang.interpreter
                         Console.WriteLine($"No loop in making, Line {line} Try going on  https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    for (int l = 0; l < Convert.ToInt32(times); l++)
+                    if (times is decimal)
                     {
-                        int st = ProcessLoop(loopLines);
-                        if (st == 0) break;
+                        for (int l = 0; l < Convert.ToInt32(times); l++)
+                        {
+                            int st = ProcessLoop(loopLines);
+                            if (st == 0) break;
+                        }
+                    }
+                    else
+                    {
+                        while (true)
+                        {
+                            if ((bool)GetValue(args, line))
+                            {
+                                int st = ProcessLoop(loopLines);
+                                if (st == 0) break;
+                            }
+                            else break;
+                        }
                     }
                     POL = false;
                     times = 0;
