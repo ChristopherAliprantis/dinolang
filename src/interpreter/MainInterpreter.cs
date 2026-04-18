@@ -114,7 +114,7 @@ namespace dinolang.interpreter
                     }
                     if (times is decimal)
                     {
-                        for (int l = 0; l < Convert.ToInt32(times); l++)
+                        for (int l = 0; l < Convert.ToInt32((decimal)times); l++)
                         {
                             int st = ProcessLoop(loopLines);
                             if (st == 0) break;
