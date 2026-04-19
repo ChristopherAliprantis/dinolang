@@ -126,12 +126,18 @@ namespace dinolang.interpreter
                     {
                         COND = (bool)GetValue(cond, line);
                     }
-                    catch
+                    catch 
                     {
                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    if (COND) ProcessIf(IfLines);
+                    dynamic? thing = "";
+                    if (COND) thing = ProcessIf(IfLines, true);
+                    if (thing != ("", ""))
+                    {
+                        RestoreDI(Nvsk, Nvs);
+                        return thing;
+                    }
                 }
                 else if (IF) IfLines.Add(line);
                 else if (line.StartsWith("print(") && line.EndsWith(");"))

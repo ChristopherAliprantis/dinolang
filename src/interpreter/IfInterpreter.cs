@@ -7,7 +7,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        static void ProcessIf(List<string> lines)
+        static dynamic? ProcessIf(List<string> lines, bool infunc)
         {
             bool POL = false;
             List<string> loopLines = new();
@@ -93,6 +93,13 @@ namespace dinolang.interpreter
                     string result = GetValue(arg, line)?.ToString() ?? "NULL";
                     Console.Write(result);
                 }
+                else if (line.StartsWith("return(") && line.EndsWith(");"))
+                {
+                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    var th = GetValue(arg, line);
+
+                    return th;
+                }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {
                     var b = BeforeChar(line, '=');
@@ -116,6 +123,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
+            return ("", "");
         }
     }
 }
