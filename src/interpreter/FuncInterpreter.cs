@@ -133,7 +133,7 @@ namespace dinolang.interpreter
                     }
                     dynamic? thing = "";
                     if (COND) thing = ProcessIf(IfLines, true);
-                    if ((dynamic?)thing != (dynamic?)("", ""))
+                    if ((dynamic?)thing != ((dynamic?)((dynamic?)"", (dynamic?)"")))
                     {
                         RestoreDI(Nvsk, Nvs);
                         return thing;

@@ -7,7 +7,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        static dynamic? ProcessIf(List<string> lines, bool infunc)
+        public static dynamic? ProcessIf(List<string> lines, bool infunc)
         {
             bool POL = false;
             List<string> loopLines = new();
@@ -126,7 +126,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
-            return ("", "");
+            return ((dynamic?)((dynamic?)"", (dynamic?)""));
         }
     }
 }
