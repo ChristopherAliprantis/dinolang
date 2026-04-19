@@ -93,12 +93,15 @@ namespace dinolang.interpreter
                     string result = GetValue(arg, line)?.ToString() ?? "NULL";
                     Console.Write(result);
                 }
-                else if (line.StartsWith("return(") && line.EndsWith(");"))
+                else if (infunc)
                 {
-                    string arg = BeforeChar(AfterChar(line, '('), ");");
-                    var th = GetValue(arg, line);
+                    if (line.StartsWith("return(") && line.EndsWith(");"))
+                    {
+                        string arg = BeforeChar(AfterChar(line, '('), ");");
+                        var th = GetValue(arg, line);
 
-                    return th;
+                        return th;
+                    }
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {

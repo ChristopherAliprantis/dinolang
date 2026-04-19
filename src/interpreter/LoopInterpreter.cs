@@ -40,7 +40,7 @@ public partial class Interpreter
                     Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                if (COND) ProcessIf(IfLines);
+                if (COND) ProcessIf(IfLines, false);
             }
             else if (IF) IfLines.Add(line);
             else if (line.StartsWith("print(") && line.EndsWith(");"))
