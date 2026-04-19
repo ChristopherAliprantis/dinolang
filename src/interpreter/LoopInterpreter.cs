@@ -11,12 +11,39 @@ public partial class Interpreter
         bool POL = false;
         List<string> loopLines = new();
         decimal times = 0;
-
+        string cond = "";
+        List<string> IfLines = new();
+        bool IF = false;
         for (int i = 0; i < lines.Count; i++)
         {
             var line = lines[i];
-
-            if (line.StartsWith("print(") && line.EndsWith(");"))
+            if (line.StartsWith("#if"))
+            {
+                cond = AfterChar(BeforeChar(line, ");"), "#if(");
+                IF = true;
+            }
+            else if (line == "#endif;")
+            {
+                if (IF == false)
+                {
+                    Console.WriteLine($"No if statement in making, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                IF = false;
+                bool COND = false;
+                try
+                {
+                    COND = (bool)GetValue(cond, line);
+                }
+                catch
+                {
+                    Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (COND) ProcessIf(IfLines);
+            }
+            else if (IF) IfLines.Add(line);
+            else if (line.StartsWith("print(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, '(');
