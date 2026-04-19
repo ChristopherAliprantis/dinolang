@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Xml.Linq;
 
@@ -126,7 +127,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
-            return ((dynamic?)((dynamic?)"", (dynamic?)""));
+            return (7,7);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Timers;
 
@@ -131,9 +132,13 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dynamic? thing = "";
+                    dynamic? thing = (7,7);
                     if (COND) thing = ProcessIf(IfLines, true);
-                    if ((dynamic?)thing != ((dynamic?)((dynamic?)"", (dynamic?)"")))
+                    if (thing is System.ValueTuple<int, int>)
+                    { 
+                        
+                    }
+                    else
                     {
                         RestoreDI(Nvsk, Nvs);
                         return thing;
