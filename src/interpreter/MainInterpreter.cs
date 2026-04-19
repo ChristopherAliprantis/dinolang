@@ -363,7 +363,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], line), GetValue(VALS[1], line) };
-                return dynamics[0] == dynamics[1];
+                return (dynamic?)dynamics[0] == (dynamic?)dynamics[1];
             }
             if (val.StartsWith("!=(") && val.EndsWith(")"))
             {
@@ -374,7 +374,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], line), GetValue(VALS[1], line) };
-                return dynamics[0] != dynamics[1];
+                return (dynamic?)dynamics[0] != (dynamic?)dynamics[1];
             }
             if (val.StartsWith("!(") && val.EndsWith(")"))
             {
