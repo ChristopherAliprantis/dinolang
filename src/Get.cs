@@ -7,14 +7,16 @@ namespace dinolang;
 
 public partial class GetCode
 {
-    [Option('f', "file", Default = null, HelpText = "The file to run.")]
+    [Option('f', "file", Default = null, HelpText = "The file to run like \"test.dno\" or multiple like inputting \"file1.dno, file2.dno\" must have quotes around the inputs.")]
     public string? File { get; set; }
 
     [Option('c', "code", Default = "", HelpText = "The code to run if you don't have a file.")]
     public string? Code { get; set; }
 
-    [Option('h', Default = "false", HelpText = "The wiki link(which includes command line usage). Use like -h true")]
+    [Option('h', Default = "false", HelpText = "The wiki link(which includes command line help). Use like -h true")]
     public string? Help { get; set; }
+
+    public static List<string> codes;
     static void Main(string[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -26,7 +28,8 @@ public partial class GetCode
                 {
                     try
                     {
-                        code = System.IO.File.ReadAllText(opt.File);
+                        codes = opt.File.Split(',').ToList();
+                        for (int i = 0; i < codes.Count; i++) code += System.IO.File.ReadAllText(codes[i].Trim());
                     } 
                     catch 
                     {
