@@ -26,14 +26,15 @@ public partial class GetCode
             {
                 if (opt.File != null)
                 {
+                    int i = 0;
                     try
                     {
                         codes = opt.File.Split(',').ToList();
-                        for (int i = 0; i < codes.Count; i++) code += System.IO.File.ReadAllText(codes[i].Trim());
+                        for (i = 0; i < codes.Count; i++) code += System.IO.File.ReadAllText(codes[i].Trim());
                     } 
                     catch 
                     {
-                        Console.WriteLine($"File {opt.File} not found!");
+                        Console.WriteLine($"File {codes[i].Trim()} not found!");
                         Environment.Exit(1);
                     }
 
