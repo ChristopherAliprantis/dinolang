@@ -84,8 +84,9 @@ namespace dinolang.interpreter
                         Console.WriteLine($"No loop in making, Line {line} Try going on  https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    if (times is decimal)
+                    if (times is decimal || times is int)
                     {
+                        if (times is int) times = Convert.ToDecimal((int)times);
                         for (int l = 0; l < Convert.ToInt32((decimal)times); l++)
                         {
                             int st = ProcessLoop(loopLines);
