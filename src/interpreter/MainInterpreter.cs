@@ -354,6 +354,49 @@ namespace dinolang.interpreter
                 }
                 return decimals[0] < decimals[1];
             }
+            if (val.StartsWith("charat(") && val.EndsWith(")"))
+            {
+                string[] VALS = val.Substring(7, val.Length - 8).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to get character, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                string? Val = " ";
+                int index = 0;
+                try
+                {
+                    Val = GetValue(VALS[0], line);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected string for first parameter, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                try
+                {
+                    index = Convert.ToInt32(GetValue(VALS[1], line));
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a whole number for second parameter, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (index <0)
+                {
+                    Console.WriteLine($"Expected a whole number for second parameter, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                try
+                {
+                    return Val[index];
+                }
+                catch
+                {
+                    Console.WriteLine($"Index out of range, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             if (val.StartsWith("==(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(3, val.Length - 4).Split(',');
