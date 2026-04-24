@@ -404,7 +404,7 @@ namespace dinolang.interpreter
                 }
                 try
                 {
-                    return Val[index];
+                    return Val[index].ToString();
                 }
                 catch
                 {
