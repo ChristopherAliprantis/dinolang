@@ -12,7 +12,7 @@ namespace dinolang.interpreter
         {
             bool POL = false;
             List<string> loopLines = new();
-            dynamic times = 0;
+            dynamic times = 0.0m;
             string args = "";
             for (int i = 0; i < lines.Count; i++)
             {

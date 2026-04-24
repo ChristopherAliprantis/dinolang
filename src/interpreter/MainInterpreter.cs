@@ -28,7 +28,7 @@ namespace dinolang.interpreter
             string? name = "";
             bool POL = false;
             List<string> loopLines = new();
-            dynamic times = 0;
+            dynamic times = 0.0m;
             string args = "";
             string cond = "";
             List<string> IfLines = new();

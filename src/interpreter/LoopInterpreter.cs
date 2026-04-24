@@ -10,7 +10,7 @@ public partial class Interpreter
     {
         bool POL = false;
         List<string> loopLines = new();
-        decimal times = 0;
+        decimal times = 0.0m;
         string cond = "";
         List<string> IfLines = new();
         bool IF = false;
