@@ -354,6 +354,21 @@ namespace dinolang.interpreter
                 }
                 return decimals[0] < decimals[1];
             }
+            if (val.StartsWith("Slen(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(5, val.Length - 6);
+                string? Str = " ";
+                try
+                {
+                    Str = GetValue(arg, line);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                return Str.Length;
+            }
             if (val.StartsWith("charat(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(7, val.Length - 8).Split(',');
