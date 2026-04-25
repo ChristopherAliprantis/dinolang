@@ -266,7 +266,7 @@ namespace dinolang.interpreter
             {
                 string arg = "";
                 if (val.StartsWith("ToNum(:") && val.EndsWith(":)")) arg = val.Substring(7, val.Length - 9);
-                else arg = val.Substring(6, val.Length - 8);
+                else arg = val.Substring(6, val.Length - 7);
                 dynamic result = 0.0m;
                 result = GetValue(arg, line);
                 if (result is not decimal)
@@ -605,7 +605,6 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
-            Console.WriteLine(val);
             Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
             Environment.Exit(1);
             if (1 + 1 == 2) return " ";
