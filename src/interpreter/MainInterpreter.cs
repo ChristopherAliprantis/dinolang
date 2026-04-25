@@ -170,15 +170,19 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);
-                    arg = AfterChar(arg, '(');
-                    string result = GetValue(arg, line)?.ToString() ?? "NULL";
+                    arg = AfterChar(arg, "print(");
+                    dynamic result = GetValue(arg, line);
+                    if (result is bool) result = result.ToString().ToUpper();
+                    else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
                 }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);
-                    arg = AfterChar(arg, '(');
-                    string result = GetValue(arg, line)?.ToString() ?? "NULL";
+                    arg = AfterChar(arg, "printnnl(");
+                    dynamic result = GetValue(arg, line);
+                    if (result is bool) result = result.ToString().ToUpper();
+                    else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
@@ -256,6 +260,25 @@ namespace dinolang.interpreter
                     }
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, line);
+            }
+            if (val.StartsWith("ToNum(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(7, val.Length - 9);
+                dynamic result = 0.0m;
+                result = GetValue(arg, line);
+                if (result is not decimal)
+                {
+                    Console.WriteLine($"Cannot convert to number, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                return result;
+            }
+            if (val.StartsWith("ToString(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(9, val.Length - 10);
+                var result = GetValue(arg, line);
+                if (result is bool) result = result.ToString().ToUpper();
+                return result?.ToString() ?? "NULL";
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {

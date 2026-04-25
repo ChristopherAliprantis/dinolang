@@ -46,14 +46,20 @@ public partial class Interpreter
             else if (line.StartsWith("print(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(0, line.Length - 2);
-                arg = AfterChar(arg, '(');
-                Console.WriteLine(((string)GetValue(arg, line).ToString()));
+                arg = AfterChar(arg, "print(");
+                dynamic result = GetValue(arg, line);
+                if (result is bool) result = result.ToString().ToUpper();
+                else result = result?.ToString() ?? "NULL";
+                Console.WriteLine(result);
             }
             else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(0, line.Length - 2);
-                arg = AfterChar(arg, '(');
-                Console.Write(((string)GetValue(arg, line).ToString()));
+                arg = AfterChar(arg, "printnnl(");
+                dynamic result = GetValue(arg, line);
+                if (result is bool) result = result.ToString().ToUpper();
+                else result = result?.ToString() ?? "NULL";
+                Console.Write(result);
             }
             else if (line == "continue;")
             {
