@@ -8,7 +8,6 @@ namespace dinolang.interpreter
     {
         public static Dictionary<string, Variable> Vars = new();
         public static Dictionary<string, Function> Funcs = new();
-        public static int ld = 0;
     }
 
 }
