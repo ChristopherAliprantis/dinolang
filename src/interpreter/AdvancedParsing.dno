@@ -1,0 +1,23 @@
+#func StartsWith(s, thing);
+    status = false;
+    string = ::;
+    i = 0;
+    #loop(len(s));
+        string = +(string, charat(s, i));
+        #if (==(string, thing)); status = true; break; #endif;
+        i = +(i,1); 
+    #endloop;
+    return(status);
+#endfunc;
+
+#func EndsWith(s, thing);
+    status = false;
+    string = ::;
+    i = -(len(s),1);
+    #loop(len(s));
+        string = +(charat(s, i), string);
+        #if (==(string, thing)); status = true; break; #endif;
+        i = -(i,1); 
+    #endloop;
+    return(status);
+#endfunc;

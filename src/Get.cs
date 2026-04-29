@@ -1,6 +1,7 @@
-﻿using System;
-using CommandLine;
+﻿using CommandLine;
+using System;
 using System.Reflection;
+using System.Text;
 
 namespace dinolang;
 
@@ -20,7 +21,7 @@ public partial class GetCode
     static void Main(string[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-        string code = "";
+        string code = System.IO.File.ReadAllText("interpreter/AdvancedParsing.dno", Encoding.UTF8);
         Parser.Default.ParseArguments<GetCode>(args)
             .WithParsed(opt =>
             {
@@ -30,7 +31,7 @@ public partial class GetCode
                     try
                     {
                         codes = opt.File.Split(',').ToList();
-                        for (i = 0; i < codes.Count; i++) code += System.IO.File.ReadAllText(codes[i].Trim());
+                        for (i = 0; i < codes.Count; i++) code += System.IO.File.ReadAllText(codes[i].Trim(), Encoding.UTF8);
                     } 
                     catch 
                     {
@@ -41,7 +42,7 @@ public partial class GetCode
                 }
                 if (opt.Code != "")
                 {
-                    code = opt.Code;
+                    code += opt.Code;
                 }
                 if (opt.Help == "true") Console.WriteLine("https://github.com/ChristopherAliprantis/dinolang/wiki");
             });
