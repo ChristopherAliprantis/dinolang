@@ -12,7 +12,6 @@
 	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
 	<AssemblyName>Dino</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
-	<PublishReadyToRun>true</PublishReadyToRun>
     <Title>Dino</Title>
     <Product>$(AssemblyName)</Product>
 	<ApplicationIcon>Assets\DinoLogo.ico</ApplicationIcon>
@@ -25,11 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="C:\Users\alipr_1j0dfgh\source\repos\dinolang\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="C:\Users\alipr_1j0dfgh\source\repos\dinolang\.editorconfig" />
+    <EditorConfigFiles Include=".editorconfig" />
   </ItemGroup>
 
 </Project>
