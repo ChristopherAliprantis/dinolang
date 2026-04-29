@@ -24,4 +24,12 @@
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\alipr_1j0dfgh\source\repos\dinolang\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\alipr_1j0dfgh\source\repos\dinolang\.editorconfig" />
+  </ItemGroup>
+
 </Project>
