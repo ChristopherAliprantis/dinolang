@@ -21,3 +21,16 @@
     #endloop;
     return(status);
 #endfunc;
+
+#func SubString(s, start, end);
+    #if (<(end, start)); return(::); #endif;
+    #if (>(end, len(s))); end = len(s); #endif; 
+    count = -(end, start);
+    result = ::;
+    i = start;
+    #loop(count);
+        result = +(result, charat(s, i));
+        i = +(i, 1);
+    #endloop;
+    return(result);
+#endfunc;
