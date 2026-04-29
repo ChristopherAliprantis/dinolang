@@ -20,6 +20,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\interpreter\AdvancedParsing.dno" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="src\interpreter\AdvancedParsing.dno">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
 </Project>
