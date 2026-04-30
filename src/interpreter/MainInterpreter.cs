@@ -332,21 +332,6 @@ namespace dinolang.interpreter
                 }
                 return bools[0] && bools[1];
             }
-            if (val.StartsWith("len(") && val.EndsWith(")"))
-            {
-                string arg = val.Substring(4, val.Length - 5);
-                string? Str = " ";
-                try
-                {
-                    Str = GetValue(arg, line);
-                }
-                catch
-                {
-                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                return Str.Length;
-            }
             if (val.StartsWith("or(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(3, val.Length - 4).Split(',');
