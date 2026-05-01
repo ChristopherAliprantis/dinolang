@@ -35,10 +35,20 @@ public partial class Interpreter
                 }
                 catch
                 {
-                    Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Invalid Condition, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                if (COND) ProcessIf(IfLines, false);
+                dynamic? thing = (7, 7);
+                if (COND) thing = ProcessIf(IfLines, false, true);
+                if (thing is System.ValueTuple<int, int>)
+                {
+
+                }
+                else
+                {
+                    if (thing == 0) return 0;
+                    else return 1;
+                }
             }
             else if (IF) IfLines.Add(line);
             else if (line.StartsWith("print(") && line.EndsWith(");"))

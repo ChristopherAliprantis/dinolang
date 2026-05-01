@@ -8,7 +8,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        public static dynamic? ProcessIf(List<string> lines, bool infunc)
+        public static dynamic? ProcessIf(List<string> lines, bool infunc, bool inlist)
         {
             bool POL = false;
             List<string> loopLines = new();
@@ -79,6 +79,17 @@ namespace dinolang.interpreter
                     POL = false;
                     times = 0;
                     loopLines.Clear();
+                }
+                else if (inlist == true)
+                {
+                    if (line == "break;")
+                    {
+                        return 0;
+                    }
+                    else if (line == "continue;")
+                    {
+                        return 1;
+                    }
                 }
                 else if (POL == true) loopLines.Add(line);
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
