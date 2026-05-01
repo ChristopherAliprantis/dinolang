@@ -165,7 +165,7 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    if (COND) ProcessIf(IfLines, false);
+                    if (COND) ProcessIf(IfLines, false, false);
                 }
                 else if (IF) IfLines.Add(line);
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
