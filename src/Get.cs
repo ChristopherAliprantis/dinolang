@@ -23,9 +23,10 @@ public partial class GetCode
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         string baseDir = AppContext.BaseDirectory;
 
-        string APfilePath = Path.Combine(baseDir, "interpreter", "AdvancedParsing.dno");
+        string SSfilePath = Path.Combine(baseDir, "interpreter", "StringStuff.dno");
+        string MfilePath = Path.Combine(baseDir, "interpreter", "Math.dno");
 
-        string code = System.IO.File.ReadAllText(APfilePath, Encoding.UTF8);
+        string code = System.IO.File.ReadAllText(SSfilePath, Encoding.UTF8) + System.IO.File.ReadAllText(MfilePath, Encoding.UTF8);
         Parser.Default.ParseArguments<GetCode>(args)
             .WithParsed(opt =>
             {

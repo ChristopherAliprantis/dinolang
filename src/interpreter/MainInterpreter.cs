@@ -233,6 +233,7 @@ namespace dinolang.interpreter
                 value2 = val.Substring(1, val.Length - 2);
                 return value2;
             }
+            if (val == "NL") return Environment.NewLine;
             if (val == "COLON")
             {
                 return ":";
@@ -265,10 +266,9 @@ namespace dinolang.interpreter
             if (val.StartsWith("ToNum(") && val.EndsWith(")"))
             {
                 string arg = "";
-                if (val.StartsWith("ToNum(:") && val.EndsWith(":)")) arg = val.Substring(7, val.Length - 9);
-                else arg = val.Substring(6, val.Length - 7);
+                arg = val.Substring(6, val.Length - 7);
                 dynamic result = 0.0m;
-                result = GetValue(arg, line);
+                result = Convert.ToDecimal(GetValue(arg, line));
                 if (result is not decimal)
                 {
                     Console.WriteLine($"Cannot convert to number, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");

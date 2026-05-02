@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<AssemblyTitle>Dino</AssemblyTitle>
-	<Version>0.4.7</Version>
+	<Version>0.4.9</Version>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
@@ -20,11 +20,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\interpreter\AdvancedParsing.dno" />
+    <None Remove="src\interpreter\Math.dno" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="src\interpreter\AdvancedParsing.dno">
+    <Content Include="src\interpreter\Math.dno">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\interpreter\StringStuff.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
