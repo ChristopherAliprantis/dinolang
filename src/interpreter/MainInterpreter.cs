@@ -283,6 +283,11 @@ namespace dinolang.interpreter
                 if (result is bool) result = result.ToString().ToUpper();
                 return result?.ToString() ?? "NULL";
             }
+            if (val.StartsWith("ReadLine(") && val.EndsWith(")"))
+            {
+                string IN = Console.ReadLine();
+                return IN;
+            }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
