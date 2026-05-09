@@ -3,7 +3,7 @@
 
 
 #func abs(n);
-    #if (ispos(n));
+    #if (<(-1, n));
         return(n);
     #endif;
     abs = *(n, -1);
