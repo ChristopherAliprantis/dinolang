@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Timers;
@@ -128,16 +129,16 @@ namespace dinolang.interpreter
                     {
                         COND = (bool)GetValue(cond, line);
                     }
-                    catch 
+                    catch
                     {
                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dynamic? thing = (7,7);
+                    dynamic? thing = (7, 7);
                     if (COND) thing = ProcessIf(IfLines, true, false);
                     if (thing is System.ValueTuple<int, int>)
-                    { 
-                        
+                    {
+
                     }
                     else
                     {
@@ -163,6 +164,36 @@ namespace dinolang.interpreter
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
+                }
+                else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
+                {
+                    var arg = line.Substring(15, line.Length - 16);
+                    dynamic arg2 = GetValue(arg, line);
+                    if (arg2 is not string)
+                    {
+                        Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(0);
+                    }
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = "powershell.exe",
+                        Arguments = $"-ExecutionPolicy Bypass -Command \"{arg2}\"",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true
+                    };
+
+                    using (var process = Process.Start(startInfo))
+                    {
+                        string output = process.StandardOutput.ReadToEnd();
+                        string errors = process.StandardError.ReadToEnd();
+
+                        process.WaitForExit();
+
+                        if (!string.IsNullOrEmpty(output)) Console.WriteLine(output);
+                        if (!string.IsNullOrEmpty(errors)) Console.WriteLine(errors);
+                    }
                 }
                 else if (line.StartsWith($"{BeforeChar(line, '=')}="))
                 {

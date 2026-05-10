@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace dinolang.interpreter;
@@ -59,6 +60,36 @@ public partial class Interpreter
                 if (result is bool) result = result.ToString().ToUpper();
                 else result = result?.ToString() ?? "NULL";
                 Console.WriteLine(result);
+            }
+            else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
+            {
+                var arg = line.Substring(15, line.Length - 16);
+                dynamic arg2 = GetValue(arg, line);
+                if (arg2 is not string)
+                {
+                    Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(0);
+                }
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-ExecutionPolicy Bypass -Command \"{arg2}\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using (var process = Process.Start(startInfo))
+                {
+                    string output = process.StandardOutput.ReadToEnd();
+                    string errors = process.StandardError.ReadToEnd();
+
+                    process.WaitForExit();
+
+                    if (!string.IsNullOrEmpty(output)) Console.WriteLine(output);
+                    if (!string.IsNullOrEmpty(errors)) Console.WriteLine(errors);
+                }
             }
             else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
             {

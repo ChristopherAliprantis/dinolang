@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Linq;
 using System.Windows.Markup;
 
 namespace dinolang.interpreter
@@ -177,6 +178,36 @@ namespace dinolang.interpreter
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
                 }
+                else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
+                {
+                    var arg = line.Substring(15, line.Length - 16);
+                    dynamic arg2 = GetValue(arg, line);
+                    if (arg2 is not string)
+                    {
+                        Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(0);
+                    }
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = "powershell.exe",
+                        Arguments = $"-ExecutionPolicy Bypass -Command \"{arg2}\"",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true
+                    };
+
+                    using (var process = Process.Start(startInfo))
+                    {
+                        string output = process.StandardOutput.ReadToEnd();
+                        string errors = process.StandardError.ReadToEnd();
+
+                        process.WaitForExit();
+
+                        if (!string.IsNullOrEmpty(output)) Console.WriteLine(output);
+                        if (!string.IsNullOrEmpty(errors)) Console.WriteLine(errors);
+                    }
+                }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);
@@ -288,6 +319,7 @@ namespace dinolang.interpreter
                 string IN = Console.ReadLine();
                 return IN;
             }
+
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
