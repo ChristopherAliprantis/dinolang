@@ -104,7 +104,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
                 {
-                    var arg = line.Substring(15, line.Length - 16);
+                    var arg = line.Substring(15, line.Length - 17);
                     dynamic arg2 = GetValue(arg, line);
                     if (arg2 is not string)
                     {
