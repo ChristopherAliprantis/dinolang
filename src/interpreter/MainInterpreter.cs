@@ -321,7 +321,8 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("ReadKey(") && val.EndsWith(')'))
             {
-                string arg = val.Substring(9, val.Length - 10);
+                string arg = val.Substring(8, val.Length - 10);
+                Console.WriteLine(arg);
                 bool ARG = false;
                 try
                 {
