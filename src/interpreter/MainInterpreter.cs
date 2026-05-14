@@ -321,8 +321,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("ReadKey(") && val.EndsWith(')'))
             {
-                string arg = val.Substring(8, val.Length - 10);
-                Console.WriteLine(arg);
+                string arg = val.Substring(8, val.Length - 9);
                 bool ARG = false;
                 try
                 {
@@ -335,7 +334,7 @@ namespace dinolang.interpreter
                 }
                 ConsoleKeyInfo IN = new();
                 if (ARG == true) IN = Console.ReadKey(true);
-                else IN = Console.ReadKey(true);
+                else IN = Console.ReadKey(false);
                 char CHAR = IN.KeyChar;
                 return CHAR;
             }
