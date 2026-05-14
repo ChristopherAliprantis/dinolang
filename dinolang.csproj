@@ -21,10 +21,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\interpreter\InputStuff.dno" />
     <None Remove="src\interpreter\Math.dno" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="src\interpreter\InputStuff.dno">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="src\interpreter\Math.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
