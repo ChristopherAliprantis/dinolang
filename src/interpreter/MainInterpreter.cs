@@ -321,7 +321,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("ReadKey(") && val.EndsWith(')'))
             {
-                ConsoleKeyInfo IN = Console.ReadKey();
+                ConsoleKeyInfo IN = Console.ReadKey(true);
                 char CHAR = IN.KeyChar;
                 return CHAR;
             }
