@@ -319,7 +319,12 @@ namespace dinolang.interpreter
                 string IN = Console.ReadLine();
                 return IN;
             }
-
+            if (val.StartsWith("ReadKey(") && val.EndsWith(')'))
+            {
+                ConsoleKeyInfo IN = Console.ReadKey();
+                char CHAR = IN.KeyChar;
+                return CHAR;
+            }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
