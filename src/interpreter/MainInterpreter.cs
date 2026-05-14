@@ -321,7 +321,20 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("ReadKey(") && val.EndsWith(')'))
             {
-                ConsoleKeyInfo IN = Console.ReadKey(true);
+                string arg = val.Substring(9, val.Length - 10);
+                bool ARG = false;
+                try
+                {
+                    ARG = (bool)GetValue(arg, line);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a bool Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                ConsoleKeyInfo IN = new();
+                if (ARG == true) IN = Console.ReadKey(true);
+                else IN = Console.ReadKey(true);
                 char CHAR = IN.KeyChar;
                 return CHAR;
             }
