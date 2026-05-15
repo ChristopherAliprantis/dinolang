@@ -1,0 +1,11 @@
+#func ReadLineP();
+    input = BLANK;
+    #loop (true);
+        ch = ReadKey(true);
+        #if (==(ch, NL));
+            break;
+        #endif;
+        input = +(input, ch);
+    #endloop;
+    return(input);
+#endfunc;

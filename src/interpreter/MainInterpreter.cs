@@ -335,7 +335,8 @@ namespace dinolang.interpreter
                 ConsoleKeyInfo IN = new();
                 if (ARG == true) IN = Console.ReadKey(true);
                 else IN = Console.ReadKey(false);
-                char CHAR = IN.KeyChar;
+                string CHAR = IN.KeyChar.ToString();
+                if (CHAR == "\r") CHAR = Environment.NewLine;
                 return CHAR;
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
