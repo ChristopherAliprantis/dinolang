@@ -18,7 +18,7 @@ public partial class GetCode
     public string? Help { get; set; }
 
     public static List<string> codes;
-    static void Main(string[] args)
+    static int Main(string[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         string baseDir = AppContext.BaseDirectory;
@@ -54,6 +54,6 @@ public partial class GetCode
             });
         List<string> Code = ToReadableLines(code);
         interpreter.Interpreter.Interpret(Code);
-        Environment.Exit(1);
+        return 0;
     }
 }

@@ -168,6 +168,21 @@ namespace dinolang.interpreter
                     }
                     if (COND) ProcessIf(IfLines, false, false);
                 }
+                else if (line.StartsWith("wait(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(5, line.Length - 7);
+                    decimal delay = 0.0m;
+                    try
+                    {
+                        delay = (decimal)GetValue(arg, line);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected num, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds((double)delay));
+                }
                 else if (IF) IfLines.Add(line);
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
