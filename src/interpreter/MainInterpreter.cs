@@ -581,6 +581,35 @@ namespace dinolang.interpreter
                 }
 
             }
+            if (val.StartsWith("%(") && val.EndsWith(')'))
+            {
+                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                if (VALS.Length < 2)
+                {
+                    Console.WriteLine($"Need at least 2 parameters to subtract, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                List<decimal> Vals = new();
+                for (int i = 0; i < VALS.Length; i++)
+                {
+                    try
+                    {
+                        Vals.Add(GetValue(VALS[i], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                decimal? result = Vals[0];
+                for (int I = 0; I < Vals.Count; I++)
+                {
+                    if (I == 0) continue;
+                    result %= Vals[I];
+                }
+                return result;
+            }
             if (val.StartsWith("-(") && val.EndsWith(')'))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
