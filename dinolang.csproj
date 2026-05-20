@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <None Remove="src\interpreter\Math.dno" />
-    <None Remove="src\interpreter\Random.dno" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,9 +29,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="src\interpreter\Math.dno">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="src\interpreter\Random.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="src\interpreter\String.dno">

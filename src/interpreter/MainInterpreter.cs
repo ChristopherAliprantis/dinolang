@@ -676,6 +676,37 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
+            if (val.StartsWith("RandomInt(") && val.EndsWith(')'))
+            {
+                string[] VALS = val.Substring(10, val.Length - 11).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to get random integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                decimal[] ranges = new decimal[VALS.Length];
+                int i = 0;
+                foreach (var v in VALS)
+                {
+                    try
+                    {
+                        decimal range = GetValue(v, line);
+                        if (range % 1 != 0)
+                        {
+                            Console.WriteLine($"Expected a num that is an integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                        ranges[i] = range;
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    i++;
+                }
+                return (decimal)Random.Shared.Next((int)ranges[0], (int)ranges[1]);
+            }
             if (val.StartsWith("*(") && val.EndsWith(')'))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
