@@ -4,19 +4,30 @@
 // global seed (numeric decimal expected)
 RSEED = 1;
 
+#func SeedRand(s);
+    // set global seed
+    RSEED = s;
+    return(RSEED);
+#endfunc;
+
 #func Rand();
-    // Linear Congruential Generator (LCG);
-    // X_{n+1} = (a * X_n + c) % m;
-    // constants: a=1103515245, c=12345, m=2^31 (2147483648);
-    RSEED = %(+( *(RSEED, 1103515245), 12345), 2147483648);
+    // Linear Congruential Generator (LCG) using stepwise operations to avoid nested commas
+    // X_{n+1} = (a * X_n + c) % m
+    // constants: a=1103515245, c=12345, m=2147483648
+    t1 = *(RSEED, 1103515245);
+    t2 = +(t1, 12345);
+    RSEED = %(t2, 2147483648);
     // return a decimal in [0,1)
     return(/(RSEED, 2147483648));
 #endfunc;
 
 #func RandInt(min, max);
-    // Update seed using same LCG then scale into integer range [min, max];
-    RSEED = %(+( *(RSEED, 1103515245), 12345), 2147483648);
+    // produce integer in [min, max] using LCG and avoid nested parameter commas
+    t1 = *(RSEED, 1103515245);
+    t2 = +(t1, 12345);
+    RSEED = %(t2, 2147483648);
     range = +( -(max, min), 1);
-    res = +(min, %(RSEED, range));
+    r = %(RSEED, range);
+    res = +(min, r);
     return(res);
 #endfunc;
