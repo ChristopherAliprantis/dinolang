@@ -20,3 +20,16 @@
     return(DinoDate);
 #endfunc;
 
+#func GetDT(days, months, years, secs, mins, hrs);
+    D = GetD(days, months, years);
+    T = GetT(secs, mins, hrs);
+    DinoDateTime = +(D, T);
+    return(DinoDateTime);
+#endfunc;
+
+#func addminute(minutes);
+    new = *(minutes, 60000000);
+    if (<(new, 0)); Derr(:The output is negative:); endif;
+    return new;
+#endfunc;
+
