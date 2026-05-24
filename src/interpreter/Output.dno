@@ -1,0 +1,4 @@
+#func Derr(message);
+    print(message);
+    Exit(1);
+#endfunc;
