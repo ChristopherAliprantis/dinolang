@@ -26,8 +26,9 @@ public partial class GetCode
         string SfilePath = Path.Combine(baseDir, "interpreter", "String.dno");
         string MfilePath = Path.Combine(baseDir, "interpreter", "Math.dno");
         string IfilePath = Path.Combine(baseDir, "interpreter", "Input.dno");
+        string TfilePath = Path.Combine(baseDir, "interpreter", "Time.dno");
 
-        string code = System.IO.File.ReadAllText(SfilePath, Encoding.UTF8) + System.IO.File.ReadAllText(MfilePath, Encoding.UTF8) + System.IO.File.ReadAllText(IfilePath, Encoding.UTF8);
+        string code = System.IO.File.ReadAllText(SfilePath, Encoding.UTF8) + System.IO.File.ReadAllText(MfilePath, Encoding.UTF8) + System.IO.File.ReadAllText(IfilePath, Encoding.UTF8) + System.IO.File.ReadAllText(TfilePath, Encoding.UTF8);
         Parser.Default.ParseArguments<GetCode>(args)
             .WithParsed(opt =>
             {

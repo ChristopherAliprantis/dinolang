@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<AssemblyTitle>Dino</AssemblyTitle>
-	<Version>0.5.5</Version>
+	<Version>0.5.7</Version>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <None Remove="src\interpreter\Math.dno" />
+    <None Remove="src\interpreter\Time.dno" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +33,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="src\interpreter\String.dno">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\interpreter\Time.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
