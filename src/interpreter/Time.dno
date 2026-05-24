@@ -1,0 +1,8 @@
+#func GetT(secs, mins, hrs);
+    Ds = *(secs, 60000);
+    Dm = *(mins, 3600000);
+    Dh = *(hrs, 216000000);
+    DinoTime = +(Ds, Dm, Dh);
+    return(DinoTime);
+#endfunc;
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommandLine;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -329,12 +330,12 @@ namespace dinolang.interpreter
                 if (result is bool) result = result.ToString().ToUpper();
                 return result?.ToString() ?? "NULL";
             }
-            if (val.StartsWith("ReadLine(") && val.EndsWith(")"))
+            if (val == "ReadLine()")
             {
                 string IN = Console.ReadLine();
                 return IN;
             }
-            if (val.StartsWith("ReadKey(") && val.EndsWith(')'))
+            if (val =="ReadKey()")
             {
                 string arg = val.Substring(8, val.Length - 9);
                 bool ARG = false;
@@ -545,6 +546,12 @@ namespace dinolang.interpreter
                 {
                     return !(bool)Out;
                 }
+            }
+            if (val == "GetN()")
+            {
+                string arg = val.Substring(4, val.Length - 5);
+                long wintime = DateTime.Now.ToFileTimeUtc();
+                return GetDinoTime(wintime);
             }
             if (val.StartsWith("+(") && val.EndsWith(')'))
             {
@@ -774,6 +781,13 @@ namespace dinolang.interpreter
 
             int i = s.IndexOf(c);
             return i >= 0 && i < s.Length - 1 ? s[(i + 1)..] : "";
+        }
+
+        public static decimal GetDinoTime(long wintime)
+        {
+            const long EpochOffsetMicroseconds = 50491123200000000L;
+
+            return (decimal)((wintime / 10L) + EpochOffsetMicroseconds);
         }
     }
 }
