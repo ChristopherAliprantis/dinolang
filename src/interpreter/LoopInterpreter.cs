@@ -61,6 +61,22 @@ public partial class Interpreter
                 else result = result?.ToString() ?? "NULL";
                 Console.WriteLine(result);
             }
+            else if (line.StartsWith("Exit(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(5, line.Length - 7);
+                int code = 0;
+                try
+                {
+                    code = Convert.ToInt32(GetValue(arg, line));
+
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a num, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                Environment.Exit(code);
+            }
             else if (line.StartsWith("wait(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(5, line.Length - 7);
