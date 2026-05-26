@@ -163,6 +163,10 @@ namespace dinolang.interpreter
                     }
                     Environment.Exit(code);
                 }
+                else if (line.StartsWith("clr(") && line.EndsWith(");"))
+                {
+                    Console.Clear();
+                }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);

@@ -132,6 +132,10 @@ namespace dinolang.interpreter
                     }
                     Environment.Exit(code);
                 }
+                else if (line.StartsWith("clr(") && line.EndsWith(");"))
+                {
+                    Console.Clear();
+                }
                 else if (line == "#endif;")
                 {
                     if (IF == false)

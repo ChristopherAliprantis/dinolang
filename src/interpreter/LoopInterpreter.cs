@@ -61,6 +61,10 @@ public partial class Interpreter
                 else result = result?.ToString() ?? "NULL";
                 Console.WriteLine(result);
             }
+            else if (line.StartsWith("clr(") && line.EndsWith(");"))
+            {
+                Console.Clear();
+            }
             else if (line.StartsWith("Exit(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(5, line.Length - 7);
