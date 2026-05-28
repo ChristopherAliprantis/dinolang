@@ -49,6 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Docs\" />
+    <Folder Include="dinolang.wiki\" />
   </ItemGroup>
 </Project>
