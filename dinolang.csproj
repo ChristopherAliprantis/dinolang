@@ -47,8 +47,4 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="dinolang.wiki\" />
-  </ItemGroup>
 </Project>
