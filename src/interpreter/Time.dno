@@ -33,11 +33,27 @@
     return(new);
 #endfunc;
 
-#func TimeToString(time);
+#func TimeToString(time, 12hr);
     total_us = GetN();
-    total_days = //(total_us,86400000000);
+    total_days = FD(total_us,86400000000);
     time_remainder = %(total_us,86400000000);
-    hours = //(time_remainder,3600000000);
+    hours = FD(time_remainder,3600000000);
+    time_remainder = %(time_remainder,3600000000);
+
+    minutes = FD(time_remainder,60000000);
+    time_remainder = %(time_remainder,60000000);
+
+    seconds = FD(time_remainder,1000000);
+    microseconds = %(time_remainder,1000000);
+
+    #if (12hr);
     
-    return();
+        #if (>(hours,13)); hours = -(hours,12); #endif;
+        #if (==(hours,0)); hours = 12; #endif;
+        status = :AM;
+        #if (>(hours,12)); status = :PM; hours = -(hours,12); #endif;
+        return(+(ToString(hours),COLON,ToString(minutes),COLON,ToString(seconds),:.:,ToString(microseconds), : :, status));
+    #endif;
+
+    return(+(ToString(hours),COLON,ToString(minutes),COLON,ToString(seconds),:.:,ToString(microseconds)));
 #endfunc;
