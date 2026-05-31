@@ -344,6 +344,17 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
+            if (val.StartsWith("GetType(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(8, val.Length - 9);
+                var result = GetValue(arg, line);
+                string type = "";
+                if (result is string) type = "string";
+                else if (result is decimal) type = "num";
+                else if (result is bool) type = "bool";
+                else if (result is null) type = "null";
+                return type;
+            }
             if (val.StartsWith("ToString(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(9, val.Length - 10);
