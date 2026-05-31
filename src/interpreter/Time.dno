@@ -34,6 +34,10 @@
 #endfunc;
 
 #func TimeToString(time);
-    start =0;
+    total_us = GetN();
+    total_days = //(total_us,86400000000);
+    time_remainder = %(total_us,86400000000);
+    hours = //(time_remainder,3600000000);
+    
     return();
 #endfunc;

@@ -376,7 +376,7 @@ namespace dinolang.interpreter
                 if (CHAR == "\r") CHAR = Environment.NewLine;
                 return CHAR;
             }
-            if (val.StartsWith("//(") && val.EndsWith(")"))
+            if (val.StartsWith("FD(") && val.EndsWith(")"))
             {
                 string args = val.Substring(3, val.Length - 4);
                 string[] ARGS= args.Split(',');
