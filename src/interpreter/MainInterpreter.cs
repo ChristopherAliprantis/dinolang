@@ -376,6 +376,31 @@ namespace dinolang.interpreter
                 if (CHAR == "\r") CHAR = Environment.NewLine;
                 return CHAR;
             }
+            if (val.StartsWith("//(") && val.EndsWith(")"))
+            {
+                string args = val.Substring(3, val.Length - 4);
+                string[] ARGS= args.Split(',');
+                if (ARGS.Count() != 2)
+                {
+                    Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                decimal[] vals = new decimal[2] { 0.0m, 0.0m };
+                for (int i = 0; i < 2; i++)
+                {
+                    try
+                    {
+                        vals[i] = GetValue(ARGS[i], line);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected num, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                decimal result = Math.Floor(vals[0] / vals[1]);
+                return result;
+            }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
