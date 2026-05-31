@@ -30,5 +30,10 @@
 #func AddMinutes(minutes);
     new = *(minutes, 60000000);
     if (<(new, 0)); Derr(:The output is negative:); endif;
-    return new;
+    return(new);
+#endfunc;
+
+#func TimeToString(time);
+    start =0;
+    return();
 #endfunc;
