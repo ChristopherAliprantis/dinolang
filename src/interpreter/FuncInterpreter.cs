@@ -15,7 +15,7 @@ namespace dinolang.interpreter
             var p = func.parameters;
             if (vals.Count != p.Count)
             {
-                Console.WriteLine($"Function {name} expects {p.Count} arguments but got {vals.Count} arguments Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                Console.WriteLine($"Function {name} expects {p.Count} argument(s) but got {vals.Count} argument(s) Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
             var Nvs = new Dictionary<string, Variable>();
