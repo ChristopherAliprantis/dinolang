@@ -47,7 +47,6 @@
     microseconds = %(time_remainder,1000000);
 
     #if (12hr);
-    
         #if (>(hours,13)); hours = -(hours,12); #endif;
         #if (==(hours,0)); hours = 12; #endif;
         status = :AM;
