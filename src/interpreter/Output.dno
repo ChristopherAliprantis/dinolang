@@ -1,4 +1,5 @@
-#func Derr(message);
-    print(+(message), COMMA, : :, :Line :,LINE);
+#func Derr(message, nnl);
+    #if (!=(nnl, true));print(+(message), COMMA, : :, :Line :,LINE); #endif;
+    #if (==(nnl, true));printnnl(+(message), COMMA, : :, :Line :,LINE); #endif;
     Exit(1);
 #endfunc;
