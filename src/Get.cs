@@ -17,7 +17,7 @@ public partial class GetCode
     [Option('h', Default = "false", HelpText = "The wiki link(which includes command line help). Use like -h true")]
     public string? Help { get; set; }
 
-    public static List<string> codes = new();
+    public static List<string> codes;
     static int Main(string[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
