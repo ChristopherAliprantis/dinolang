@@ -1,6 +1,5 @@
 BLANK = ::;
 COMMA = :,:;
-LINE = BLANK;
 
 
 #func StartsWith(s, thing);

@@ -42,7 +42,7 @@ namespace dinolang.interpreter
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
-                Globals.Vars["LINE"].value = line;
+                
                 if (i == lines.Count - 1 && !line.StartsWith("return"))
                 {
                     Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
