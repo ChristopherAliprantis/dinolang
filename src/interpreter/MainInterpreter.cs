@@ -40,6 +40,7 @@ namespace dinolang.interpreter
             {
 
                 var line = lines[i];
+                Globals.Vars["LINE"].value = line;
                 if (line.StartsWith("#func") && mf == false)
                 {
                     mf = true;
