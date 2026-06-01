@@ -1,4 +1,4 @@
 #func Derr(message);
-    print(message);
+    print(+(message), COMMA, : :, :Line :,LINE);
     Exit(1);
 #endfunc;
