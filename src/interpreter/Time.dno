@@ -32,30 +32,3 @@
     if (<(new, 0)); Derr(:The output is negative:); endif;
     return(new);
 #endfunc;
-
-#func TimeToString(time, 12hrs);
-    total_us = GetN();
-    total_days = FD(total_us,86400000000);
-    time_remainder = %(total_us,86400000000);
-    hours = FD(time_remainder,3600000000);
-    time_remainder = %(time_remainder,3600000000);
-
-    minutes = FD(time_remainder,60000000);
-    time_remainder = %(time_remainder,60000000);
-
-    seconds = FD(time_remainder,1000000);
-    microseconds = %(time_remainder,1000000);
-
-    #if (==(12hrs, true));
-        #loop(1);
-            status = :AM:;
-            #if (>(hours,11)); status = :PM:; #endif;
-            #if (>(hours,12)); hours = -(hours,12); #endif;
-            #if (==(hours,0)); hours = 12; #endif;
-        #endloop;
-        return(+(ToString(hours),COLON,ToString(minutes),COLON,ToString(seconds),:.:,ToString(microseconds), : :, status));
-    #endif;
-
-    return(+(ToString(hours),COLON,ToString(minutes),COLON,ToString(seconds),:.:,ToString(microseconds)));
-#endfunc;
-
