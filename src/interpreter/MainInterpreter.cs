@@ -395,17 +395,17 @@ namespace dinolang.interpreter
             {
                 string args = val.Substring(3, val.Length - 4);
                 string[] ARGS= args.Split(',');
-                if (ARGS.Count() != 2)
+                if (ARGS.Length < 2)
                 {
-                    Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Expected 2 or more parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                decimal[] vals = new decimal[2] { 0.0m, 0.0m };
-                for (int i = 0; i < 2; i++)
+                List<decimal> vals = new List<decimal>();
+                for (int i = 0; i < ARGS.Length; i++)
                 {
                     try
                     {
-                        vals[i] = GetValue(ARGS[i], line);
+                        vals.Add(GetValue(ARGS[i], line));
                     }
                     catch
                     {
@@ -413,7 +413,18 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                 }
-                decimal result = Math.Floor(vals[0] / vals[1]);
+                decimal result = vals[0];
+                int I = 0;
+                foreach (var VAL in vals)
+                {
+                    if (I == 0)
+                    {
+                        I++;
+                        continue;
+                    }
+                    result = Math.Floor(result / VAL);
+                    I++;
+                }
                 return result;
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
