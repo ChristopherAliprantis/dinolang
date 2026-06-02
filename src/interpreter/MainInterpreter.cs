@@ -40,6 +40,7 @@ namespace dinolang.interpreter
             {
 
                 var line = lines[i];
+                Globals.ExecutedLines.Add(line);
                 if (line.StartsWith("#func") && mf == false)
                 {
                     mf = true;
@@ -376,7 +377,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Expected a num that is an integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                return lines[index - ar];
+                return Globals.ExecutedLines[index - ar];
             }
             if (val == "ReadLine()")
             {
