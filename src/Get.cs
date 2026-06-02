@@ -8,6 +8,7 @@ namespace dinolang;
 
 public partial class GetCode
 {
+
     [Option('f', "file", Default = null, HelpText = "The file to run like \"test.dno\" or multiple like inputting \"file1.dno, file2.dno\" must have quotes around the inputs.")]
     public string? File { get; set; }
 
