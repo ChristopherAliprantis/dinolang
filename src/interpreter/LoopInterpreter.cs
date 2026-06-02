@@ -32,7 +32,7 @@ public partial class Interpreter
                 bool COND = false;
                 try
                 {
-                    COND = (bool)GetValue(cond, lines);
+                    COND = (bool)GetValue(cond, lines, i);
                 }
                 catch
                 {
@@ -56,7 +56,7 @@ public partial class Interpreter
             {
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, "print(");
-                dynamic result = GetValue(arg, lines);
+                dynamic result = GetValue(arg, lines, i);
                 if (result is bool) result = result.ToString().ToUpper();
                 else result = result?.ToString() ?? "NULL";
                 Console.WriteLine(result);
@@ -71,7 +71,7 @@ public partial class Interpreter
                 int code = 0;
                 try
                 {
-                    code = Convert.ToInt32(GetValue(arg, lines));
+                    code = Convert.ToInt32(GetValue(arg, lines, i));
 
                 }
                 catch
@@ -87,7 +87,7 @@ public partial class Interpreter
                 decimal delay = 0.0m;
                 try
                 {
-                    delay = (decimal)GetValue(arg, lines);
+                    delay = (decimal)GetValue(arg, lines, i);
                 }
                 catch
                 {
@@ -99,7 +99,7 @@ public partial class Interpreter
             else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
             {
                 var arg = line.Substring(15, line.Length - 17);
-                dynamic arg2 = GetValue(arg, lines);
+                dynamic arg2 = GetValue(arg, lines, i);
                 if (arg2 is not string)
                 {
                     Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -130,7 +130,7 @@ public partial class Interpreter
             {
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, "printnnl(");
-                dynamic result = GetValue(arg, lines);
+                dynamic result = GetValue(arg, lines, i);
                 if (result is bool) result = result.ToString().ToUpper();
                 else result = result?.ToString() ?? "NULL";
                 Console.Write(result);
@@ -147,7 +147,7 @@ public partial class Interpreter
                 var a = BeforeChar(AfterChar(line, '='), ';');
                 dinolang.interpreter.Globals.Vars[b] = new Variable
                 {
-                    value = GetValue(a, lines),
+                    value = GetValue(a, lines, i),
                 };
                 if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                 else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -156,7 +156,7 @@ public partial class Interpreter
             }
             else if (line.Contains("(") && line.EndsWith(");"))
             {
-                GetValue(BeforeChar(line, ';'), lines);
+                GetValue(BeforeChar(line, ';'), lines, i);
             }
             else
             {
