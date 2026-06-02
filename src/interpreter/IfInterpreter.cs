@@ -25,7 +25,7 @@ namespace dinolang.interpreter
                         args = AfterChar(BeforeChar(line, ");"), "#loop(");
                         try
                         {
-                            times = GetValue(args, line);
+                            times = GetValue(args, lines);
                             if (times is not bool)
                             {
                                 if (times % 1 == 0) ;
@@ -69,7 +69,7 @@ namespace dinolang.interpreter
                     {
                         while (true)
                         {
-                            if ((bool)GetValue(args, line))
+                            if ((bool)GetValue(args, lines))
                             {
                                 int st = ProcessLoop(loopLines);
                                 if (st == 0) break;
@@ -97,7 +97,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "print(");
-                    dynamic result = GetValue(arg, line);
+                    dynamic result = GetValue(arg, lines);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
@@ -108,7 +108,7 @@ namespace dinolang.interpreter
                     decimal delay = 0.0m;
                     try
                     {
-                        delay = (decimal)GetValue(arg, line);
+                        delay = (decimal)GetValue(arg, lines);
                     }
                     catch
                     {
@@ -120,7 +120,7 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
                 {
                     var arg = line.Substring(15, line.Length - 17);
-                    dynamic arg2 = GetValue(arg, line);
+                    dynamic arg2 = GetValue(arg, lines);
                     if (arg2 is not string)
                     {
                         Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -153,7 +153,7 @@ namespace dinolang.interpreter
                     int code = 0;
                     try
                     {
-                        code = Convert.ToInt32(GetValue(arg, line));
+                        code = Convert.ToInt32(GetValue(arg, lines));
 
                     }
                     catch
@@ -171,7 +171,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "printnnl(");
-                    dynamic result = GetValue(arg, line);
+                    dynamic result = GetValue(arg, lines);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
@@ -181,7 +181,7 @@ namespace dinolang.interpreter
                     if (line.StartsWith("return(") && line.EndsWith(");"))
                     {
                         string arg = BeforeChar(AfterChar(line, '('), ");");
-                        var th = GetValue(arg, line);
+                        var th = GetValue(arg, lines);
 
                         return th;
                     }
@@ -192,7 +192,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, '='), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, line),
+                        value = GetValue(a, lines),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -201,7 +201,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
-                    GetValue(BeforeChar(line, ';'), line);
+                    GetValue(BeforeChar(line, ';'), lines);
                 }
                 else
                 {
