@@ -49,9 +49,9 @@
     #if (==(12hrs, true));
         #loop(1);
             status = :AM:;
+            #if (>(hours,11)); status = :PM:; #endif;
             #if (>(hours,12)); hours = -(hours,12); #endif;
             #if (==(hours,0)); hours = 12; #endif;
-            #if (>(hours,11)); status = :PM:; #endif;
         #endloop;
         return(+(ToString(hours),COLON,ToString(minutes),COLON,ToString(seconds),:.:,ToString(microseconds), : :, status));
     #endif;
