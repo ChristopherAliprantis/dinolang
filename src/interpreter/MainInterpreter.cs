@@ -195,6 +195,25 @@ namespace dinolang.interpreter
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
                 }
+                else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(12, line.Length - 13);
+                    string[] ARGS = arg.Split(',');
+                    if (ARGS.Length != 2)
+                    {
+                        Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    if (File.Exists(ARGS[0]))
+                    {
+                        File.WriteAllText(ARGS[0], ARGS[1]);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"File {ARGS[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
                 else if (line.StartsWith("clr(") && line.EndsWith(");"))
                 {
                     Console.Clear();
