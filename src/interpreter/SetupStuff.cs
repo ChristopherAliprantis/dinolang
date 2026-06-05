@@ -21,5 +21,6 @@ public class Variable
 public class Function
 {
     public List<string>? parameters;
+    public bool command = false;
     public List<string>? code;
 }

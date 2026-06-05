@@ -199,6 +199,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(12, line.Length - 13);
                     string[] ARGS = arg.Split(',');
+                    
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -211,6 +212,68 @@ namespace dinolang.interpreter
                     else
                     {
                         Console.WriteLine($"File {ARGS[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(11, line.Length - 12);
+                    string[] ARGS = arg.Split(',');
+                    if (ARGS.Length != 2)
+                    {
+                        Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    dynamic[] VALS = new dynamic[2];
+                    for (int a = 0; a < 2; a++)
+                    {
+                        VALS[a] = GetValue(ARGS[a], lines, i);
+                        if (VALS[a] is not string)
+                        {
+                            Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                    }
+                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    if (Directory.Exists(vals[0]))
+                    {
+                        string fullpath = Path.Combine(vals[0], vals[1]);
+                        File.WriteAllText(fullpath, "");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Directory {vals[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                else if (line.StartsWith("CreateFolder(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(13, line.Length - 15);
+                    string[] ARGS = arg.Split(',');
+                    if (ARGS.Length != 2)
+                    {
+                        Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    dynamic[] VALS = new dynamic[2];
+                    for (int a = 0; a < 2; a++)
+                    {
+                        VALS[a] = GetValue(ARGS[a], lines, i);
+                        if (VALS[a] is not string)
+                        {
+                            Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                    }
+                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    if (Directory.Exists(vals[0]))
+                    {
+                        string fullpath = Path.Combine(vals[0], vals[1]);
+                        Directory.CreateDirectory(fullpath);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Directory {vals[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
