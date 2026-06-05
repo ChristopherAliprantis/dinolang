@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Markup;
 using System.IO;
+using System.Runtime.InteropServices;
 namespace dinolang.interpreter
 {
     public partial class Interpreter
@@ -21,7 +22,7 @@ namespace dinolang.interpreter
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 if (line.StartsWith("//")) continue;
 
-                newlines.Add(line);
+                newlines.Add(line.Trim());
             }
 
             lines = newlines;
@@ -37,8 +38,7 @@ namespace dinolang.interpreter
             List<string> IfLines = new();
             bool IF = false;
             for (int i = 0; i < lines.Count; i++)
-            {
-
+            { 
                 var line = lines[i];
                 Globals.ExecutedLines.Add(line);
                 if (line.StartsWith("#func") && mf == false)

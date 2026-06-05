@@ -50,8 +50,9 @@ COMMA = :,:;
     main_len = Slen(main_string);
     sub_len = Slen(sub_string);
     calc = -(main_len,sub_len);
-    calc = +(calc,1);    
-    sub = SubString(main_string, i, +(i, sub_len));
+    calc = +(calc,1);
+    c = +(i, sub_len);    
+    sub = SubString(main_string, i, c);
 
     #loop(calc);
         #if (==(sub, sub_string));
