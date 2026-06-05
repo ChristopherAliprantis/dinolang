@@ -363,6 +363,31 @@ namespace dinolang.interpreter
                 string appdata = Directory.GetParent(localappdata).FullName;
                 return appdata;
             }
+            if (val.StartsWith("GetContent(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(11, val.Length - 12);
+                var path = GetValue(arg, lines, index);
+                if (path is not string)
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (Directory.Exists(path))
+                {
+                    string[] allPaths = Directory.GetFileSystemEntries(path);
+                    string formattedstrpaths = string.Join(Environment.NewLine, allPaths);
+                    return formattedstrpaths;
+                }
+                else if (File.Exists(path))
+                {
+                    return File.ReadAllText(path);
+                }
+                else
+                {
+                    Console.WriteLine($"Expected a folder or file Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             if (val.StartsWith("ToString(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(9, val.Length - 10);
