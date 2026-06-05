@@ -163,6 +163,32 @@ public partial class Interpreter
                     Environment.Exit(1);
                 }
             }
+            else if (line.StartsWith("DeleteItem(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(11, line.Length - 13);
+                try
+                {
+                    arg = GetValue(arg, lines, i);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a string as the path, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (Directory.Exists(arg))
+                {
+                    Directory.Delete(arg, true);
+                }
+                else if (File.Exists(arg))
+                {
+                    File.Delete(arg);
+                }
+                else
+                {
+                    Console.WriteLine($"Item not found: {arg}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             else if (line.StartsWith("wait(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(5, line.Length - 7);
