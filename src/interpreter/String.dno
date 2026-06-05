@@ -41,3 +41,23 @@ COMMA = :,:;
     #endloop;
     return(result);
 #endfunc;
+
+#func ContainsStr(main_string, sub_string);
+    #if (==(sub_string, BLANK));
+        return(true);
+    #endif;
+        
+    main_len = Slen(main_string);
+    sub_len = Slen(sub_string);
+    calc = -(main_len,sub_len);
+    calc = +(calc,1);    
+    sub = SubString(main_string, i, +(i, sub_len));
+
+    #loop(calc);
+        #if (==(sub, sub_string));
+            return(true);
+        #endif;
+    #endloop;
+            
+    return(false);
+#endfunc;
