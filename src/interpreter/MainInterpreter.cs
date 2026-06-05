@@ -7,7 +7,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Markup;
-
+using System.IO;
 namespace dinolang.interpreter
 {
     public partial class Interpreter
@@ -356,6 +356,12 @@ namespace dinolang.interpreter
                 else if (result is bool) type = "bool";
                 else if (result is null) type = "null";
                 return type;
+            }
+            if (val.StartsWith("GetAppdataPath(") && val.EndsWith(")"))
+            {
+                string localappdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string appdata = Directory.GetParent(localappdata).FullName;
+                return appdata;
             }
             if (val.StartsWith("ToString(") && val.EndsWith(")"))
             {
