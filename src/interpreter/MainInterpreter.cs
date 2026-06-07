@@ -390,6 +390,7 @@ namespace dinolang.interpreter
         public static dynamic? GetValue(string val, List<string> lines, int index)
         {
             string line = lines[index];
+
             if (string.IsNullOrWhiteSpace(val))
             {
                 val = "::";
