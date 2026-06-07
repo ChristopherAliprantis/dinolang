@@ -29,6 +29,6 @@
 
 #func AddMinutes(minutes);
     new = *(minutes, 60000000);
-    if (<(new, 0)); Derr(:The output is negative:); endif;
+    if (<(new, 0)); Derr(:The output is negative:, true); print(: Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     return(new);
 #endfunc;
