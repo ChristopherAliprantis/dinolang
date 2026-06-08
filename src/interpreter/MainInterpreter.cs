@@ -424,7 +424,7 @@ namespace dinolang.interpreter
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
             {
-                string inside = BeforeChar(AfterChar(val, '('), ')');
+                string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
                 List<dynamic> args = new List<dynamic>(0);
 
