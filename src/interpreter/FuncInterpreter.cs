@@ -152,7 +152,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     dynamic? thing = (7, 7);

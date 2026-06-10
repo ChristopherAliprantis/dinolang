@@ -165,7 +165,7 @@ namespace dinolang.interpreter
                     }
                     catch 
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (COND) ProcessIf(IfLines, false, false);
@@ -830,7 +830,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -859,7 +859,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -888,7 +888,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -932,7 +932,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     i++;
@@ -956,7 +956,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -968,7 +968,7 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
-            Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+            Console.WriteLine($"Invalid Value {val} {val} {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
             Environment.Exit(1);
             if (1 + 1 == 2) return " ";
         }
