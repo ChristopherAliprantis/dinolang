@@ -71,6 +71,7 @@ namespace dinolang.interpreter
                         parameters = new List<string>(mfp),
                         code = new List<string>(mfl)
                     };
+                    
                     mf = false;
                     mfl.Clear();
                     mfp.Clear();
