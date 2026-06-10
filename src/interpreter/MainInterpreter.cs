@@ -422,7 +422,6 @@ namespace dinolang.interpreter
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
             string fname = BeforeChar(val, '(');
-            Console.WriteLine($"fname=[{fname}]");
             if (Globals.Funcs.ContainsKey(fname))
             {
                 string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
