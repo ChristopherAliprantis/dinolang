@@ -968,7 +968,7 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
-            Console.WriteLine($"Invalid Value {val} {val} {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+            Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
             Environment.Exit(1);
             if (1 + 1 == 2) return " ";
         }
