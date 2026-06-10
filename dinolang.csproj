@@ -8,7 +8,7 @@
 	<Version>1.3</Version>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
-	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
+	  <PublishReadyToRun>/true</PublishReadyToRun>
 	<AssemblyName>Dino</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Title>Dino</Title>
