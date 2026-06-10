@@ -3,9 +3,8 @@
 #func isneut(n); #if (==(n, 0)); return(true); #endif; return(false); #endfunc;
 
 #func abs(n);
-    #if (<(-1, n));
+    #if (>(n, -1))
         return(n);
     #endif;
-    abs = *(n, -1);
-    return(abs);
+    return(*(n, -1));
 #endfunc;
