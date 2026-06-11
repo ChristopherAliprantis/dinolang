@@ -391,6 +391,7 @@ namespace dinolang.interpreter
         public static dynamic? GetValue(string val, List<string> lines, int index)
         {
             string line = lines[index];
+            //Console.WriteLine($"[{val}] Length={val.Length}");
 
             if (string.IsNullOrWhiteSpace(val))
             {

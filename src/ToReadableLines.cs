@@ -15,14 +15,16 @@ namespace dinolang
             {
                 bool quote = false;
                 string copy = "";
+                char[] chars = LINES[i].ToCharArray();
                 for (int j = 0; j < LINES[i].Length; j++)
                 {
-                    copy = LINES[i];
-                    if (copy[j] == ':') quote = !quote;
-                    if (copy[j] == ' ' && quote == false)
+                    char c = chars[j];
+                    if (chars[j] == ':') quote = !quote;
+                    if (chars[j] == ' ' && quote == false)
                     {
-                        copy = copy.Remove(j, 1);
+                        continue;
                     }
+                    else copy += chars[j];
                 }
                 LINES[i] = copy;
             }
