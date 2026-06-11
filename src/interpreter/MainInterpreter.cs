@@ -747,6 +747,10 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                if (!(dynamics[0].GetType() == dynamics[1].GetType()))
+                {
+                    Console.WriteLine($"Both parameters need to be the same type, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                }
                 return (dynamic?)dynamics[0] == (dynamic?)dynamics[1];
             }
             if (val.StartsWith("!=(") && val.EndsWith(")"))
@@ -758,6 +762,10 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                if (!(dynamics[0].GetType() == dynamics[1].GetType()))
+                {
+                    Console.WriteLine($"Both parameters need to be the same type, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                }
                 return (dynamic?)dynamics[0] != (dynamic?)dynamics[1];
             }
             if (val.StartsWith("!(") && val.EndsWith(")"))
