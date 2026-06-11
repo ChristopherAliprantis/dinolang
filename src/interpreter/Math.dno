@@ -3,7 +3,7 @@
 #func isneut(n); #if (==(n, 0)); return(true); #endif; return(false); #endfunc;
 
 #func abs(n);
-    #if (>(n, -1))
+    #if (>(n, -1));
         return(n);
     #endif;
     return(*(n, -1));
