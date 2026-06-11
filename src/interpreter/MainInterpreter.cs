@@ -22,7 +22,7 @@ namespace dinolang.interpreter
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 if (line.StartsWith("//")) continue;
 
-                newlines.Add(line.Trim());
+                newlines.Add(line);
             }
 
             lines = newlines;
@@ -71,7 +71,7 @@ namespace dinolang.interpreter
                         parameters = new List<string>(mfp),
                         code = new List<string>(mfl)
                     };
-                    
+                    //Console.WriteLine($"Function {name} created");
                     mf = false;
                     mfl.Clear();
                     mfp.Clear();

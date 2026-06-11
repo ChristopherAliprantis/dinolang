@@ -1,56 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 namespace dinolang
 {
     public partial class GetCode
     {
         public static List<string> ToReadableLines(string code)
         {
-            List<char> charlist = new();
-            List<string> New = new();
-            bool In2 = false;
-            for (int i = 0; i < code.Length; i++)
+            
+            var LINES = Regex.Split(code, "(?<=;)").Select(s => s.Trim()).Where(s => s != "").ToList();
+            List<int> ItoRem = new(0);
+            for (int i = 0; i < LINES.Count; i++)
             {
-                charlist.Add(code[i]);
-                if (code[i] == ':') In2 = !In2;
-                if (code[i] == ';' && In2 == false)
+                bool quote = false;
+                string copy = "";
+                for (int j = 0; j < LINES[i].Length; j++)
                 {
-                    string line = "";
-                    for (int j = 0; j < charlist.Count; j++)
+                    copy = LINES[i];
+                    if (copy[j] == ':') quote = !quote;
+                    if (copy[j] == ' ' && quote == false)
                     {
-                        line += charlist[j];
+                        copy = copy.Remove(j, 1);
                     }
-                    line = line.Trim();
-                    bool In = false;
-                    List<char> line2 = new();
-                    for (int h = 0; h < line.Length; h++)
-                    {
-                        if (line[h] == ':')
-                        {
-                            In = !In;
-                        }
-                        if (line[h] == ' ')
-                        {
-                            if (In == true)
-                            {
-                                line2.Add(line[h]);
-                            }
-                            else if (In == false)
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            line2.Add(line[h]);
-                        }
-                    }
-                    New.Add(string.Concat(line2));
-                    charlist.Clear();
                 }
+                LINES[i] = copy;
             }
-            return New;
+            return LINES;
+
         }
     }
 }

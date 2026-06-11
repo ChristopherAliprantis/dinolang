@@ -61,6 +61,10 @@ public partial class GetCode
                 if (opt.Help == "true") Console.WriteLine("https://github.com/ChristopherAliprantis/dinolang/wiki");
             });
         List<string> Code = ToReadableLines(code);
+        /*foreach (string line in Code)
+        {
+            if (line.Trim() != "") Console.WriteLine(line);
+        }*/
         interpreter.Interpreter.Interpret(Code);
         return 0;
     }
