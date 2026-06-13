@@ -117,26 +117,6 @@ namespace dinolang.interpreter
                     cond = AfterChar(BeforeChar(line, ");"), "#if(");
                     IF = true;
                 }
-                else if (line.StartsWith("Exit(") && line.EndsWith(");"))
-                {
-                    string arg = line.Substring(5, line.Length - 7);
-                    int code = 0;
-                    try
-                    {
-                        code = Convert.ToInt32(GetValue(arg, lines, i));
-
-                    }
-                    catch
-                    {
-                        Console.WriteLine($"Expected a num, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                        Environment.Exit(1);
-                    }
-                    Environment.Exit(code);
-                }
-                else if (line.StartsWith("clr(") && line.EndsWith(");"))
-                {
-                    Console.Clear();
-                }
                 else if (line == "#endif;")
                 {
                     if (IF == false)
@@ -168,6 +148,26 @@ namespace dinolang.interpreter
                     }
                 }
                 else if (IF) IfLines.Add(line);
+                else if (line.StartsWith("Exit(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(5, line.Length - 7);
+                    int code = 0;
+                    try
+                    {
+                        code = Convert.ToInt32(GetValue(arg, lines, i));
+
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected a num, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    Environment.Exit(code);
+                }
+                else if (line.StartsWith("clr(") && line.EndsWith(");"))
+                {
+                    Console.Clear();
+                }
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);

@@ -145,7 +145,6 @@ namespace dinolang.interpreter
                     times = 0;
                     loopLines.Clear();
                 }
-                else if (POL == true) loopLines.Add(line);
                 else if (line.StartsWith("#if"))
                 {
                     cond = AfterChar(BeforeChar(line, ");"), "#if(");
@@ -169,8 +168,9 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    if (COND) ProcessIf(IfLines, false, false);
+                    
                 }
+                else if (POL == true) loopLines.Add(line);
                 else if (line.StartsWith("wait(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(5, line.Length - 7);
@@ -724,6 +724,36 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 return Str.Length;
+            }
+            if (val.StartsWith("LowerStr(") && val.EndsWith(')'))
+            {
+                string a = val.Substring(9, val.Length -10);
+                string arg = "";
+                try
+                {
+                    arg = GetValue(a, lines, index);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                return arg.ToLower();
+            }
+            if (val.StartsWith("UpperStr(") && val.EndsWith(')'))
+            {
+                string a = val.Substring(9, val.Length - 10);
+                string arg = "";
+                try
+                {
+                    arg = GetValue(a, lines, index);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                return arg.ToUpper();
             }
             if (val.StartsWith("charat(") && val.EndsWith(")"))
             {
