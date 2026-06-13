@@ -634,7 +634,7 @@ namespace dinolang.interpreter
                     }
                     i++;
                 }
-                Math.Round(ARGS[0], ARGS[1]);
+                Math.Round(ARGS[0], ARGS[1], MidpointRounding.AwayFromZero);
             }
             if (val.StartsWith("and(") && val.EndsWith(")"))
             {
