@@ -606,6 +606,36 @@ namespace dinolang.interpreter
                 }
                 return decimals[0] > decimals[1];
             }
+            if (val.StartsWith("RoundNum(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(9, val.Length - 10);
+                string[] args = arg.Split(",");
+                if (args.Length != 2)
+                {
+                    Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                dynamic[] ARGS = new dynamic[2];
+                int i = 0;
+                foreach (string ARG in args)
+                {
+                    try
+                    {
+                        decimal NEW = 0.0m;
+                        int NEW2;
+                        if (i == 0) {NEW = GetValue(args[i], lines, index); ARGS[0] = NEW; }
+                        else { NEW2 = GetValue(args[i], lines, index); ARGS[1] = NEW2; }
+                    }
+                    catch
+                    {
+                        if (i == 0) Console.WriteLine($"Expected num, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        else Console.WriteLine($"Expected integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    i++;
+                }
+                Math.Round(ARGS[0], ARGS[1]);
+            }
             if (val.StartsWith("and(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(4, val.Length - 5).Split(',');
