@@ -9,7 +9,9 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	  <PublishReadyToRun>true</PublishReadyToRun>
-	<AssemblyName>Dino</AssemblyName>
+	  <TieredPGO>true</TieredPGO>
+	  <Optimize>true</Optimize>
+	  <AssemblyName>Dino</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Title>Dino</Title>
     <Product>$(AssemblyName)</Product>
