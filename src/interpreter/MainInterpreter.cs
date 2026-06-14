@@ -19,8 +19,7 @@ namespace dinolang.interpreter
 
             foreach (var line in lines)
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                if (line.StartsWith("//")) continue;
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//") || line == ";") continue;
 
                 newlines.Add(line);
             }
