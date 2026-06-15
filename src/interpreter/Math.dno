@@ -8,3 +8,7 @@
     #endif;
     return(*(n, -1));
 #endfunc;
+
+#func neg(n);
+    return(*(n, -1));
+#endfunc;
