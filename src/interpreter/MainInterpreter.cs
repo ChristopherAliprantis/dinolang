@@ -624,15 +624,39 @@ namespace dinolang.interpreter
                 try
                 {
                     t = GetValue(arg, lines, index);
+                    if (t < 0)
+                    { 
+                        Console.WriteLine($"Expected a positive num Line {line}"); 
+                        Environment.Exit(1);
+                    }
                 }
                 catch
                 {
-                    Console.WriteLine($"Expected a num Line {line}");
+                    Console.WriteLine($"Expected a positive num Line {line}");
+                    Environment.Exit(1);
                 }
-            }
-            if (val.StartsWith("DateToString(") && val.EndsWith(')'))
-            {
+                const decimal usPerDay = 86_400_000_000m;
+                const decimal usPerHour = 3_600_000_000m;
+                const decimal usPerMinute = 60_000_000m;
+                const decimal usPerSecond = 1_000_000m;
+                const decimal usPerMillisecond = 1_000m;
 
+                decimal d = Math.Floor(t / usPerDay);
+                t %= usPerDay;
+
+                decimal h = Math.Floor(t / usPerHour);
+                t %= usPerHour;
+
+                decimal m = Math.Floor(t / usPerMinute);
+                t %= usPerMinute;
+
+                decimal s = Math.Floor(t / usPerSecond);
+                t %= usPerSecond;
+
+                decimal ms = Math.Floor(t / usPerMillisecond);
+                decimal us = t % usPerMillisecond;
+
+                return $"{d}d {h:00}h {m:00}m {s:00}s {ms:000}ms {us:000}µs";
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
