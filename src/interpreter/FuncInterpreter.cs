@@ -42,7 +42,6 @@ namespace dinolang.interpreter
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
-                Globals.ExecutedLines.Add(line);
                 if (i == lines.Count - 1 && !line.StartsWith("return"))
                 {
                     Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -389,6 +388,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
+                Globals.ExecutedLines.Add(line);
             }
 
 

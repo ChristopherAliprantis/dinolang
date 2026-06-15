@@ -16,7 +16,7 @@ public partial class Interpreter
         for (int i = 0; i < lines.Count; i++)
         {
             var line = lines[i];
-            Globals.ExecutedLines.Add(line);
+            
             if (line.StartsWith("#if"))
             {
                 cond = AfterChar(BeforeChar(line, ");"), "#if(");
@@ -292,6 +292,7 @@ public partial class Interpreter
                 Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
+            Globals.ExecutedLines.Add(line);
         }
         return 1;
     }

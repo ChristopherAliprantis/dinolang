@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Markup;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 namespace dinolang.interpreter
 {
     public partial class Interpreter
@@ -40,7 +41,7 @@ namespace dinolang.interpreter
             for (int i = 0; i < lines.Count; i++)
             { 
                 var line = lines[i];
-                Globals.ExecutedLines.Add(line);
+                
                 if (line.StartsWith("#func") && mf == false)
                 {
                     mf = true;
@@ -414,6 +415,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
+                Globals.ExecutedLines.Add(line);
             }
         }
         public static dynamic? GetValue(string val, List<string> lines, int index)
@@ -614,6 +616,23 @@ namespace dinolang.interpreter
                     I++;
                 }
                 return result;
+            }
+            if (val.StartsWith("TimeToString(") && val.EndsWith(')'))
+            {
+                string arg = val.Substring(13, val.Length - 14);
+                decimal t = 0.0m;
+                try
+                {
+                    t = GetValue(arg, lines, index);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a num Line {line}");
+                }
+            }
+            if (val.StartsWith("DateToString(") && val.EndsWith(')'))
+            {
+
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
