@@ -36,6 +36,7 @@ namespace dinolang.interpreter
             string cond = "";
             List<string> IfLines = new();
             bool IF = false;
+            bool c = false;
             for (int i = 0; i < lines.Count; i++)
             { 
                 var line = lines[i];
@@ -50,6 +51,12 @@ namespace dinolang.interpreter
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
 
+                        if (Ps != "") mfp = Ps.Split(',').ToList();
+                    }
+                    else if (Ps.StartsWith('(') && Ps.EndsWith(")a"))
+                    {
+                        Ps = Ps.Substring(1, Ps.Length - 2);
+                        c = true;
                         if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
                     else
@@ -68,13 +75,15 @@ namespace dinolang.interpreter
                     dinolang.interpreter.Globals.Funcs[name] = new Function
                     {
                         parameters = new List<string>(mfp),
-                        code = new List<string>(mfl)
+                        code = new List<string>(mfl),
+                        command = c
                     };
                     //Console.WriteLine($"Function {name} created");
                     mf = false;
                     mfl.Clear();
                     mfp.Clear();
                     name = "";
+                    c = false;
                 }
                 else if (mf)
                 {
@@ -377,8 +386,28 @@ namespace dinolang.interpreter
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
-                    var Var = BeforeChar(line, ';');
-                    GetValue(Var, lines, i);
+                    var val = BeforeChar(line, ';');
+                    string fname = BeforeChar(val, '(');
+                    if (Globals.Funcs.ContainsKey(fname))
+                    {
+                        string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
+
+                        List<dynamic> argsS = new List<dynamic>(0);
+
+                        if (inside != "")
+                        {
+                            if (!string.IsNullOrWhiteSpace(inside))
+                            {
+                                string[] split = inside.Split(',');
+
+                                foreach (var s in split)
+                                {
+                                    argsS.Add(s);
+                                }
+                            }
+                        }
+                        ProcessFunc(Globals.Funcs[fname], argsS, line);
+                    }
                 }
                 else
                 {
@@ -425,6 +454,11 @@ namespace dinolang.interpreter
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
             {
+                if (Globals.Funcs[fname].command == true)
+                {
+                    Console.WriteLine($"Function {fname} is a command function, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
                 string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
                 List<dynamic> args = new List<dynamic>(0);

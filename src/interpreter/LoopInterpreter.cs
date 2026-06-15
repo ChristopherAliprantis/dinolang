@@ -264,7 +264,28 @@ public partial class Interpreter
             }
             else if (line.Contains("(") && line.EndsWith(");"))
             {
-                GetValue(BeforeChar(line, ';'), lines, i);
+                var val = BeforeChar(line, ';');
+                string fname = BeforeChar(val, '(');
+                if (Globals.Funcs.ContainsKey(fname))
+                {
+                    string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
+
+                    List<dynamic> argsS = new List<dynamic>(0);
+
+                    if (inside != "")
+                    {
+                        if (!string.IsNullOrWhiteSpace(inside))
+                        {
+                            string[] split = inside.Split(',');
+
+                            foreach (var s in split)
+                            {
+                                argsS.Add(s);
+                            }
+                        }
+                    }
+                    ProcessFunc(Globals.Funcs[fname], argsS, line);
+                }
             }
             else
             {
