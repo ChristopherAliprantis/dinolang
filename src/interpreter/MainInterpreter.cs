@@ -56,7 +56,7 @@ namespace dinolang.interpreter
                     }
                     else if (Ps.StartsWith('(') && Ps.EndsWith(")a"))
                     {
-                        Ps = Ps.Substring(1, Ps.Length - 2);
+                        Ps = Ps.Substring(1, Ps.Length - 3);
                         c = true;
                         if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
