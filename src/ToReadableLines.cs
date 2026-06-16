@@ -6,15 +6,15 @@ namespace dinolang
 {
     public partial class GetCode
     {
-        public static List<string> ToReadableLines(string?code)
+        public static List<string> ToReadableLines(string code)
         {
-            
+
             var LINES = Regex.Split(code, "(?<=;)").Select(s => s.Trim()).Where(s => s != "").ToList();
             List<int> ItoRem = new(0);
             for (int i = 0; i < LINES.Count; i++)
             {
-                bool? quote = false;
-                string?copy = "";
+                bool quote = false;
+                string copy = "";
                 char[] chars = LINES[i].ToCharArray();
                 for (int j = 0; j < LINES[i].Length; j++)
                 {

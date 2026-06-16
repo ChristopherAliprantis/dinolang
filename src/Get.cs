@@ -19,18 +19,18 @@ public partial class GetCode
     public string? Help { get; set; }
 
     public static List<string> codes = new();
-    static int Main(string?[] args)
+    static int Main(string[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-        string?baseDir = AppContext.BaseDirectory;
+        string baseDir = AppContext.BaseDirectory;
 
-        string?SfilePath = Path.Combine(baseDir, "interpreter", "String.dno");
-        string?MfilePath = Path.Combine(baseDir, "interpreter", "Math.dno");
-        string?IfilePath = Path.Combine(baseDir, "interpreter", "Input.dno");
-        string?TfilePath = Path.Combine(baseDir, "interpreter", "Time.dno");
-        string?OfilePath = Path.Combine(baseDir, "interpreter", "Output.dno");
+        string SfilePath = Path.Combine(baseDir, "interpreter", "String.dno");
+        string MfilePath = Path.Combine(baseDir, "interpreter", "Math.dno");
+        string IfilePath = Path.Combine(baseDir, "interpreter", "Input.dno");
+        string TfilePath = Path.Combine(baseDir, "interpreter", "Time.dno");
+        string OfilePath = Path.Combine(baseDir, "interpreter", "Output.dno");
 
-        string?code = System.IO.File.ReadAllText(SfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
+        string code = System.IO.File.ReadAllText(SfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(MfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(IfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(OfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
@@ -46,8 +46,8 @@ public partial class GetCode
                     {
                         codes = opt.File.Split(',').ToList();
                         for (i = 0; i < codes.Count; i++) code += System.IO.File.ReadAllText(codes[i].Trim(), Encoding.UTF8);
-                    } 
-                    catch 
+                    }
+                    catch
                     {
                         Console.WriteLine($"File {codes[i].Trim()} not found!");
                         Environment.Exit(1);
@@ -61,7 +61,7 @@ public partial class GetCode
                 if (opt.Help == "true") Console.WriteLine("https://github.com/ChristopherAliprantis/dinolang/wiki");
             });
         List<string> Code = ToReadableLines(code);
-        /*foreach (string?line in Code)
+        /*foreach (string line in Code)
         {
             if (line.Trim() != "") Console.WriteLine(line);
         }*/
