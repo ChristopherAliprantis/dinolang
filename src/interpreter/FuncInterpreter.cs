@@ -9,7 +9,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        public static dynamic? ProcessFunc(Function func, List<dynamic> vals, string?name)
+        public static dynamic? ProcessFunc(Function func, List<dynamic?> vals, string?name)
         {
             var lines = new List<string>(func.code);
             var p = func.parameters;
@@ -34,7 +34,7 @@ namespace dinolang.interpreter
             }
             bool? POL = false;
             List<string> loopLines = new();
-            dynamic times = 0.0m;
+            dynamic? times = 0.0m;
             string?args = "";
             string?cond = "";
             List<string> IfLines = new();
@@ -171,7 +171,7 @@ namespace dinolang.interpreter
                 {
                     string?arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "print(");
-                    dynamic result = GetValue(arg, lines, i);
+                    dynamic? result = GetValue(arg, lines, i);
                     if (result is bool?) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
@@ -180,7 +180,7 @@ namespace dinolang.interpreter
                 {
                     string?arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "printnnl(");
-                    dynamic result =GetValue(arg, lines, i);
+                    dynamic? result =GetValue(arg, lines, i);
                     if (result is bool?) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
@@ -188,7 +188,7 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
                 {
                     string?arg = line.Substring(12, line.Length - 13);
-                    string[] ARGS = arg.Split(',');
+                    string?[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -207,13 +207,13 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
                 {
                     string?arg = line.Substring(11, line.Length - 12);
-                    string[] ARGS = arg.Split(',');
+                    string?[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dynamic[] VALS = new dynamic[2];
+                    dynamic?[] VALS = new dynamic?[2];
                     for (int a = 0; a < 2; a++)
                     {
                         VALS[a] = GetValue(ARGS[a], lines, i);
@@ -223,7 +223,7 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    string?[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
                         string?fullpath = Path.Combine(val[0], val[1]);
@@ -238,13 +238,13 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("CreateFolder(") && line.EndsWith(");"))
                 {
                     string?arg = line.Substring(13, line.Length - 15);
-                    string[] ARGS = arg.Split(',');
+                    string?[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dynamic[] VALS = new dynamic[2];
+                    dynamic?[] VALS = new dynamic?[2];
                     for (int a = 0; a < 2; a++)
                     {
                         VALS[a] = GetValue(ARGS[a], lines, i);
@@ -254,7 +254,7 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    string?[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
                         string?fullpath = Path.Combine(val[0], val[1]);
@@ -310,7 +310,7 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
                 {
                     var arg = line.Substring(15, line.Length - 17);
-                    dynamic arg2 = GetValue(arg, lines, i);
+                    dynamic? arg2 = GetValue(arg, lines, i);
                     if (arg2 is not string)
                     {
                         Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -366,13 +366,13 @@ namespace dinolang.interpreter
                     {
                         string?inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
-                        List<dynamic> argsS = new List<dynamic>(0);
+                        List<dynamic?> argsS = new List<dynamic?>(0);
 
                         if (inside != "")
                         {
                             if (!string.IsNullOrWhiteSpace(inside))
                             {
-                                string[] split = inside.Split(',');
+                                string?[] split = inside.Split(',');
 
                                 foreach (var s in split)
                                 {

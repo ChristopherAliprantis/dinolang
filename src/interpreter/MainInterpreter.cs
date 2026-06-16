@@ -32,7 +32,7 @@ namespace dinolang.interpreter
             string? name = "";
             bool? POL = false;
             List<string> loopLines = new();
-            dynamic times = 0.0m;
+            dynamic? times = 0.0m;
             string?args = "";
             string?cond = "";
             List<string> IfLines = new();
@@ -200,7 +200,7 @@ namespace dinolang.interpreter
                 {
                     string?arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "print(");
-                    dynamic result = GetValue(arg, lines, i);
+                    dynamic? result = GetValue(arg, lines, i);
                     if (result is bool?) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
@@ -208,7 +208,7 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
                 {
                     string?arg = line.Substring(12, line.Length - 13);
-                    string[] ARGS = arg.Split(',');
+                    string?[] ARGS = arg.Split(',');
                     
                     if (ARGS.Length != 2)
                     {
@@ -228,13 +228,13 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
                 {
                     string?arg = line.Substring(11, line.Length - 12);
-                    string[] ARGS = arg.Split(',');
+                    string?[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dynamic[] VALS = new dynamic[2];
+                    dynamic?[] VALS = new dynamic?[2];
                     for (int a = 0; a < 2; a++)
                     {
                         VALS[a] = GetValue(ARGS[a], lines, i);
@@ -244,7 +244,7 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    string?[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
                         string?fullpath = Path.Combine(vals[0], vals[1]);
@@ -259,13 +259,13 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("CreateFolder(") && line.EndsWith(");"))
                 {
                     string?arg = line.Substring(13, line.Length - 15);
-                    string[] ARGS = arg.Split(',');
+                    string?[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dynamic[] VALS = new dynamic[2];
+                    dynamic?[] VALS = new dynamic?[2];
                     for (int a = 0; a < 2; a++)
                     {
                         VALS[a] = GetValue(ARGS[a], lines, i);
@@ -275,7 +275,7 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    string?[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
                         string?fullpath = Path.Combine(vals[0], vals[1]);
@@ -336,7 +336,7 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
                 {
                     var arg = line.Substring(15, line.Length - 17);
-                    dynamic arg2 = GetValue(arg, lines, i);
+                    dynamic? arg2 = GetValue(arg, lines, i);
                     if (arg2 is not string)
                     {
                         Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -367,7 +367,7 @@ namespace dinolang.interpreter
                 {
                     string?arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "printnnl(");
-                    dynamic result = GetValue(arg, lines, i);
+                    dynamic? result = GetValue(arg, lines, i);
                     if (result is bool?) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
@@ -393,13 +393,13 @@ namespace dinolang.interpreter
                     {
                         string?inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
-                        List<dynamic> argsS = new List<dynamic>(0);
+                        List<dynamic?> argsS = new List<dynamic?>(0);
 
                         if (inside != "")
                         {
                             if (!string.IsNullOrWhiteSpace(inside))
                             {
-                                string[] split = inside.Split(',');
+                                string?[] split = inside.Split(',');
 
                                 foreach (var s in split)
                                 {
@@ -463,13 +463,13 @@ namespace dinolang.interpreter
                 }
                 string?inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
-                List<dynamic> args = new List<dynamic>(0);
+                List<dynamic?> args = new List<dynamic?>(0);
 
                 if (inside != "") 
                 {
                     if (!string.IsNullOrWhiteSpace(inside))
                     { 
-                        string[] split = inside.Split(',');
+                        string?[] split = inside.Split(',');
 
                         foreach (var s in split)
                         {
@@ -483,7 +483,7 @@ namespace dinolang.interpreter
             {
                 string?arg = "";
                 arg = val.Substring(6, val.Length - 7);
-                dynamic result = 0.0m;
+                dynamic? result = 0.0m;
                 result = Convert.ToDecimal(GetValue(arg, lines, index));
                 if (!(result is decimal?))
                 {
@@ -520,7 +520,7 @@ namespace dinolang.interpreter
                 }
                 if (Directory.Exists(path))
                 {
-                    string[] allPaths = Directory.GetFileSystemEntries(path);
+                    string?[] allPaths = Directory.GetFileSystemEntries(path);
                     string?formattedstrpaths = string.Join(Environment.NewLine, allPaths);
                     return formattedstrpaths;
                 }
@@ -584,7 +584,7 @@ namespace dinolang.interpreter
             if (val.StartsWith("FD(") && val.EndsWith(")"))
             {
                 string?args = val.Substring(3, val.Length - 4);
-                string[] ARGS= args.Split(',');
+                string?[] ARGS= args.Split(',');
                 if (ARGS.Length < 2)
                 {
                     Console.WriteLine($"Expected 2 or more parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -660,7 +660,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -685,13 +685,13 @@ namespace dinolang.interpreter
             if (val.StartsWith("RoundNum(") && val.EndsWith(")"))
             {
                 string?arg = val.Substring(9, val.Length - 10);
-                string[] args = arg.Split(",");
+                string?[] args = arg.Split(",");
                 if (args.Length != 2)
                 {
                     Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                dynamic[] ARGS = new dynamic[2];
+                dynamic?[] ARGS = new dynamic?[2];
                 int i = 0;
                 foreach (string?ARG in args)
                 {
@@ -714,7 +714,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("and(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(4, val.Length - 5).Split(',');
+                string?[] VALS = val.Substring(4, val.Length - 5).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to evaluate, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -739,7 +739,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("or(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(3, val.Length - 4).Split(',');
+                string?[] VALS = val.Substring(3, val.Length - 4).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to evaluate, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -764,7 +764,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("<(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -833,7 +833,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("charat(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(7, val.Length - 8).Split(',');
+                string?[] VALS = val.Substring(7, val.Length - 8).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to get character, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -876,13 +876,13 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("==(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(3, val.Length - 4).Split(',');
+                string?[] VALS = val.Substring(3, val.Length - 4).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                dynamic?[] dynamics = new dynamic?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
                 if (!((dynamics[0].GetType() == dynamics[1].GetType()) || (dynamics[1] is null) || (dynamics[0]is null)))
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -906,13 +906,13 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("!=(") && val.EndsWith(")"))
             {
-                string[] VALS = val.Substring(3, val.Length - 4).Split(',');
+                string?[] VALS = val.Substring(3, val.Length - 4).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                dynamic[] dynamics = new dynamic[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                dynamic?[] dynamics = new dynamic?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
                 if (!((dynamics[0].GetType() == dynamics[1].GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -956,13 +956,13 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("+(") && val.EndsWith(')'))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
                     Console.WriteLine($"Need at least 2 parameters to add, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                List<dynamic> Vals = new();
+                List<dynamic?> Vals = new();
                 for (int i = 0; i < VALS.Length; i++)
                 {
                     Vals.Add(GetValue(VALS[i], lines, i));
@@ -991,7 +991,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("%(") && val.EndsWith(')'))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
                     Console.WriteLine($"Need at least 2 parameters to subtract, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -1020,7 +1020,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("-(") && val.EndsWith(')'))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
                     Console.WriteLine($"Need at least 2 parameters to subtract, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -1049,7 +1049,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("/(") && val.EndsWith(')'))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
                     Console.WriteLine($"Need at least 2 parameters to divide, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -1086,7 +1086,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("RandomInt(") && val.EndsWith(')'))
             {
-                string[] VALS = val.Substring(10, val.Length - 11).Split(',');
+                string?[] VALS = val.Substring(10, val.Length - 11).Split(',');
                 if (VALS.Length != 2)
                 {
                     Console.WriteLine($"Need 2 parameters to get random integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -1117,7 +1117,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("*(") && val.EndsWith(')'))
             {
-                string[] VALS = val.Substring(2, val.Length - 3).Split(',');
+                string?[] VALS = val.Substring(2, val.Length - 3).Split(',');
                 if (VALS.Length < 2)
                 {
                     Console.WriteLine($"Need at least 2 parameters to multiply, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");

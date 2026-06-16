@@ -19,7 +19,7 @@ public partial class GetCode
     public string? Help { get; set; }
 
     public static List<string> codes = new();
-    static int Main(string[] args)
+    static int Main(string?[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         string?baseDir = AppContext.BaseDirectory;
