@@ -9,7 +9,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        public static dynamic? ProcessFunc(Function func, List<dynamic> vals, string name)
+        public static dynamic? ProcessFunc(Function func, List<dynamic> vals, string?name)
         {
             var lines = new List<string>(func.code);
             var p = func.parameters;
@@ -23,7 +23,7 @@ namespace dinolang.interpreter
             for (int i = 0; i < p.Count; i++)
             {
                 {
-                    string val = vals[i];
+                    string?val = vals[i];
                     lines.Insert(0, $"{p[i]}={val};");
                     if (Globals.Vars.ContainsKey(p[i]))
                     {
@@ -32,13 +32,13 @@ namespace dinolang.interpreter
                     }
                 }
             }
-            bool POL = false;
+            bool? POL = false;
             List<string> loopLines = new();
             dynamic times = 0.0m;
-            string args = "";
-            string cond = "";
+            string?args = "";
+            string?cond = "";
             List<string> IfLines = new();
-            bool IF = false;
+            bool? IF = false;
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
@@ -88,7 +88,7 @@ namespace dinolang.interpreter
                     if (times is not bool)
                     {
                         times = Convert.ToDecimal(times);
-                        for (long l = 0; l < Convert.ToInt64((decimal)times); l++)
+                        for (long l = 0; l < Convert.ToInt64((decimal?)times); l++)
                         {
                             int st = ProcessLoop(loopLines);
                             if (st == 0) break;
@@ -124,10 +124,10 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     IF = false;
-                    bool COND = false;
+                    bool? COND = false;
                     try
                     {
-                        COND = (bool)GetValue(cond, lines, i);
+                        COND = (bool?)GetValue(cond, lines, i);
                     }
                     catch
                     {
@@ -135,7 +135,7 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     dynamic? thing = (7, 7);
-                    if (COND) thing = ProcessIf(IfLines, true, false);
+                    if (COND.Value) thing = ProcessIf(IfLines, true, false);
                     if (thing is System.ValueTuple<int, int>)
                     {
 
@@ -146,10 +146,10 @@ namespace dinolang.interpreter
                         return thing;
                     }
                 }
-                else if (IF) IfLines.Add(line);
+                else if (IF.Value) IfLines.Add(line);
                 else if (line.StartsWith("Exit(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(5, line.Length - 7);
+                    string?arg = line.Substring(5, line.Length - 7);
                     int code = 0;
                     try
                     {
@@ -169,25 +169,25 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(0, line.Length - 2);
+                    string?arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "print(");
                     dynamic result = GetValue(arg, lines, i);
-                    if (result is bool) result = result.ToString().ToUpper();
+                    if (result is bool?) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
                 }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(0, line.Length - 2);
+                    string?arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "printnnl(");
                     dynamic result =GetValue(arg, lines, i);
-                    if (result is bool) result = result.ToString().ToUpper();
+                    if (result is bool?) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
                 }
                 else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(12, line.Length - 13);
+                    string?arg = line.Substring(12, line.Length - 13);
                     string[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
@@ -206,7 +206,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(11, line.Length - 12);
+                    string?arg = line.Substring(11, line.Length - 12);
                     string[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
@@ -226,7 +226,7 @@ namespace dinolang.interpreter
                     string[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
-                        string fullpath = Path.Combine(val[0], val[1]);
+                        string?fullpath = Path.Combine(val[0], val[1]);
                         File.WriteAllText(fullpath, "");
                     }
                     else
@@ -237,7 +237,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("CreateFolder(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(13, line.Length - 15);
+                    string?arg = line.Substring(13, line.Length - 15);
                     string[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
@@ -257,7 +257,7 @@ namespace dinolang.interpreter
                     string[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
-                        string fullpath = Path.Combine(val[0], val[1]);
+                        string?fullpath = Path.Combine(val[0], val[1]);
                         Directory.CreateDirectory(fullpath);
                     }
                     else
@@ -268,14 +268,14 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("DeleteItem(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(11, line.Length - 13);
+                    string?arg = line.Substring(11, line.Length - 13);
                     try
                     {
                         arg = GetValue(arg, lines, i);
                     }
                     catch
                     {
-                        Console.WriteLine($"Expected a string as the path, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Expected a string?as the path, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (Directory.Exists(arg))
@@ -294,11 +294,11 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("wait(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(5, line.Length - 7);
-                    decimal delay = 0.0m;
+                    string?arg = line.Substring(5, line.Length - 7);
+                    decimal? delay = 0.0m;
                     try
                     {
-                        delay = (decimal)GetValue(arg, lines, i);
+                        delay = (decimal?)GetValue(arg, lines, i);
                     }
                     catch
                     {
@@ -328,8 +328,8 @@ namespace dinolang.interpreter
 
                     using (var process = Process.Start(startInfo))
                     {
-                        string output = process.StandardOutput.ReadToEnd();
-                        string errors = process.StandardError.ReadToEnd();
+                        string?output = process.StandardOutput.ReadToEnd();
+                        string?errors = process.StandardError.ReadToEnd();
 
                         process.WaitForExit();
 
@@ -346,13 +346,13 @@ namespace dinolang.interpreter
                         value = GetValue(a, lines, i),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
-                    else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
-                    else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is decimal?) dinolang.interpreter.Globals.Vars[b].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is bool?) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                 }
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
-                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    string?arg = BeforeChar(AfterChar(line, '('), ");");
                     var th = GetValue(arg, lines, i);
                     RestoreDI(Nvsk, Nvs);
 
@@ -361,10 +361,10 @@ namespace dinolang.interpreter
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
                     var val = BeforeChar(line, ';');
-                    string fname = BeforeChar(val, '(');
+                    string?fname = BeforeChar(val, '(');
                     if (Globals.Funcs.ContainsKey(fname))
                     {
-                        string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
+                        string?inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
                         List<dynamic> argsS = new List<dynamic>(0);
 
