@@ -9,7 +9,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        public static dynamic? ProcessIf(List<string> lines, bool infunc, bool inlist)
+        public static dynamic? ProcessIf(List<string> lines, bool infunc, bool inloop)
         {
             bool POL = false;
             List<string> loopLines = new();
@@ -62,8 +62,12 @@ namespace dinolang.interpreter
                         times = Convert.ToDecimal(times);
                         for (long l = 0; l < Convert.ToInt64((decimal)times); l++)
                         {
-                            int st = ProcessLoop(loopLines, false).Item1;
-                            if (st == 0) break;
+                            (int, dynamic?) st = ProcessLoop(loopLines, infunc);
+                            if (st.Item2 != ('n', 'r'))
+                            {
+                                return st.Item2;
+                            }
+                            if (st.Item1 == 0) break;
                         }
                     }
                     else
@@ -72,8 +76,12 @@ namespace dinolang.interpreter
                         {
                             if ((bool)GetValue(args, lines, i))
                             {
-                                int st = ProcessLoop(loopLines, false).Item1;
-                                if (st == 0) break;
+                                (int, dynamic?) st = ProcessLoop(loopLines, true);
+                                if (st.Item2 != ('n', 'r'))
+                                {
+                                    return st.Item2;
+                                }
+                                if (st.Item1 == 0) break;
                             }
                             else break;
                         }
@@ -82,7 +90,7 @@ namespace dinolang.interpreter
                     times = 0;
                     loopLines.Clear();
                 }
-                else if (inlist == true)
+                else if (inloop == true)
                 {
                     if (line == "break;")
                     {
