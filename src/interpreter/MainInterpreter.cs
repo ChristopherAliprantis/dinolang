@@ -882,18 +882,15 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                dynamic?[] dynamics = new dynamic[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
-                if (!((dynamics[0].GetType() == dynamics[1].GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
+                object?[] dynamics = new object?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                if (!((dynamics[0]?.GetType() == dynamics[1]?.GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
                 }
                 if (dynamics[0] is bool? || dynamics[1] is bool?)
                 {
                     return (bool?)dynamics[0] == (bool?)dynamics[1];
-                }
-                if (dynamics[0] is null || dynamics[1] is null)
-                {
-                    return true;
                 }
                 if (dynamics[0] is decimal? || dynamics[1] is decimal?)
                 {
@@ -912,18 +909,15 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                dynamic?[] dynamics = new dynamic[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
-                if (!((dynamics[0].GetType() == dynamics[1].GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
+                object?[] dynamics = new object?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                if (!((dynamics[0]?.GetType() == dynamics[1]?.GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
                 }
                 if (dynamics[0] is bool? || dynamics[1] is bool?)
                 {
                     return (bool?)dynamics[0] != (bool?)dynamics[1];
-                }
-                if (dynamics[0] is null || dynamics[1] is null)
-                {
-                    return false;
                 }
                 if (dynamics[0] is decimal? || dynamics[1] is decimal?)
                 {
