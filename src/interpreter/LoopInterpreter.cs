@@ -7,8 +7,10 @@ namespace dinolang.interpreter;
 
 public partial class Interpreter
 {
-    public static int ProcessLoop(List<string> lines)
+    public static System.ValueTuple<int, dynamic?> ProcessLoop(List<string> lines, bool infunc)
     {
+        dynamic? secondthing = ('n', 'r');
+        int firstthing = 1;
         List<string> loopLines = new();
         string cond = "";
         List<string> IfLines = new();
@@ -41,15 +43,23 @@ public partial class Interpreter
                     Environment.Exit(1);
                 }
                 dynamic? thing = (7, 7);
-                if (COND) thing = ProcessIf(IfLines, false, true);
+                if (COND) thing = ProcessIf(IfLines, infunc, true);
                 if (thing is System.ValueTuple<int, int>)
                 {
 
                 }
                 else
                 {
-                    if (thing == 0) return 0;
-                    else return 1;
+                    if (thing == 0)
+                    {
+                        firstthing = 0;
+                        break;
+                    }
+                    else
+                    {
+                        firstthing = 1;
+                        break;
+                    }
                 }
             }
             else if (IF) IfLines.Add(line);
@@ -99,6 +109,17 @@ public partial class Interpreter
                 {
                     Console.WriteLine($"File {ARGS[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
+                }
+            }
+            else if (infunc)
+            {
+                if (line.StartsWith("return(") && line.EndsWith(");"))
+                {
+                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    var th = GetValue(arg, lines, i);
+                    firstthing = 0;
+                    secondthing = th;
+                    break;
                 }
             }
             else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
@@ -245,10 +266,11 @@ public partial class Interpreter
             }
             else if (line == "continue;")
             {
+                firstthing = 1; 
                 break;
             }
 
-            else if (line == "break;") return 0;
+            else if (line == "break;") firstthing = 0;
             else if (line.StartsWith($"{BeforeChar(line, '=')}="))
             {
                 var b = BeforeChar(line, '=');
@@ -294,7 +316,11 @@ public partial class Interpreter
             }
             Globals.ExecutedLines.Add(line);
         }
-        return 1;
+        return new System.ValueTuple<int, dynamic?>
+        {
+            Item1 = firstthing,
+            Item2 = secondthing
+        };
     }
 
 }

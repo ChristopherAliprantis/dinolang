@@ -62,7 +62,7 @@ namespace dinolang.interpreter
                         times = Convert.ToDecimal(times);
                         for (long l = 0; l < Convert.ToInt64((decimal)times); l++)
                         {
-                            int st = ProcessLoop(loopLines);
+                            int st = ProcessLoop(loopLines, false).Item1;
                             if (st == 0) break;
                         }
                     }
@@ -72,7 +72,7 @@ namespace dinolang.interpreter
                         {
                             if ((bool)GetValue(args, lines, i))
                             {
-                                int st = ProcessLoop(loopLines);
+                                int st = ProcessLoop(loopLines, false).Item1;
                                 if (st == 0) break;
                             }
                             else break;
