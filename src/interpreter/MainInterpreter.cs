@@ -892,13 +892,13 @@ namespace dinolang.interpreter
                 {
                     return (bool?)dynamics[0] == (bool?)dynamics[1];
                 }
-                if (dynamics[0] is decimal? || dynamics[1] is decimal?)
+                else if (dynamics[0] is decimal? || dynamics[1] is decimal?)
                 {
                     return (decimal?)dynamics[0] == (decimal?)dynamics[1];
                 }
-                if (dynamics[0] is string or null || dynamics[1] is string or null)
+                else if (dynamics[0] is string or null || dynamics[1] is string or null)
                 {
-                    return (decimal?)dynamics[0] == (decimal?)dynamics[1];
+                    return (string?)dynamics[0] == (string?)dynamics[1];
                 }
             }
             if (val.StartsWith("!=(") && val.EndsWith(")"))
@@ -919,13 +919,13 @@ namespace dinolang.interpreter
                 {
                     return (bool?)dynamics[0] != (bool?)dynamics[1];
                 }
-                if (dynamics[0] is decimal? || dynamics[1] is decimal?)
+                else if (dynamics[0] is decimal? || dynamics[1] is decimal?)
                 {
                     return (decimal?)dynamics[0] != (decimal?)dynamics[1];
                 }
-                if (dynamics[0] is string or null || dynamics[1] is string or null)
+                else if (dynamics[0] is string or null || dynamics[1] is string or null)
                 {
-                    return (decimal?)dynamics[0] != (decimal?)dynamics[1];
+                    return (string?)dynamics[0] != (string?)dynamics[1];
                 }
             }
             if (val.StartsWith("!(") && val.EndsWith(")"))
