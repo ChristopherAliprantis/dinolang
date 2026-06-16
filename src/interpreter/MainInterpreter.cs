@@ -174,7 +174,7 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Condition {cond} {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
 
