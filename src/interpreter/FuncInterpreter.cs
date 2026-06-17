@@ -91,7 +91,7 @@ namespace dinolang.interpreter
                         for (long l = 0; l < Convert.ToInt64((decimal)times); l++)
                         {
                             (int, dynamic?) st = ProcessLoop(loopLines, true);
-                            if (st.Item2 == (System.ValueTuple<char, char>)('n', 'r'))
+                            if (st.Item2 is System.ValueTuple<char, char>)
                             {
 
                             }
