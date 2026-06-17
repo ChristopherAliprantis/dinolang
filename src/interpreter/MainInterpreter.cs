@@ -579,6 +579,7 @@ namespace dinolang.interpreter
                 else IN = Console.ReadKey(false);
                 string CHAR = IN.KeyChar.ToString();
                 if (CHAR == "\r") CHAR = Environment.NewLine;
+                else if (CHAR  == "\n") CHAR = Environment.NewLine;
                 return CHAR;
             }
             if (val.StartsWith("FD(") && val.EndsWith(")"))
@@ -1138,6 +1139,7 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
+            Console.WriteLine($"{Globals.Vars.ContainsKey("ch")}");
             Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
             Environment.Exit(1);
             if (1 + 1 == 2) return " ";

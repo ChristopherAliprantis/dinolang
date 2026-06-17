@@ -266,11 +266,15 @@ public partial class Interpreter
             }
             else if (line == "continue;")
             {
-                firstthing = 1; 
+                firstthing = 1;
                 break;
             }
 
-            else if (line == "break;") firstthing = 0;
+            else if (line == "break;")
+            { 
+                firstthing = 0;
+                break;
+            }
             else if (line.StartsWith($"{BeforeChar(line, '=')}="))
             {
                 var b = BeforeChar(line, '=');
