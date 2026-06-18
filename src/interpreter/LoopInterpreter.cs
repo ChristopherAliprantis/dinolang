@@ -288,7 +288,7 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
             }
-            if (line.Contains("(") && line.EndsWith(");"))
+            else if (line.Contains("(") && line.EndsWith(");"))
             {
                 var val = BeforeChar(line, ';');
                 string fname = BeforeChar(val, '(');
