@@ -18,6 +18,7 @@ namespace dinolang.interpreter
                 Console.WriteLine($"Function {name} expects {p.Count} argument(s) but got {vals.Count} argument(s) Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
+
             var Nvs = new Dictionary<string, Variable>();
             var Nvsk = new List<string>();
             for (int i = 0; i < p.Count; i++)
