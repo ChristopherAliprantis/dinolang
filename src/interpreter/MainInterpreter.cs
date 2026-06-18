@@ -372,7 +372,7 @@ namespace dinolang.interpreter
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
                 }
-                else if (line.StartsWith($"{BeforeChar(line, '=')}="))
+                else if (line.Contains('=') && BeforeChar(line, '=').Length > 0 && AfterChar(line, '=').Length > 0)
                 {
                     var b = BeforeChar(line, '=');
                     var a = BeforeChar(AfterChar(line, '='), ';');
