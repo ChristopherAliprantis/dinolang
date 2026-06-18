@@ -39,6 +39,7 @@ namespace dinolang.interpreter
             string cond = "";
             List<string> IfLines = new();
             bool IF = false;
+
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
