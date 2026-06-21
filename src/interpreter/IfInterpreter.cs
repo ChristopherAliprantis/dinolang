@@ -314,17 +314,13 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                 }
-                else if (infunc)
+                else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
                 {
-                    if (line.StartsWith("return(") && line.EndsWith(");"))
-                    {
-                        string arg = BeforeChar(AfterChar(line, '('), ");");
-                        var th = GetValue(arg, lines, i);
-
-                        return th;
-                    }
+                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    var th = GetValue(arg, lines, i);
+                    return th;
                 }
-                if (line.Contains("(") && line.EndsWith(");"))
+                else if (line.Contains("(") && line.EndsWith(");"))
                 {
                     var val = BeforeChar(line, ';');
                     string fname = BeforeChar(val, '(');
@@ -349,7 +345,6 @@ namespace dinolang.interpreter
                         ProcessFunc(Globals.Funcs[fname], argsS, line);
                     }
                 }
-
                 else
                 {
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
