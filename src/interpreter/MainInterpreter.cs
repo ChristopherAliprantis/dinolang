@@ -375,7 +375,7 @@ namespace dinolang.interpreter
                 else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
                 {
                     var b = BeforeChar(line, '=');
-                    var a = BeforeChar(AfterChar(line, '='), ';');
+                    var a = BeforeChar(AfterChar(line, $"{b}="), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
                         value = GetValue(a, lines, i),
