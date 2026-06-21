@@ -122,7 +122,7 @@ public partial class Interpreter
                     break;
                 }
             }
-            else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
+            if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(11, line.Length - 12);
                 string[] ARGS = arg.Split(',');
