@@ -276,7 +276,7 @@ public partial class Interpreter
                 break;
             }
             Console.WriteLine("beforevar");
-            if (line.Contains('=') && BeforeChar(line, '=').Length > 0 && AfterChar(line, '=').Length > 1)
+            if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
             {
                 var b = BeforeChar(line, '=');
                 var a = BeforeChar(AfterChar(line, '='), ';');
