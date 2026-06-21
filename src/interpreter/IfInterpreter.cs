@@ -300,17 +300,8 @@ namespace dinolang.interpreter
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
                 }
-                else if (infunc)
-                {
-                    if (line.StartsWith("return(") && line.EndsWith(");"))
-                    {
-                        string arg = BeforeChar(AfterChar(line, '('), ");");
-                        var th = GetValue(arg, lines, i);
-
-                        return th;
-                    }
-                }
-                if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
+                
+                else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
                 {
                     var b = BeforeChar(line, '=');
                     var a = BeforeChar(AfterChar(line, $"{b}="), ';');
@@ -323,7 +314,17 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                 }
-                else if (line.Contains("(") && line.EndsWith(");"))
+                else if (infunc)
+                {
+                    if (line.StartsWith("return(") && line.EndsWith(");"))
+                    {
+                        string arg = BeforeChar(AfterChar(line, '('), ");");
+                        var th = GetValue(arg, lines, i);
+
+                        return th;
+                    }
+                }
+                if (line.Contains("(") && line.EndsWith(");"))
                 {
                     var val = BeforeChar(line, ';');
                     string fname = BeforeChar(val, '(');
@@ -348,6 +349,7 @@ namespace dinolang.interpreter
                         ProcessFunc(Globals.Funcs[fname], argsS, line);
                     }
                 }
+
                 else
                 {
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
