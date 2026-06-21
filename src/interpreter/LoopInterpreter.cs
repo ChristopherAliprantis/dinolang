@@ -275,11 +275,10 @@ public partial class Interpreter
                 firstthing = 0;
                 break;
             }
-            Console.WriteLine("beforevar");
-            if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
+            else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
             {
                 var b = BeforeChar(line, '=');
-                var a = BeforeChar(AfterChar(line, '='), ';');
+                var a = BeforeChar(AfterChar(line, $"{b}="), ';');
                 dinolang.interpreter.Globals.Vars[b] = new Variable
                 {
                     value = GetValue(a, lines, i),
@@ -289,8 +288,7 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
             }
-            Console.WriteLine("aftervar");
-            if (line.Contains("(") && line.EndsWith(");"))
+            else if (line.Contains("(") && line.EndsWith(");"))
             {
                 var val = BeforeChar(line, ';');
                 string fname = BeforeChar(val, '(');
