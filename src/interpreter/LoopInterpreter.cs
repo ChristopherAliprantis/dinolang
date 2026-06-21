@@ -18,7 +18,6 @@ public partial class Interpreter
         for (int i = 0; i < lines.Count; i++)
         {
             var line = lines[i];
-
             if (line.StartsWith("#if"))
             {
                 cond = AfterChar(BeforeChar(line, ");"), "#if(");
