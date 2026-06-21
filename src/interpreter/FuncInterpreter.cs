@@ -355,7 +355,7 @@ namespace dinolang.interpreter
                         if (!string.IsNullOrEmpty(errors)) Console.WriteLine(errors);
                     }
                 }
-                else if (line.Contains('=') && BeforeChar(line, '=').Length > 0 && AfterChar(line, '=').Length > 0)
+                else if (line.Contains('=') && BeforeChar(line, '=').Length > 0 && AfterChar(line, '=').Length > 1)
                 {
                     var b = BeforeChar(line, '=');
                     var a = BeforeChar(AfterChar(line, '='), ';');
