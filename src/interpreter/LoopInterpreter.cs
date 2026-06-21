@@ -279,10 +279,6 @@ public partial class Interpreter
             {
                 var b = BeforeChar(line, '=');
                 var a = BeforeChar(AfterChar(line, $"{b}="), ';');
-                if (b == "ch")
-                {
-                    Console.WriteLine("entered");
-                }
                 dinolang.interpreter.Globals.Vars[b] = new Variable
                 {
                     value = GetValue(a, lines, i),

@@ -458,7 +458,7 @@ namespace dinolang.interpreter
             {
                 if (Globals.Funcs[fname].command == true)
                 {
-                    Console.WriteLine($"Function {fname} is a command function, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Invalid Value {val}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
