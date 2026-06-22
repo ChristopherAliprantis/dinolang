@@ -2,4 +2,5 @@
     #if (!=(nnl, true));print(+(message, COMMA, : :, :Line :,Line(2))); #endif;
     #if (==(nnl, true));printnnl(+(message, COMMA, : :, :Line :,Line(5))); #endif;
     Exit(1);
+    Return();
 #endfunc;

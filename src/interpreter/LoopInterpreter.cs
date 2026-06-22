@@ -307,7 +307,7 @@ public partial class Interpreter
                             }
                         }
                     }
-                    ProcessFunc(Globals.Funcs[fname], argsS, line);
+                    ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
                 }
             }
             else

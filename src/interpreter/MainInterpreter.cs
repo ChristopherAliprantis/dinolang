@@ -407,7 +407,7 @@ namespace dinolang.interpreter
                                 }
                             }
                         }
-                        ProcessFunc(Globals.Funcs[fname], argsS, line);
+                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
                     }
                 }
                 else
@@ -480,7 +480,7 @@ namespace dinolang.interpreter
                         }
                     }
                 }
-                return ProcessFunc(Globals.Funcs[fname], args, line);
+                return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
             }
             if (val.StartsWith("ToNum(") && val.EndsWith(")"))
             {
