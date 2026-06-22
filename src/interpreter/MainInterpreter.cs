@@ -98,7 +98,7 @@ namespace dinolang.interpreter
                         args = AfterChar(BeforeChar(line, ");"), "#loop(");
                         try
                         {
-                            times = GetValue(args, lines, i);
+                            times = GetValue(args, line);
                             if (times is not bool)
                             {
                                 if (times % 1 == 0) ;
@@ -142,7 +142,7 @@ namespace dinolang.interpreter
                     {
                         while (true)
                         {
-                            if ((bool)GetValue(args, lines, i))
+                            if ((bool)GetValue(args, line))
                             {
                                 int st = ProcessLoop(loopLines, false).Item1;
                                 if (st == 0) break;
@@ -170,7 +170,7 @@ namespace dinolang.interpreter
                     bool COND = false;
                     try
                     {
-                        COND = (bool)GetValue(cond, lines, i);
+                        COND = (bool)GetValue(cond, line);
                     }
                     catch
                     {
@@ -186,7 +186,7 @@ namespace dinolang.interpreter
                     decimal delay = 0.0m;
                     try
                     {
-                        delay = (decimal)GetValue(arg, lines, i);
+                        delay = (decimal)GetValue(arg, line);
                     }
                     catch
                     {
@@ -200,7 +200,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "print(");
-                    dynamic result = GetValue(arg, lines, i);
+                    dynamic result = GetValue(arg, line);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.WriteLine(result);
@@ -237,7 +237,7 @@ namespace dinolang.interpreter
                     dynamic[] VALS = new dynamic[2];
                     for (int a = 0; a < 2; a++)
                     {
-                        VALS[a] = GetValue(ARGS[a], lines, i);
+                        VALS[a] = GetValue(ARGS[a], line);
                         if (VALS[a] is not string)
                         {
                             Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -268,7 +268,7 @@ namespace dinolang.interpreter
                     dynamic[] VALS = new dynamic[2];
                     for (int a = 0; a < 2; a++)
                     {
-                        VALS[a] = GetValue(ARGS[a], lines, i);
+                        VALS[a] = GetValue(ARGS[a], line);
                         if (VALS[a] is not string)
                         {
                             Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -292,7 +292,7 @@ namespace dinolang.interpreter
                     string arg = line.Substring(11, line.Length - 13);
                     try
                     {
-                        arg = GetValue(arg, lines, i);
+                        arg = GetValue(arg, line);
                     }
                     catch
                     {
@@ -323,7 +323,7 @@ namespace dinolang.interpreter
                     int code = 0;
                     try
                     {
-                        code = Convert.ToInt32(GetValue(arg, lines, i));
+                        code = Convert.ToInt32(GetValue(arg, line));
 
                     }
                     catch
@@ -336,7 +336,7 @@ namespace dinolang.interpreter
                 else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
                 {
                     var arg = line.Substring(15, line.Length - 17);
-                    dynamic arg2 = GetValue(arg, lines, i);
+                    dynamic arg2 = GetValue(arg, line);
                     if (arg2 is not string)
                     {
                         Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -367,7 +367,7 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(0, line.Length - 2);
                     arg = AfterChar(arg, "printnnl(");
-                    dynamic result = GetValue(arg, lines, i);
+                    dynamic result = GetValue(arg, line);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
                     Console.Write(result);
@@ -378,7 +378,7 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, $"{b}="), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, lines, i),
+                        value = GetValue(a, line),
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -418,9 +418,12 @@ namespace dinolang.interpreter
                 Globals.ExecutedLines.Add(line);
             }
         }
-        public static dynamic? GetValue(string val, List<string> lines, int index)
-        {
-            string line = lines[index];
+
+
+
+
+        public static dynamic? GetValue(string val, string line)
+        { 
             //Console.WriteLine($"[{val}] Length={val.Length}");
 
             if (string.IsNullOrWhiteSpace(val))
@@ -484,7 +487,7 @@ namespace dinolang.interpreter
                 string arg = "";
                 arg = val.Substring(6, val.Length - 7);
                 dynamic result = 0.0m;
-                result = Convert.ToDecimal(GetValue(arg, lines, index));
+                result = Convert.ToDecimal(GetValue(arg, line));
                 if (result is not decimal)
                 {
                     Console.WriteLine($"Cannot convert to number, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -495,7 +498,7 @@ namespace dinolang.interpreter
             if (val.StartsWith("GetType(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(8, val.Length - 9);
-                var result = GetValue(arg, lines, index);
+                var result = GetValue(arg, line);
                 string type = "";
                 if (result is string) type = "string";
                 else if (result is decimal) type = "num";
@@ -512,7 +515,7 @@ namespace dinolang.interpreter
             if (val.StartsWith("GetContent(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(11, val.Length - 12);
-                var path = GetValue(arg, lines, index);
+                var path = GetValue(arg, line);
                 if (path is not string)
                 {
                     Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -537,7 +540,7 @@ namespace dinolang.interpreter
             if (val.StartsWith("ToString(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(9, val.Length - 10);
-                var result = GetValue(arg, lines, index);
+                var result = GetValue(arg, line);
                 if (result is bool) result = result.ToString().ToUpper();
                 return result?.ToString() ?? "NULL";
             }
@@ -547,14 +550,14 @@ namespace dinolang.interpreter
                 int ar = 0;
                 try
                 {
-                    ar = (int)GetValue(arg, lines, index);
+                    ar = (int)GetValue(arg, line);
                 }
                 catch
                 {
                     Console.WriteLine($"Expected a num that is an integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                return Globals.ExecutedLines[index - ar];
+                return Globals.ExecutedLines[(Globals.ExecutedLines.Count - 1) - ar];
             }
             if (val == "ReadLine()")
             {
@@ -567,7 +570,7 @@ namespace dinolang.interpreter
                 bool ARG = false;
                 try
                 {
-                    ARG = (bool)GetValue(arg, lines, index);
+                    ARG = (bool)GetValue(arg, line);
                 }
                 catch
                 {
@@ -596,7 +599,7 @@ namespace dinolang.interpreter
                 {
                     try
                     {
-                        vals.Add(GetValue(ARGS[i], lines, index));
+                        vals.Add(GetValue(ARGS[i], line));
                     }
                     catch
                     {
@@ -624,7 +627,7 @@ namespace dinolang.interpreter
                 decimal t = 0.0m;
                 try
                 {
-                    t = GetValue(arg, lines, index);
+                    t = GetValue(arg, line);
                     if (t < 0)
                     {
                         Console.WriteLine($"Expected a positive num Line {line}");
@@ -670,7 +673,7 @@ namespace dinolang.interpreter
                 decimal[] decimals = new decimal[2] { 0, 0 };
                 for (int i = 0; i < 2; i++)
                 {
-                    var Var = GetValue(VALS[i], lines, index);
+                    var Var = GetValue(VALS[i], line);
                     if (Var is not decimal)
                     {
                         Console.WriteLine($"Cannot compare non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -700,8 +703,8 @@ namespace dinolang.interpreter
                     {
                         decimal NEW = 0.0m;
                         int NEW2;
-                        if (i == 0) { NEW = GetValue(args[i], lines, index); ARGS[0] = NEW; }
-                        else { NEW2 = GetValue(args[i], lines, index); ARGS[1] = NEW2; }
+                        if (i == 0) { NEW = GetValue(args[i], line); ARGS[0] = NEW; }
+                        else { NEW2 = GetValue(args[i], line); ARGS[1] = NEW2; }
                     }
                     catch
                     {
@@ -725,7 +728,7 @@ namespace dinolang.interpreter
 
                 for (int i = 0; i < 2; i++)
                 {
-                    var Var = GetValue(VALS[i], lines, index);
+                    var Var = GetValue(VALS[i], line);
                     if (Var is not bool)
                     {
                         Console.WriteLine($"Cannot evaluate non-boolean value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -750,7 +753,7 @@ namespace dinolang.interpreter
 
                 for (int i = 0; i < 2; i++)
                 {
-                    var Var = GetValue(VALS[i], lines, index);
+                    var Var = GetValue(VALS[i], line);
                     if (Var is not bool)
                     {
                         Console.WriteLine($"Cannot evaluate non-boolean value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -774,7 +777,7 @@ namespace dinolang.interpreter
                 decimal[] decimals = new decimal[2] { 0, 0 };
                 for (int i = 0; i < 2; i++)
                 {
-                    var Var = GetValue(VALS[i], lines, index);
+                    var Var = GetValue(VALS[i], line);
                     if (Var is not decimal)
                     {
                         Console.WriteLine($"Cannot compare non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -793,7 +796,7 @@ namespace dinolang.interpreter
                 string? Str = " ";
                 try
                 {
-                    Str = GetValue(arg, lines, index);
+                    Str = GetValue(arg, line);
                 }
                 catch
                 {
@@ -808,7 +811,7 @@ namespace dinolang.interpreter
                 string arg = "";
                 try
                 {
-                    arg = GetValue(a, lines, index);
+                    arg = GetValue(a, line);
                 }
                 catch
                 {
@@ -823,7 +826,7 @@ namespace dinolang.interpreter
                 string arg = "";
                 try
                 {
-                    arg = GetValue(a, lines, index);
+                    arg = GetValue(a, line);
                 }
                 catch
                 {
@@ -844,7 +847,7 @@ namespace dinolang.interpreter
                 int inde = 0;
                 try
                 {
-                    Val = GetValue(VALS[0], lines, index);
+                    Val = GetValue(VALS[0], line);
                 }
                 catch
                 {
@@ -853,7 +856,7 @@ namespace dinolang.interpreter
                 }
                 try
                 {
-                    inde = Convert.ToInt32(GetValue(VALS[1], lines, index));
+                    inde = Convert.ToInt32(GetValue(VALS[1], line));
                 }
                 catch
                 {
@@ -883,7 +886,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                object?[] dynamics = new object?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                object?[] dynamics = new object?[2] { GetValue(VALS[0], line), GetValue(VALS[1], line) };
                 if (dynamics[0] != null && dynamics[1] != null && dynamics[0].GetType() != dynamics[1].GetType())
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -910,7 +913,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                object?[] dynamics = new object?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
+                object?[] dynamics = new object?[2] { GetValue(VALS[0], line), GetValue(VALS[1], line) };
                 if (dynamics[0] != null && dynamics[1] != null && dynamics[0].GetType() != dynamics[1].GetType())
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -932,7 +935,7 @@ namespace dinolang.interpreter
             if (val.StartsWith("!(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(2, val.Length - 3);
-                var Out = GetValue(arg, lines, index);
+                var Out = GetValue(arg, line);
                 if (Out is not bool)
                 {
                     Console.WriteLine($"Cannot reverse non-boolean value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -960,7 +963,7 @@ namespace dinolang.interpreter
                 List<dynamic> Vals = new();
                 for (int i = 0; i < VALS.Length; i++)
                 {
-                    Vals.Add(GetValue(VALS[i], lines, i));
+                    Vals.Add(GetValue(VALS[i], line));
                 }
                 bool allsame = Vals.Count == 0 ||
                     Vals.All(x => x.GetType() == Vals[0].GetType());
@@ -997,7 +1000,7 @@ namespace dinolang.interpreter
                 {
                     try
                     {
-                        Vals.Add(GetValue(VALS[i], lines, index));
+                        Vals.Add(GetValue(VALS[i], line));
                     }
                     catch
                     {
@@ -1026,7 +1029,7 @@ namespace dinolang.interpreter
                 {
                     try
                     {
-                        Vals.Add(GetValue(VALS[i], lines, i));
+                        Vals.Add(GetValue(VALS[i], line));
                     }
                     catch
                     {
@@ -1055,7 +1058,7 @@ namespace dinolang.interpreter
                 {
                     try
                     {
-                        Vals.Add(GetValue(VALS[i], lines, index));
+                        Vals.Add(GetValue(VALS[i], line));
                     }
                     catch
                     {
@@ -1093,7 +1096,7 @@ namespace dinolang.interpreter
                 {
                     try
                     {
-                        decimal range = GetValue(v, lines, index);
+                        decimal range = GetValue(v, line);
                         if (range % 1 != 0)
                         {
                             Console.WriteLine($"Expected a num that is an integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -1123,7 +1126,7 @@ namespace dinolang.interpreter
                 {
                     try
                     {
-                        Vals.Add(GetValue(VALS[i], lines, index));
+                        Vals.Add(GetValue(VALS[i], line));
                     }
                     catch
                     {

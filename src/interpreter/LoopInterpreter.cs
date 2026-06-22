@@ -34,7 +34,7 @@ public partial class Interpreter
                 bool COND = false;
                 try
                 {
-                    COND = (bool)GetValue(cond, lines, i);
+                    COND = (bool)GetValue(cond, line);
                 }
                 catch (Exception E)
                 {
@@ -66,7 +66,7 @@ public partial class Interpreter
             {
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, "print(");
-                dynamic result = GetValue(arg, lines, i);
+                dynamic result = GetValue(arg, line);
                 if (result is bool) result = result.ToString().ToUpper();
                 else result = result?.ToString() ?? "NULL";
                 Console.WriteLine(result);
@@ -81,7 +81,7 @@ public partial class Interpreter
                 int code = 0;
                 try
                 {
-                    code = Convert.ToInt32(GetValue(arg, lines, i));
+                    code = Convert.ToInt32(GetValue(arg, line));
 
                 }
                 catch
@@ -123,7 +123,7 @@ public partial class Interpreter
                 dynamic[] VALS = new dynamic[2];
                 for (int a = 0; a < 2; a++)
                 {
-                    VALS[a] = GetValue(ARGS[a], lines, i);
+                    VALS[a] = GetValue(ARGS[a], line);
                     if (VALS[a] is not string)
                     {
                         Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -154,7 +154,7 @@ public partial class Interpreter
                 dynamic[] VALS = new dynamic[2];
                 for (int a = 0; a < 2; a++)
                 {
-                    VALS[a] = GetValue(ARGS[a], lines, i);
+                    VALS[a] = GetValue(ARGS[a], line);
                     if (VALS[a] is not string)
                     {
                         Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -178,7 +178,7 @@ public partial class Interpreter
                 string arg = line.Substring(11, line.Length - 13);
                 try
                 {
-                    arg = GetValue(arg, lines, i);
+                    arg = GetValue(arg, line);
                 }
                 catch
                 {
@@ -205,7 +205,7 @@ public partial class Interpreter
                 decimal delay = 0.0m;
                 try
                 {
-                    delay = (decimal)GetValue(arg, lines, i);
+                    delay = (decimal)GetValue(arg, line);
                 }
                 catch
                 {
@@ -217,7 +217,7 @@ public partial class Interpreter
             else if (line.StartsWith("PowershellCall(") && line.EndsWith(");"))
             {
                 var arg = line.Substring(15, line.Length - 17);
-                dynamic arg2 = GetValue(arg, lines, i);
+                dynamic arg2 = GetValue(arg, line);
                 if (arg2 is not string)
                 {
                     Console.WriteLine($"Expected String, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -248,7 +248,7 @@ public partial class Interpreter
             {
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, "printnnl(");
-                dynamic result = GetValue(arg, lines, i);
+                dynamic result = GetValue(arg, line);
                 if (result is bool) result = result.ToString().ToUpper();
                 else result = result?.ToString() ?? "NULL";
                 Console.Write(result);
@@ -270,7 +270,7 @@ public partial class Interpreter
                 var a = BeforeChar(AfterChar(line, $"{b}="), ';');
                 dinolang.interpreter.Globals.Vars[b] = new Variable
                 {
-                    value = GetValue(a, lines, i),
+                    value = GetValue(a, line),
                 };
                 if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                 else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
@@ -280,7 +280,7 @@ public partial class Interpreter
             else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
             {
                 string arg = BeforeChar(AfterChar(line, '('), ");");
-                var th = GetValue(arg, lines, i);
+                var th = GetValue(arg, line);
                 firstthing = 0;
                 secondthing = th;
                 break;
