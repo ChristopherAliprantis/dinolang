@@ -24,7 +24,6 @@ namespace dinolang.interpreter
 
                 newlines.Add(line);
             }
-
             lines = newlines;
             bool mf = false;
             List<string> mfl = new();
