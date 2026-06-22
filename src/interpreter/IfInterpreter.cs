@@ -350,7 +350,6 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                Globals.ExecutedLines.Add(line);
             }
             return (7, 7);
         }
