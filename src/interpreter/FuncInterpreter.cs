@@ -9,7 +9,7 @@ namespace dinolang.interpreter
 {
     public partial class Interpreter
     {
-        public static dynamic? ProcessFunc(Function func, List<dynamic> vals, string name)
+        public static dynamic? ProcessFunc(Function func, List<dynamic> vals, string name, string startline)
         {
             var lines = new List<string>(func.code);
             var p = func.parameters;
@@ -23,15 +23,20 @@ namespace dinolang.interpreter
             var Nvsk = new List<string>();
             for (int i = 0; i < p.Count; i++)
             {
+                string val = vals[i];
+                if (Globals.Vars.ContainsKey(p[i]))
                 {
-                    string val = vals[i];
-                    lines.Insert(0, $"{p[i]}={val};");
-                    if (Globals.Vars.ContainsKey(p[i]))
-                    {
-                        Nvs[p[i]] = Globals.Vars[p[i]];
-                        Nvsk.Add(p[i]);
-                    }
+                    Nvs[p[i]] = Globals.Vars[p[i]];
+                    Nvsk.Add(p[i]);
                 }
+                dinolang.interpreter.Globals.Vars[$"{p[i]}"] = new Variable
+                {
+                    value = GetValue(val, startline)
+                };
+                if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is string) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "string";
+                else if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
+                else if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
+                else if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
             }
             bool POL = false;
             List<string> loopLines = new();
@@ -399,7 +404,7 @@ namespace dinolang.interpreter
                                 }
                             }
                         }
-                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
+                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
                     }
                 }
                 else

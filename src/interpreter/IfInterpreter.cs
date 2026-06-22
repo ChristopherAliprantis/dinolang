@@ -342,7 +342,7 @@ namespace dinolang.interpreter
                                 }
                             }
                         }
-                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
+                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
                     }
                 }
                 else

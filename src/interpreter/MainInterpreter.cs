@@ -406,7 +406,7 @@ namespace dinolang.interpreter
                                 }
                             }
                         }
-                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
+                        ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
                     }
                 }
                 else
@@ -478,7 +478,7 @@ namespace dinolang.interpreter
                         }
                     }
                 }
-                return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})");
+                return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
             }
             if (val.StartsWith("ToNum(") && val.EndsWith(")"))
             {
