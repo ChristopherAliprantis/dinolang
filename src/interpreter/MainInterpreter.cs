@@ -153,6 +153,8 @@ namespace dinolang.interpreter
                     times = 0;
                     loopLines.Clear();
                 }
+                else if (POL == true) loopLines.Add(line);
+
                 else if (line.StartsWith("#if"))
                 {
                     cond = AfterChar(BeforeChar(line, ");"), "#if(");
@@ -173,12 +175,13 @@ namespace dinolang.interpreter
                     }
                     catch
                     {
-                        Console.WriteLine($"Invalid Condition {cond} {cond} {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-
+                    ProcessIf(IfLines, false, false);
                 }
-                else if (POL == true) loopLines.Add(line);
+                else if (IF) IfLines.Add(line);
+                
                 else if (line.StartsWith("wait(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(5, line.Length - 7);
@@ -194,7 +197,7 @@ namespace dinolang.interpreter
                     }
                     System.Threading.Thread.Sleep(TimeSpan.FromSeconds((double)delay));
                 }
-                else if (IF) IfLines.Add(line);
+                
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);
