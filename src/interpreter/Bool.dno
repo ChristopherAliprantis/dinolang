@@ -1,0 +1,5 @@
+#func !=(a, b);
+    bool = ==(a, b);
+    out = !(bool);
+    return(out);
+#endfunc;

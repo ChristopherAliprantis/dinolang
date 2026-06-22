@@ -903,33 +903,6 @@ namespace dinolang.interpreter
                     return (string?)dynamics[0] == (string?)dynamics[1];
                 }
             }
-            if (val.StartsWith("!=(") && val.EndsWith(")"))
-            {
-                string[] VALS = val.Substring(3, val.Length - 4).Split(',');
-                if (VALS.Length != 2)
-                {
-                    Console.WriteLine($"Need 2 parameters to compare, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                object?[] dynamics = new object?[2] { GetValue(VALS[0], line), GetValue(VALS[1], line) };
-                if (dynamics[0] != null && dynamics[1] != null && dynamics[0].GetType() != dynamics[1].GetType())
-                {
-                    Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                if (dynamics[0] is bool? || dynamics[1] is bool?)
-                {
-                    return (bool?)dynamics[0] != (bool?)dynamics[1];
-                }
-                else if (dynamics[0] is decimal? || dynamics[1] is decimal?)
-                {
-                    return (decimal?)dynamics[0] != (decimal?)dynamics[1];
-                }
-                else if (dynamics[0] is string or null || dynamics[1] is string or null)
-                {
-                    return (string?)dynamics[0] != (string?)dynamics[1];
-                }
-            }
             if (val.StartsWith("!(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(2, val.Length - 3);
