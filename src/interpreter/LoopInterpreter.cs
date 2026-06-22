@@ -277,7 +277,7 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
             }
-            else if (infunc && (line.StartsWith("return(") && line.EndsWith(");"))
+            else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
             {
                 string arg = BeforeChar(AfterChar(line, '('), ");");
                 var th = GetValue(arg, lines, i);
