@@ -884,7 +884,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 object?[] dynamics = new object?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
-                if (!((dynamics[0]?.GetType() == dynamics[1]?.GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
+                if (dynamics[0] != null && dynamics[1] != null && dynamics[0].GetType() != dynamics[1].GetType())
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
@@ -911,7 +911,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 object?[] dynamics = new object?[2] { GetValue(VALS[0], lines, index), GetValue(VALS[1], lines, index) };
-                if (!((dynamics[0]?.GetType() == dynamics[1]?.GetType()) || (dynamics[1] is null) || (dynamics[0] is null)))
+                if (dynamics[0] != null && dynamics[1] != null && dynamics[0].GetType() != dynamics[1].GetType())
                 {
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
