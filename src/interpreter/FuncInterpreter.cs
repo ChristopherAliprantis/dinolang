@@ -111,7 +111,7 @@ namespace dinolang.interpreter
                             if ((bool)GetValue(args, lines, i))
                             {
                                 (int, dynamic?) st = ProcessLoop(loopLines, true);
-                                if (st.Item2 == (System.ValueTuple<char, char>)('n', 'r'))
+                                if (st.Item2 is System.ValueTuple<char, char>)
                                 {
                                     
                                 }
