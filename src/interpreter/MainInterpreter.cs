@@ -178,7 +178,7 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    ProcessIf(IfLines, false, false);
+                    if (COND) ProcessIf(IfLines, false, false);
                 }
                 else if (IF) IfLines.Add(line);
                 
