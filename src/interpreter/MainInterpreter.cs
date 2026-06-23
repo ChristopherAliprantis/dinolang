@@ -882,7 +882,6 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("==(") && val.EndsWith(")"))
             {
-                Console.WriteLine($"==, line:{line}:,val:{val}:");
                 string[] VALS = val.Substring(3, val.Length - 4).Split(',');
                 if (VALS.Length != 2)
                 {
