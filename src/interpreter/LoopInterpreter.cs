@@ -61,6 +61,7 @@ public partial class Interpreter
                         break;
                     }
                 }
+                IfLines.Clear();
             }
             else if (IF) IfLines.Add(line);
             else if (line.StartsWith("print(") && line.EndsWith(");"))

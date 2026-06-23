@@ -179,6 +179,7 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     if (COND == true) ProcessIf(IfLines, false, false);
+                    IfLines.Clear();
                 }
                 else if (IF) IfLines.Add(line);
                 
@@ -881,6 +882,7 @@ namespace dinolang.interpreter
             }
             if (val.StartsWith("==(") && val.EndsWith(")"))
             {
+                Console.WriteLine($"==, line:{line}:,val:{val}:");
                 string[] VALS = val.Substring(3, val.Length - 4).Split(',');
                 if (VALS.Length != 2)
                 {
@@ -916,7 +918,6 @@ namespace dinolang.interpreter
                     {
                         ret = true;
                     }
-                    Console.WriteLine($"val1:{dynamics[0]}\nval2:{dynamics[1]}\nresult:{ret}");
                     return ret;
                 }
                 else if (dynamics[0] is decimal? && dynamics[1] is decimal?)

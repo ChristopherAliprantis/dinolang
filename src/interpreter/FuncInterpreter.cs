@@ -169,6 +169,7 @@ namespace dinolang.interpreter
                         RestoreDI(Nvsk, Nvs);
                         return thing;
                     }
+                    IfLines.Clear();
                 }
                 else if (IF) IfLines.Add(line);
                 else if (line.StartsWith("Exit(") && line.EndsWith(");"))
