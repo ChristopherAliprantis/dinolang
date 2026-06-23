@@ -893,15 +893,15 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Both parameters need to be the same type except if one of the types is null, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                if (dynamics[0] is bool? || dynamics[1] is bool?)
+                if (dynamics[0] is bool? && dynamics[1] is bool?)
                 {
                     return (bool?)dynamics[0] == (bool?)dynamics[1];
                 }
-                else if (dynamics[0] is decimal? || dynamics[1] is decimal?)
+                else if (dynamics[0] is decimal? && dynamics[1] is decimal?)
                 {
                     return (decimal?)dynamics[0] == (decimal?)dynamics[1];
                 }
-                else if (dynamics[0] is string or null || dynamics[1] is string or null)
+                else if (dynamics[0] is string or null && dynamics[1] is string or null)
                 {
                     return (string?)dynamics[0] == (string?)dynamics[1];
                 }
