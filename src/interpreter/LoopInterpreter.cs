@@ -37,7 +37,7 @@ public partial class Interpreter
                 {
                     COND = (bool)GetValue(cond, line);
                 }
-                catch (Exception E)
+                catch ()
                 {
                     Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
