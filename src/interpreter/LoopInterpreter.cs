@@ -43,7 +43,7 @@ public partial class Interpreter
                     Environment.Exit(1);
                 }
                 dynamic? thing = (7, 7);
-                if (COND) thing = ProcessIf(IfLines, infunc, true);
+                if (COND == true) thing = ProcessIf(IfLines, infunc, true);
                 if (thing is System.ValueTuple<int, int>)
                 {
 

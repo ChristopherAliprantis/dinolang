@@ -178,7 +178,7 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Condition {cond}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    if (COND) ProcessIf(IfLines, false, false);
+                    if (COND == true) ProcessIf(IfLines, false, false);
                 }
                 else if (IF) IfLines.Add(line);
                 
@@ -916,6 +916,7 @@ namespace dinolang.interpreter
                     {
                         ret = true;
                     }
+                    Console.WriteLine($"val1:{dynamics[0]}\nval2:{dynamics[1]}\nresult:{ret}");
                     return ret;
                 }
                 else if (dynamics[0] is decimal? && dynamics[1] is decimal?)
