@@ -15,6 +15,7 @@ namespace dinolang.interpreter
             List<string> loopLines = new();
             dynamic times = 0.0m;
             string args = "";
+
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
