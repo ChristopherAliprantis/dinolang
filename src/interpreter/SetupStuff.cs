@@ -9,6 +9,7 @@ namespace dinolang.interpreter
         public static Dictionary<string, Variable> Vars = new();
         public static Dictionary<string, Function> Funcs = new();
         public static List<string> ExecutedLines = new();
+        public static List<string> Code = new();
     }
 }
 
