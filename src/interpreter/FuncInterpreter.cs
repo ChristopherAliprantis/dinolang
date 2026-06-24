@@ -50,7 +50,7 @@ namespace dinolang.interpreter
             {
                 var line = lines[i];
                 Globals.ExecutedLines.Add(line);
-                if (i == lines.Count - 1 && !line.StartsWith("return"))
+                if (i == lines.Count - 1 && !line.StartsWith("return("))
                 {
                     Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
