@@ -8,6 +8,6 @@
 #endfunc;
 
 #func print(in)a;
-    printnnl(a);
+    printnnl(in);
     return();
 #endfunc;
