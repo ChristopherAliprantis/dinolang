@@ -1,6 +1,6 @@
 #func Derr(message, nnl)a;
-    #if (==(nnl, false));print(+(message, COMMA, : :, :Line :,Line(3))); #endif;
-    #if (==(nnl, true));printnnl(+(message, COMMA, : :, :Line :,Line(6))); #endif;
+    #if (==(nnl, false));print(+(message, COMMA, : :, :Line :,Line(6))); #endif;
+    #if (==(nnl, true));printnnl(+(message, COMMA, : :, :Line :,Line(9))); #endif;
     Exit(1);
     return();
 #endfunc;
