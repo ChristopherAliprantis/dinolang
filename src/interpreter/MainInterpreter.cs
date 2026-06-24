@@ -896,28 +896,7 @@ namespace dinolang.interpreter
                 }
                 if (dynamics[0] is bool? && dynamics[1] is bool?)
                 {
-                    bool ret = false;
-                    if (dynamics[0] == null && dynamics[1] == null)
-                    {
-                        ret = true;
-                    }
-                    else if ((dynamics[0] == null && dynamics[1] != null) || (dynamics[1] == null && dynamics[0] != null))
-                    {
-                        ret = false;
-                    }
-                    else if (((bool?)dynamics[0] == true && (bool?)dynamics[1] == false) || ((bool?)dynamics[1] == true && (bool?)dynamics[0] == false))
-                    {
-                        ret = false;
-                    }
-                    else if ((bool?)dynamics[0] == true && (bool?)dynamics[1] == true)
-                    {
-                        ret = true;
-                    }
-                    else if ((bool?)dynamics[0] == false && (bool?)dynamics[1] == false)
-                    {
-                        ret = true;
-                    }
-                    return ret;
+                    return (bool?)dynamics[0] == (bool?)dynamics[1];
                 }
                 else if (dynamics[0] is decimal? && dynamics[1] is decimal?)
                 {
