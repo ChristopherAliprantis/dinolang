@@ -64,15 +64,6 @@ public partial class Interpreter
                 IfLines.Clear();
             }
             else if (IF) IfLines.Add(line);
-            else if (line.StartsWith("print(") && line.EndsWith(");"))
-            {
-                string arg = line.Substring(0, line.Length - 2);
-                arg = AfterChar(arg, "print(");
-                dynamic result = GetValue(arg, line);
-                if (result is bool) result = result.ToString().ToUpper();
-                else result = result?.ToString() ?? "NULL";
-                Console.WriteLine(result);
-            }
             else if (line.StartsWith("clr(") && line.EndsWith(");"))
             {
                 Console.Clear();

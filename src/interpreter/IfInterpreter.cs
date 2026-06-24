@@ -111,15 +111,6 @@ namespace dinolang.interpreter
                     }
                 }
                 else if (POL == true) loopLines.Add(line);
-                else if (line.StartsWith("print(") && line.EndsWith(");"))
-                {
-                    string arg = line.Substring(0, line.Length - 2);
-                    arg = AfterChar(arg, "print(");
-                    dynamic result = GetValue(arg, line);
-                    if (result is bool) result = result.ToString().ToUpper();
-                    else result = result?.ToString() ?? "NULL";
-                    Console.WriteLine(result);
-                }
                 else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(12, line.Length - 13);

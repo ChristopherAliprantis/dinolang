@@ -6,3 +6,8 @@
     Exit(1);
     return();
 #endfunc;
+
+#func print(in)a;
+    printnnl(a);
+    return();
+#endfunc;
