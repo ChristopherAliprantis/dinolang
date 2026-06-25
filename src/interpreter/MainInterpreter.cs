@@ -37,10 +37,17 @@ namespace dinolang.interpreter
             List<string> IfLines = new();
             bool IF = false;
             bool c = false;
+            bool d = false;
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
                 Globals.ExecutedLines.Add(line);
+                if (line.StartsWith("L:"))
+                {
+                    lines[i] = AfterChar(lines[i], "L:");
+                    Globals.dline = lines[i];
+                    line = lines[i];
+                }
                 if (line.StartsWith("#func") && mf == false)
                 {
                     mf = true;
@@ -57,6 +64,26 @@ namespace dinolang.interpreter
                     {
                         Ps = Ps.Substring(1, Ps.Length - 3);
                         c = true;
+                        if (Ps != "") mfp = Ps.Split(',').ToList();
+                    }
+                    else if (Ps.StartsWith('(') && Ps.EndsWith(")d"))
+                    {
+                        Ps = Ps.Substring(1, Ps.Length - 3);
+                        d = true;
+                        if (Ps != "") mfp = Ps.Split(',').ToList();
+                    }
+                    else if (Ps.StartsWith('(') && Ps.EndsWith(")ad"))
+                    {
+                        Ps = Ps.Substring(1, Ps.Length - 4);
+                        c = true;
+                        d = true;
+                        if (Ps != "") mfp = Ps.Split(',').ToList();
+                    }
+                    else if (Ps.StartsWith('(') && Ps.EndsWith(")da"))
+                    {
+                        Ps = Ps.Substring(1, Ps.Length - 4);
+                        c = true;
+                        d = true;
                         if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
                     else
@@ -76,7 +103,8 @@ namespace dinolang.interpreter
                     {
                         parameters = new List<string>(mfp),
                         code = new List<string>(mfl),
-                        command = c
+                        command = c,
+                        addcalllineasdebugline = d
                     };
                     //Console.WriteLine($"Function {name} created");
                     mf = false;
@@ -432,6 +460,7 @@ namespace dinolang.interpreter
             if (val == "false") return false;
             if (val == "true") return true;
             if (val == "null") return null;
+            if (val == "DLine") return Globals.dline;
             string? value2;
             if (val.StartsWith(':') && val.EndsWith(':'))
             {

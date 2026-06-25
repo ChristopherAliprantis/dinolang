@@ -19,6 +19,12 @@ public partial class Interpreter
         {
             var line = lines[i];
             Globals.ExecutedLines.Add(line);
+            if (line.StartsWith("L:"))
+            {
+                lines[i] = AfterChar(lines[i], "L:");
+                Globals.dline = lines[i];
+                line = lines[i];
+            }
             if (line.StartsWith("#if"))
             {
                 cond = AfterChar(BeforeChar(line, ");"), "#if(");

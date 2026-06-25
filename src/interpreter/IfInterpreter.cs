@@ -20,6 +20,12 @@ namespace dinolang.interpreter
             {
                 var line = lines[i];
                 Globals.ExecutedLines.Add(line);
+                if (line.StartsWith("L:"))
+                {
+                    lines[i] = AfterChar(lines[i], "L:");
+                    Globals.dline = lines[i];
+                    line = lines[i];
+                }
                 if (line.StartsWith("#loop"))
                 {
                     if (AfterChar(line, "#loop") != ";")

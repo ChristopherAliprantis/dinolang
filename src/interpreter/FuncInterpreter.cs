@@ -18,7 +18,7 @@ namespace dinolang.interpreter
                 Console.WriteLine($"Function {name} expects {p.Count} argument(s) but got {vals.Count} argument(s) Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
-
+            Globals.dline = startline;
             var Nvs = new Dictionary<string, Variable>();
             var Nvsk = new List<string>();
             for (int i = 0; i < p.Count; i++)
@@ -50,6 +50,12 @@ namespace dinolang.interpreter
             {
                 var line = lines[i];
                 Globals.ExecutedLines.Add(line);
+                if (line.StartsWith("L:"))
+                {
+                    lines[i] = AfterChar(lines[i], "L:");
+                    Globals.dline = lines[i];
+                    line = lines[i];
+                }
                 if (i == lines.Count - 1 && !line.StartsWith("return("))
                 {
                     Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");

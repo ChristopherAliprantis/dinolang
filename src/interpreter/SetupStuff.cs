@@ -10,6 +10,7 @@ namespace dinolang.interpreter
         public static Dictionary<string, Function> Funcs = new();
         public static List<string> ExecutedLines = new();
         public static List<string> Code = new();
+        public static string dline = "";
     }
 }
 
@@ -24,4 +25,5 @@ public class Function
     public List<string>? parameters;
     public bool command = false;
     public List<string>? code;
+    public bool addcalllineasdebugline = false;
 }
