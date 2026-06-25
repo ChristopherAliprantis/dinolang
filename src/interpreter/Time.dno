@@ -1,21 +1,21 @@
-#func GetT(secs, mins, hrs);
+#func GetT(secs, mins, hrs)d;
     Ds = *(secs, 1000000);
-    #if (<(Ds, 0)); Derr(:Seconds cannot be negative:, 4, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(Ds, 0)); Derr(:Seconds cannot be negative:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     Dm = *(mins, 60000000);
-    #if (<(Dm, 0)); Derr(:Minutes cannot be negative:, 8, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(Dm, 0)); Derr(:Minutes cannot be negative:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     Dh = *(hrs,  3600000000);
     #if (<(Dh, 0)); Derr(:Hours cannot be negative:, 12, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     DinoTime = +(Ds, Dm, Dh);
     return(DinoTime);
 #endfunc;
 
-#func GetD(days, months, years);
+#func GetD(days, months, years)d;
     Dy = *(years,  31536000000000);
-    #if (<(Dy, 0)); Derr(:Years cannot be negative:, 4, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(Dy, 0)); Derr(:Years cannot be negative:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     Dm = *(months, 2678400000000);
-    #if (<(Dm, 0)); Derr(:Months cannot be negative:, 8, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(Dm, 0)); Derr(:Months cannot be negative:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     Dd = *(days,   86400000000);
-    #if (<(Dd, 0)); Derr(:Days cannot be negative:, 12, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(Dd, 0)); Derr(:Days cannot be negative:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     DinoDate = +(Dy, Dm, Dd);
     return(DinoDate);
 #endfunc;
@@ -27,8 +27,8 @@
     return(DinoDateTime);
 #endfunc;
 
-#func AddMinutes(minutes);
+#func AddMinutes(minutes)d;
     new = *(minutes, 60000000);
-    if (<(new, 0)); Derr(:The output is negative:, 4, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    if (<(new, 0)); Derr(:The output is negative:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     return(new);
 #endfunc;

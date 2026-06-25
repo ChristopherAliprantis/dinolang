@@ -28,7 +28,7 @@ COMMA = :,:;
     return(status);
 #endfunc;
 
-#func SubString(s, start, end);
+#func SubString(s, start, end)d;
     #if (<(end, start)); Derr(:Expected end to be greater or equal to start:, : Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     #if (>(end, Slen(s))); end = Slen(s); #endif; 
     count = -(end, start);
