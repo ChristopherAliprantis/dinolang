@@ -1,5 +1,5 @@
 #func Derr(message, after)a;
-    printnnl(+(message, COMMA, : :, :Line:, DLine));
+    printnnl(+(message, COMMA, : :, :Line :, DLine));
     after = +(: :, after);
     print(after);
     Exit(1);
