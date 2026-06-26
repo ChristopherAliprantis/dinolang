@@ -1082,7 +1082,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Need 2 parameters to get random integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                decimal[] ranges = new decimal[VALS.Length];
+                decimal[] ranges = new decimal[2];
                 int i = 0;
                 foreach (var v in VALS)
                 {
@@ -1102,6 +1102,11 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     i++;
+                }
+                if (ranges[0] > ranges[1])
+                {
+                    Console.WriteLine($"The second range has to be greater than the first range, line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
                 }
                 return (decimal)Random.Shared.Next((int)ranges[0], (int)ranges[1]);
             }

@@ -12,3 +12,6 @@
 #func neg(n);
     return(*(n, -1));
 #endfunc;
+
+#func RandFloat(start, end, decimaldigits)d;
+#endfunc;
