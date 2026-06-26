@@ -1,10 +1,10 @@
 #func GetT(secs, mins, hrs)d;
-    Ds = *(secs, 1000000);
     #if (<(secs, 0)); Derr(:Seconds cannot be negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
-    Dm = *(mins, 60000000);
     #if (<(mins, 0)); Derr(:Minutes cannot be negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
-    Dh = *(hrs,  3600000000);
     #if (<(hrs, 0)); Derr(:Hours cannot be negative:, 12, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    Ds = *(secs, 1000000);
+    Dm = *(mins, 60000000);
+    Dh = *(hrs,  3600000000);
     DinoTime = +(Ds, Dm, Dh);
     return(DinoTime);
 #endfunc;
