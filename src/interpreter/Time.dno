@@ -27,8 +27,9 @@
     return(DinoDateTime);
 #endfunc;
 
-#func AddMinutes(minutes)d;
+#func AddMinutes(value , minutes)d;
     if (<(new, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     new = *(minutes, 60000000);
+    new = +(value, new);
     return(new);
 #endfunc;
