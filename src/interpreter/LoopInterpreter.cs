@@ -18,7 +18,6 @@ public partial class Interpreter
         for (int i = 0; i < lines.Count; i++)
         {
             var line = lines[i];
-            Globals.ExecutedLines.Add(line);
             if (line.StartsWith("L:"))
             {
                 lines[i] = AfterChar(lines[i], "L:");
