@@ -10,12 +10,12 @@
 #endfunc;
 
 #func GetD(days, months, years)d;
-    Dy = *(years,  31536000000000);
     #if (<(Days, 0)); Derr(:Years cannot be negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
-    Dm = *(months, 2678400000000);
     #if (<(months, 0)); Derr(:Months cannot be negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
-    Dd = *(days,   86400000000);
     #if (<(years, 0)); Derr(:Days cannot be negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    Dy = *(years,  31536000000000);
+    Dm = *(months, 2678400000000);
+    Dd = *(days,   86400000000);
     DinoDate = +(Dy, Dm, Dd);
     return(DinoDate);
 #endfunc;
@@ -28,7 +28,7 @@
 #endfunc;
 
 #func AddMinutes(minutes)d;
-    new = *(minutes, 60000000);
     if (<(new, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    new = *(minutes, 60000000);
     return(new);
 #endfunc;
