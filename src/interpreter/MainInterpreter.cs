@@ -57,19 +57,22 @@ namespace dinolang.interpreter
                     if (Ps.StartsWith('(') && Ps.EndsWith(')'))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 2);
-
+                        c = false;
+                        d = false;
                         if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
                     else if (Ps.StartsWith('(') && Ps.EndsWith(")a"))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 3);
                         c = true;
+                        d = false;
                         if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
                     else if (Ps.StartsWith('(') && Ps.EndsWith(")d"))
                     {
                         Ps = Ps.Substring(1, Ps.Length - 3);
                         d = true;
+                        c = false;
                         if (Ps != "") mfp = Ps.Split(',').ToList();
                     }
                     else if (Ps.StartsWith('(') && Ps.EndsWith(")ad"))
@@ -112,6 +115,7 @@ namespace dinolang.interpreter
                     mfp.Clear();
                     name = "";
                     c = false;
+                    d = false;
                 }
                 else if (mf)
                 {
