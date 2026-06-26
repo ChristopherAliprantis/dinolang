@@ -11,4 +11,4 @@
 
 #func neg(n);
     return(*(n, -1));
-#endfunc;s
+#endfunc;
