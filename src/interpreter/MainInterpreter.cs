@@ -578,21 +578,6 @@ namespace dinolang.interpreter
                 if (result is bool) result = result.ToString().ToUpper();
                 return result?.ToString() ?? "NULL";
             }
-            if (val.StartsWith("Line(") && val.EndsWith(")"))
-            {
-                string arg = val.Substring(5, val.Length - 6);
-                int ar = 0;
-                try
-                {
-                    ar = (int)GetValue(arg, line);
-                }
-                catch
-                {
-                    Console.WriteLine($"Expected a num that is an integer, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                return Globals.ExecutedLines[(Globals.ExecutedLines.Count - 1) - ar];
-            }
             if (val == "ReadLine()")
             {
                 string IN = Console.ReadLine();
