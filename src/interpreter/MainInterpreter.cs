@@ -472,6 +472,8 @@ namespace dinolang.interpreter
             if (val == "false") return false;
             if (val == "true") return true;
             if (val == "null") return null;
+            if (val == "BLANK") return "";
+            if (val == "COMMA") return ",";
             if (val == "DLine") return Globals.dline;
             string? value2;
             if (val.StartsWith(':') && val.EndsWith(':'))

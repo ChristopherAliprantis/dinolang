@@ -1,7 +1,3 @@
-BLANK = ::;
-COMMA = :,:;
-
-
 #func StartsWith(s, thing);
     status = false;
     string = ::;
