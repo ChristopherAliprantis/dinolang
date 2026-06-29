@@ -3,5 +3,4 @@
     after = +(: :, after);
     print(after);
     Exit(1);
-    return();
 #endfunc;
