@@ -348,7 +348,6 @@ namespace dinolang.interpreter
                     try
                     {
                         code = Convert.ToInt32(GetValue(arg, line));
-
                     }
                     catch
                     {
