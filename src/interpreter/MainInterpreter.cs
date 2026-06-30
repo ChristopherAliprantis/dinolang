@@ -505,7 +505,7 @@ namespace dinolang.interpreter
                 }
                 string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
-                List<dynamic> argsS = new List<dynamic>(0);
+                List<dynamic> args = new List<dynamic>(0);
 
                 if (inside != "")
                 {
@@ -515,11 +515,11 @@ namespace dinolang.interpreter
 
                         foreach (var s in split)
                         {
-                            argsS.Add(s);
+                            args.Add(s);
                         }
                     }
                 }
-                ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
+                return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
             }
             if (val.StartsWith("ToNum(") && val.EndsWith(")"))
             {
