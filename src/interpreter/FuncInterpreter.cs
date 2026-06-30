@@ -383,6 +383,11 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
+                    if (func.command)
+                    {
+                        Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     string arg = BeforeChar(AfterChar(line, '('), ");");
                     var th = GetValue(arg, line);
                     RestoreDI(Nvsk, Nvs);
