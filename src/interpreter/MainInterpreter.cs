@@ -441,6 +441,11 @@ namespace dinolang.interpreter
                         }
                         ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
                     }
+                    else
+                    {
+                        Console.WriteLine($"Function {fname} not found Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                 }
                 else
                 {
@@ -500,7 +505,7 @@ namespace dinolang.interpreter
                 }
                 string inside = BeforeChar(AfterChar(val, $"{fname}("), ')');
 
-                List<dynamic> args = new List<dynamic>(0);
+                List<dynamic> argsS = new List<dynamic>(0);
 
                 if (inside != "")
                 {
@@ -510,11 +515,16 @@ namespace dinolang.interpreter
 
                         foreach (var s in split)
                         {
-                            args.Add(s);
+                            argsS.Add(s);
                         }
                     }
                 }
-                return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
+                ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
+            }
+            else
+            {
+                Console.WriteLine($"Function {fname} not found Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                Environment.Exit(1);
             }
             if (val.StartsWith("ToNum(") && val.EndsWith(")"))
             {

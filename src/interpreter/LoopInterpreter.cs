@@ -315,6 +315,11 @@ public partial class Interpreter
                     }
                     ProcessFunc(Globals.Funcs[fname], argsS, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
                 }
+                else
+                {
+                    Console.WriteLine($"Function {fname} not found Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
             }
             else
             {
