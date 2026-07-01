@@ -3,7 +3,7 @@
     Dm = *(mins, 60000000);
     Dh = *(hrs,  3600000000);
     DinoTime = +(Ds, Dm, Dh);
-    #if (<(DinoTime, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(DinoTime, 0));Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
     return(DinoTime);
 #endfunc;
 
