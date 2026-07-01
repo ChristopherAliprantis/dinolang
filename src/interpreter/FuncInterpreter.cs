@@ -60,7 +60,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                else if (line.StartsWith("#loop"))
+                if (line.StartsWith("#loop"))
                 {
                     if (AfterChar(line, "#loop") != ";")
                     {
