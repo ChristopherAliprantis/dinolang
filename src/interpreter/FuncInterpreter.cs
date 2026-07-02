@@ -178,7 +178,6 @@ namespace dinolang.interpreter
                     }
                     dynamic? thing = (7, 7);
                     if (COND == true) thing = ProcessIf(IfLines, true, false);
-
                     if (thing is System.ValueTuple<int, int>)
                     {
 

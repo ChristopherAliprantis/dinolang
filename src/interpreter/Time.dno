@@ -3,7 +3,7 @@
     Dm = *(mins, 60000000);
     Dh = *(hrs,  3600000000);
     DinoTime = +(Ds, Dm, Dh);
-    #if (<(DinoTime, 0));Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(DinoTime, 0));Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     return(DinoTime);
 #endfunc;
 
@@ -12,7 +12,7 @@
     Dm = *(months, 2678400000000);
     Dd = *(days,   86400000000);
     DinoDate = +(Dy, Dm, Dd);
-    #if (<(DinoDate, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);endif;
+    #if (<(DinoDate, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     return(DinoDate);
 #endfunc;
 
@@ -26,6 +26,6 @@
 #func AddMinutes(value, minutes)d;
     new = *(minutes, 60000000);
     new = +(value, new);
-    #if (<(new, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:); endif;
+    #if (<(new, 0)); Derr(:The output is negative:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     return(new);
 #endfunc;
