@@ -60,7 +60,20 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                if (line.StartsWith("#loop"))
+                if (line.StartsWith("return(") && line.EndsWith(");"))
+                {
+                    if (func.command)
+                    {
+                        Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    var th = GetValue(arg, line);
+                    RestoreDI(Nvsk, Nvs);
+
+                    return th;
+                }
+                else if (line.StartsWith("#loop"))
                 {
                     if (AfterChar(line, "#loop") != ";")
                     {
@@ -380,19 +393,6 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
-                }
-                else if (line.StartsWith("return(") && line.EndsWith(");"))
-                {
-                    if (func.command)
-                    {
-                        Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                        Environment.Exit(1);
-                    }
-                    string arg = BeforeChar(AfterChar(line, '('), ");");
-                    var th = GetValue(arg, line);
-                    RestoreDI(Nvsk, Nvs);
-
-                    return th;
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
