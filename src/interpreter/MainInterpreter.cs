@@ -686,6 +686,7 @@ namespace dinolang.interpreter
 
                 return $"{d}d {h:00}h {m:00}m {s:00}s {ms:000}ms {us:000}µs";
             }
+
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
