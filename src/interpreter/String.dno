@@ -25,9 +25,10 @@
 #endfunc;
 
 #func SubString(s, start, end)d;
+    len = Slen(s);
     #if (<(start, 0)); Derr(:Expected start to be a non-negative integer:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     #if (<=(end, start)); Derr(:Expected end to be greater or equal than start:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
-    #if (>(end, Slen(s))); Derr(:Expected end to be less or equal to the length of the string:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
+    #if (>(end, len)); Derr(:Expected end to be less or equal to the length of the string:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     count = -(end, start);
     result = ::;
     i = start;
