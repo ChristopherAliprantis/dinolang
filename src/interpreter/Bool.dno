@@ -3,25 +3,3 @@
     out = !(bool);
     return(out);
 #endfunc;
-
-#func >=(a, b);
-    b1 = !(==(GetType(a), :num:));
-    b2 = !(==(GetType(b), :num:));
-    #if (or(b1, b2));
-        Derr(:Cannot compare a non-numeric value:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
-    #endif;
-    a1 = >(a, b);
-    a2 = ==(a, b);
-    return(or(a1, a2));
-#endfunc;
-
-#func <=(a, b);
-    b1 = !(==(GetType(a), :num:));
-    b2 = !(==(GetType(b), :num:));
-    #if (or(b1, b2));
-        Derr(:Cannot compare a non-numeric value:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
-    #endif;
-    a1 = <(a, b);
-    a2 = ==(a, b);
-    return(or(a1, a2));
-#endfunc;
