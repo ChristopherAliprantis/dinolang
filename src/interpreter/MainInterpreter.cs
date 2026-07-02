@@ -700,7 +700,7 @@ namespace dinolang.interpreter
                     var Var = GetValue(VALS[i], line);
                     if (Var is not decimal)
                     {
-                        Console.WriteLine($"Cannot compare non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot compare a non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     else
