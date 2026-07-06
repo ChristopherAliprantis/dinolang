@@ -699,7 +699,7 @@ namespace dinolang.interpreter
                 for (int i = 0; i < 2; i++)
                 {
                     var Var = GetValue(VALS[i], line);
-                    if (Var is not decimal || !(Var is decimal?))
+                    if (Var is not decimal || !(Var is decimal))
                     {
                         Console.WriteLine($"Cannot compare a non-numeric value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
