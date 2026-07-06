@@ -804,7 +804,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                return Str.Length;
+                return ((decimal)Str.Length);
             }
             if (val.StartsWith("LowerStr(") && val.EndsWith(')'))
             {
