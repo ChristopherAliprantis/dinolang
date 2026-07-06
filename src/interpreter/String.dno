@@ -26,11 +26,9 @@
 
 #func SubString(s, start, end)d;
     len = Slen(s);
-    print(GetType(end));
-    print(GetType(start));
     #if (<(start, 0)); Derr(:Expected parameter 2 to be a non-negative integer:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     #if (<(end, start)); Derr(:Expected parameter 3 to be greater or equal to parameter 2:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
-    #if (>(end, len)); end = -(len, 1);#endif;
+    #if (>(end, len)); end = len;#endif;
     count = -(end, start);
     result = ::;
     i = start;
