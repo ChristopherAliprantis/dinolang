@@ -230,8 +230,9 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(12, line.Length - 13);
+                    string arg = line.Substring(12, line.Length - 14);
                     string[] ARGS = arg.Split(',');
+
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -249,7 +250,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(11, line.Length - 12);
+                    string arg = line.Substring(11, line.Length - 13);
                     string[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
@@ -266,15 +267,15 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
-                        string fullpath = Path.Combine(val[0], val[1]);
+                        string fullpath = Path.Combine(vals[0], vals[1]);
                         File.WriteAllText(fullpath, "");
                     }
                     else
                     {
-                        Console.WriteLine($"Directory {val[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Directory {vals[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -297,15 +298,15 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] val = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
                     if (Directory.Exists(vals[0]))
                     {
-                        string fullpath = Path.Combine(val[0], val[1]);
+                        string fullpath = Path.Combine(vals[0], vals[1]);
                         Directory.CreateDirectory(fullpath);
                     }
                     else
                     {
-                        Console.WriteLine($"Directory {val[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Directory {vals[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }

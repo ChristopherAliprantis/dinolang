@@ -91,8 +91,9 @@ public partial class Interpreter
             }
             else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
             {
-                string arg = line.Substring(12, line.Length - 13);
+                string arg = line.Substring(12, line.Length - 14);
                 string[] ARGS = arg.Split(',');
+
                 if (ARGS.Length != 2)
                 {
                     Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -108,18 +109,9 @@ public partial class Interpreter
                     Environment.Exit(1);
                 }
             }
-            else if (line.StartsWith("print(") && line.EndsWith(");"))
-            {
-                string arg = line.Substring(0, line.Length - 2);
-                arg = AfterChar(arg, "print(");
-                dynamic result = GetValue(arg, line);
-                if (result is bool) result = result.ToString().ToUpper();
-                else result = result?.ToString() ?? "NULL";
-                Console.WriteLine(result);
-            }
             else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
             {
-                string arg = line.Substring(11, line.Length - 12);
+                string arg = line.Substring(11, line.Length - 13);
                 string[] ARGS = arg.Split(',');
                 if (ARGS.Length != 2)
                 {
@@ -204,6 +196,15 @@ public partial class Interpreter
                     Console.WriteLine($"Item not found: {arg}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
+            }
+            else if (line.StartsWith("print(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(0, line.Length - 2);
+                arg = AfterChar(arg, "print(");
+                dynamic result = GetValue(arg, line);
+                if (result is bool) result = result.ToString().ToUpper();
+                else result = result?.ToString() ?? "NULL";
+                Console.WriteLine(result);
             }
             else if (line.StartsWith("wait(") && line.EndsWith(");"))
             {
