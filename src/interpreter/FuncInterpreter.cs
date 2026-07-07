@@ -267,15 +267,15 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
-                    if (Directory.Exists(vals[0]))
+                    string[] valS = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    if (Directory.Exists(valS[0]))
                     {
-                        string fullpath = Path.Combine(vals[0], vals[1]);
+                        string fullpath = Path.Combine(valS[0], valS[1]);
                         File.WriteAllText(fullpath, "");
                     }
                     else
                     {
-                        Console.WriteLine($"Directory {vals[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Directory {valS[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
@@ -298,15 +298,15 @@ namespace dinolang.interpreter
                             Environment.Exit(1);
                         }
                     }
-                    string[] vals = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
-                    if (Directory.Exists(vals[0]))
+                    string[] valS = System.Linq.Enumerable.Cast<string>(VALS).ToArray();
+                    if (Directory.Exists(valS[0]))
                     {
-                        string fullpath = Path.Combine(vals[0], vals[1]);
+                        string fullpath = Path.Combine(valS[0], valS[1]);
                         Directory.CreateDirectory(fullpath);
                     }
                     else
                     {
-                        Console.WriteLine($"Directory {vals[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Directory {valS[0]} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                 }
