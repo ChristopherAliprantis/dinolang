@@ -231,7 +231,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("WriteToFile(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(12, line.Length - 13);
+                    string arg = line.Substring(12, line.Length - 14);
                     string[] ARGS = arg.Split(',');
 
                     if (ARGS.Length != 2)
@@ -251,7 +251,7 @@ namespace dinolang.interpreter
                 }
                 else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
                 {
-                    string arg = line.Substring(11, line.Length - 12);
+                    string arg = line.Substring(11, line.Length - 13);
                     string[] ARGS = arg.Split(',');
                     if (ARGS.Length != 2)
                     {
