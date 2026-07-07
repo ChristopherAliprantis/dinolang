@@ -232,11 +232,24 @@ namespace dinolang.interpreter
                 {
                     string arg = line.Substring(12, line.Length - 14);
                     string[] ARGS = arg.Split(',');
-
+                    int h = 0;
                     if (ARGS.Length != 2)
                     {
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
+                    }
+                    foreach (string a in ARGS)
+                    {
+                        try
+                        {
+                            ARGS[h] = GetValue(a, line);
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Expected string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                        h++;
                     }
                     if (File.Exists(ARGS[0]))
                     {
