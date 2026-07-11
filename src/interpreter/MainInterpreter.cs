@@ -676,30 +676,28 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Expected a positive num Line {line}");
                     Environment.Exit(1);
                 }
-                const decimal usPerDay = 86_400_000_000m;
-                const decimal usPerHour = 3_600_000_000m;
-                const decimal usPerMinute = 60_000_000m;
-                const decimal usPerSecond = 1_000_000m;
-                const decimal usPerMillisecond = 1_000m;
-
-                decimal d = Math.Floor(t / usPerDay);
-                t %= usPerDay;
-
-                decimal h = Math.Floor(t / usPerHour);
-                t %= usPerHour;
-
-                decimal m = Math.Floor(t / usPerMinute);
-                t %= usPerMinute;
-
-                decimal s = Math.Floor(t / usPerSecond);
-                t %= usPerSecond;
-
-                decimal ms = Math.Floor(t / usPerMillisecond);
-                decimal us = t % usPerMillisecond;
-
-                return $"{d}d {h:00}h {m:00}m {s:00}s {ms:000}ms {us:000}µs";
+                return (new DateTime((long)t).ToString("HH:mm:ss"));
             }
-
+            if (val.StartsWith("DateToString(") && val.EndsWith(')'))
+            {
+                string arg = val.Substring(13, val.Length - 14);
+                decimal t = 0.0m;
+                try
+                {
+                    t = GetValue(arg, line);
+                    if (t < 0)
+                    {
+                        Console.WriteLine($"Expected a positive num Line {line}");
+                        Environment.Exit(1);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a positive num Line {line}");
+                    Environment.Exit(1);
+                }
+                return (new DateTime((long)t).ToString("d"));
+            }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
                 string[] VALS = val.Substring(2, val.Length - 3).Split(',');
