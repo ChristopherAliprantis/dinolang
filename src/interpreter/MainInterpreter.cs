@@ -676,7 +676,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Expected a positive num Line {line}");
                     Environment.Exit(1);
                 }
-                return (new DateTime((long)t).ToString("HH:mm:ss"));
+                return new DateTime((long)t * 10).ToString("HH:mm:ss");
             }
             if (val.StartsWith("DateToString(") && val.EndsWith(')'))
             {
@@ -696,7 +696,7 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Expected a positive num Line {line}");
                     Environment.Exit(1);
                 }
-                return (new DateTime((long)t).ToString("d"));
+                return new DateTime((long)t).ToString("d");
             }
             if (val.StartsWith(">(") && val.EndsWith(")"))
             {
