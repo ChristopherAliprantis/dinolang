@@ -13,6 +13,7 @@ namespace dinolang.interpreter
         {
             var lines = new List<string>(func.code);
             var p = func.parameters;
+            List<Variable> FVs = new();
             if (vals.Count != p.Count)
             {
                 Console.WriteLine($"Function {name} expects {p.Count} argument(s) but got {vals.Count} argument(s) Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -28,15 +29,28 @@ namespace dinolang.interpreter
                 {
                     Nvs[p[i]] = Globals.Vars[p[i]];
                     Nvsk.Add(p[i]);
+                    dinolang.interpreter.Globals.Vars[p[i]] = new Variable
+                    {
+                        value = GetValue(val, startline)
+                    };
+                    if (dinolang.interpreter.Globals.Vars[p[i]].value is string) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "string";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
                 }
-                dinolang.interpreter.Globals.Vars[$"{p[i]}"] = new Variable
+                else
                 {
-                    value = GetValue(val, startline)
-                };
-                if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is string) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "string";
-                else if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
-                else if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
-                else if (dinolang.interpreter.Globals.Vars[$"{p[i]}"].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
+                    
+                    dinolang.interpreter.Globals.Vars[p[i]] = new Variable
+                    {
+                        value = GetValue(val, startline)
+                    };
+                    if (dinolang.interpreter.Globals.Vars[p[i]].value is string) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "string";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
+                    FVs.Add(dinolang.interpreter.Globals.Vars[p[i]]);
+                } 
             }
             bool POL = false;
             List<string> loopLines = new();
@@ -400,12 +414,14 @@ namespace dinolang.interpreter
                     var a = BeforeChar(AfterChar(line, $"{b}="), ';');
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, line)
+                        value = GetValue(a, line),
+                        name = b
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
+                    FVs.Add(dinolang.interpreter.Globals.Vars[b]);
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -442,6 +458,11 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
+                foreach (var v in FVs)
+                {
+                    Globals.Vars.Remove(v.name);
+                }
+                FVs.Clear();
             }
 
 

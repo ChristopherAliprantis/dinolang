@@ -291,6 +291,7 @@ public partial class Interpreter
                 dinolang.interpreter.Globals.Vars[b] = new Variable
                 {
                     value = GetValue(a, line),
+                    name = b
                 };
                 if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                 else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";

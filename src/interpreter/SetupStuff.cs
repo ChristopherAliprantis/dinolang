@@ -17,6 +17,7 @@ public class Variable
 {
     public dynamic? value;
     public string? type;
+    public string? name;
 }
 
 public class Function
