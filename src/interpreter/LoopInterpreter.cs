@@ -14,6 +14,7 @@ public partial class Interpreter
         List<string> loopLines = new();
         string cond = "";
         List<string> IfLines = new();
+        List<Variable> LVs = new();
         bool IF = false;
         for (int i = 0; i < lines.Count; i++)
         {
@@ -297,6 +298,7 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                 else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
+                if (!dinolang.interpreter.Globals.Vars.ContainsKey(b)) LVs.Add(dinolang.interpreter.Globals.Vars[b]);
             }
             else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
             {
@@ -341,8 +343,11 @@ public partial class Interpreter
                 Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
-            
-        }
+            foreach (Variable v in LVs)
+            {
+                dinolang.interpreter.Globals.Vars.Remove(v.name);
+            }
+            LVs.Clear();
         return new System.ValueTuple<int, dynamic?>
         {
             Item1 = firstthing,
