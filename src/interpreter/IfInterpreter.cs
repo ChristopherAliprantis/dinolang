@@ -13,6 +13,7 @@ namespace dinolang.interpreter
         {
             bool POL = false;
             List<string> loopLines = new();
+            List<Variable> IVs = new List<Variable>();
             dynamic times = 0.0m;
             string args = "";
 
@@ -333,6 +334,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
+                    IVs.Add(dinolang.interpreter.Globals.Vars[b]);
                 }
                 else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
                 {
@@ -375,6 +377,11 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
+                foreach (Variable v in IVs)
+                {
+                    dinolang.interpreter.Globals.Vars.Remove(v.name);
+                }
+                IVs.Clear();
             }
             return (7, 7);
         }
