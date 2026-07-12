@@ -9,21 +9,21 @@ namespace dinolang.interpreter
         public static Dictionary<string, Variable> Vars = new();
         public static Dictionary<string, Function> Funcs = new();
         public static List<string> Code = new();
-        public static string dline = "PLACEHOLDER LINE";
+        public static string dline = "PLACEHOLDER";
     }
 }
 
 public class Variable
 {
-    public dynamic? value;
-    public string? type;
-    public string? name;
+    public dynamic? value = null;
+    public string? type = "";
+    public string? name = "";
 }
 
 public class Function
 {
-    public List<string>? parameters;
+    public List<string>? parameters = new();
     public bool command = false;
-    public List<string>? code;
+    public List<string>? code = new();
     public bool addcalllineasdebugline = false;
 }

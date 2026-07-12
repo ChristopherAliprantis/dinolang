@@ -460,7 +460,14 @@ namespace dinolang.interpreter
                 }
                 foreach (var v in FVs)
                 {
-                    Globals.Vars.Remove(v.name);
+                    if (v.name != null)
+                    {
+                        Globals.Vars.Remove(v.name);
+                    }
+                    else
+                    {
+                        
+                    }
                 }
                 FVs.Clear();
             }
