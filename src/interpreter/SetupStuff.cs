@@ -23,7 +23,7 @@ public class Variable
 public class Function
 {
     public List<string>? parameters = new();
-    public bool command = false;
+    public bool command { get; }
     public List<string>? code = new();
-    public bool addcalllineasdebugline = false;
+    public bool addcalllineasdebugline { get; }
 }
