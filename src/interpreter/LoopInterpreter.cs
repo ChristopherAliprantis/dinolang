@@ -348,11 +348,12 @@ public partial class Interpreter
                 dinolang.interpreter.Globals.Vars.Remove(v.name);
             }
             LVs.Clear();
+        }
         return new System.ValueTuple<int, dynamic?>
         {
             Item1 = firstthing,
             Item2 = secondthing
         };
-    }
 
+    }
 }
