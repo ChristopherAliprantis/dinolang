@@ -421,7 +421,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
-                    if (!dinolang.interpreter.Globals.Vars.ContainsKey(b))  FVs.Add(dinolang.interpreter.Globals.Vars[b]);
+                    if ((!dinolang.interpreter.Globals.Vars.ContainsKey(b)) && (b != null))  FVs.Add(dinolang.interpreter.Globals.Vars[b]);
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -460,14 +460,7 @@ namespace dinolang.interpreter
                 }
                 foreach (var v in FVs)
                 {
-                    if (v.name != null)
-                    {
-                        Globals.Vars.Remove(v.name);
-                    }
-                    else
-                    {
-                        
-                    }
+                    Globals.Vars.Remove(v.name);
                 }
                 FVs.Clear();
             }
