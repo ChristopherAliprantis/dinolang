@@ -76,7 +76,7 @@ namespace dinolang.interpreter
                 }
                 if (line.StartsWith("return(") && line.EndsWith(");"))
                 {
-                    if (func.command)
+                    if (func.command ==true)
                     {
                         Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
