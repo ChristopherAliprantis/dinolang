@@ -343,12 +343,12 @@ public partial class Interpreter
                 Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                 Environment.Exit(1);
             }
-            foreach (Variable v in LVs)
-            {
-                dinolang.interpreter.Globals.Vars.Remove(v.name);
-            }
-            LVs.Clear();
         }
+        foreach (Variable v in LVs)
+        {
+            dinolang.interpreter.Globals.Vars.Remove(v.name);
+        }
+        LVs.Clear();
         return new System.ValueTuple<int, dynamic?>
         {
             Item1 = firstthing,

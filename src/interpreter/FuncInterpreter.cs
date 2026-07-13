@@ -458,13 +458,12 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Invalid Code, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                foreach (var v in FVs)
-                {
-                    Globals.Vars.Remove(v.name);
-                }
-                FVs.Clear();
             }
-
+            foreach (var v in FVs)
+            {
+                Globals.Vars.Remove(v.name);
+            }
+            FVs.Clear();
 
             return null;
         }
