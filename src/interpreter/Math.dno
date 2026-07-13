@@ -2,7 +2,11 @@
 #func isneg(n); #if (>(0, n)); return(true); #endif; return(false); #endfunc;
 #func isneut(n); #if (==(n, 0)); return(true); #endif; return(false); #endfunc;
 
-#func abs(n);
+#func abs(n)d;
+    nt = GetType(n);
+    #if (=!(nt, :num:));
+        Derr(:Expected num:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
+    #endif;
     #if (>(n, -1));
         return(n);
     #endif;
