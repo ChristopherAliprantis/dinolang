@@ -13,7 +13,7 @@
     return(*(n, -1));
 #endfunc;
 
-#func >=(a, b);
+#func >=(a, b)d;
     b1 = !(==(GetType(a), :num:));
     b2 = !(==(GetType(b), :num:));
     #if (or(b1, b2));
@@ -24,7 +24,7 @@
     return(or(a1, a2));
 #endfunc;
 
-#func <=(a, b);
+#func <=(a, b)d;
     b1 = !(==(GetType(a), :num:));
     b2 = !(==(GetType(b), :num:));
     #if (or(b1, b2));
@@ -35,7 +35,7 @@
     return(or(a1, a2));
 #endfunc;
 
-#func <(a, b);
+#func <(a, b)d;
     a0 = ==(a, 0);
     b0 = ==(b, 0);
     #if (and(a0, b0));
