@@ -10,7 +10,8 @@
     #if (>=(n, 0));
         return(n);
     #endif;
-    return(*(n, -1));
+    new = *(n, -1);
+    return(new);
 #endfunc;
 
 #func >=(a, b)d;
