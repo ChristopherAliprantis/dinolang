@@ -622,6 +622,25 @@ namespace dinolang.interpreter
                 else if (CHAR  == "\n") CHAR = Environment.NewLine;
                 return CHAR;
             }
+            if (val.StartsWith("ReadKeyAscii(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(13, val.Length - 14);
+                bool ARG = false;
+                try
+                {
+                    ARG = (bool)GetValue(arg, line);
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a bool Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                ConsoleKeyInfo IN = new();
+                if (ARG == true) IN = Console.ReadKey(true);
+                else IN = Console.ReadKey(false);
+                decimal CHAR = IN.KeyChar;
+                return CHAR;
+            }
             if (val.StartsWith("FD(") && val.EndsWith(")"))
             {
                 string args = val.Substring(3, val.Length - 4);
