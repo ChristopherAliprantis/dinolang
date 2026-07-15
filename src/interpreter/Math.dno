@@ -7,7 +7,7 @@
     #if (!=(nt, :num:));
         Derr(:Expected num:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
     #endif;
-    #if (>=(n, 0));
+    #if (or(ispos(n), isneut(n)));
         return(n);
     #endif;
     return(*(n, -1));
