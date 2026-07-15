@@ -3,14 +3,11 @@
 #func isneut(n)d; nt = GetType(n); #if (!=(nt, :num:)); Derr(:Expected num:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:); #endif;#if (==(n, 0)); return(true); #endif; return(false); #endfunc;
 
 #func abs(n)d;
-    nt = GetType(n);
-    #if (!=(nt, :num:));
-        Derr(:Expected num:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
+    nt = GetType(n); #if (!=(nt, :num:)); Derr(:Expected num:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:); #endif;
+    #if (<(n, 0));
+	return
     #endif;
-    #if (or(ispos(n), isneut(n)));
-        return(n);
-    #endif;
-    return(*(n, -1));
+    return(n);
 #endfunc;
 
 #func >=(a, b)d;
