@@ -638,7 +638,11 @@ namespace dinolang.interpreter
                 ConsoleKeyInfo IN = new();
                 if (ARG == true) IN = Console.ReadKey(true);
                 else IN = Console.ReadKey(false);
-                decimal CHAR = IN.KeyChar;
+                decimal CHAR = (decimal)IN.KeyChar;
+                if (IN.KeyChar == '\0')
+                {
+                    CHAR = (decimal)IN.Key;
+                }
                 return CHAR;
             }
             if (val.StartsWith("FD(") && val.EndsWith(")"))
