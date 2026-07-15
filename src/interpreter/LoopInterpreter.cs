@@ -274,6 +274,52 @@ public partial class Interpreter
                 else result = result?.ToString() ?? "NULL";
                 Console.Write(result);
             }
+            else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(0, line.Length - 2);
+                arg = AfterChar(arg, "printnnlC(");
+                string[] argSS = arg.Split(',');
+                dynamic result = GetValue(argSS[0], line);
+                byte[] color = new byte[3];
+                for (int I = 1; I < argSS.Length; I++)
+                {
+                    try
+                    {
+                        color[I - 1] = Convert.ToByte(GetValue(argSS[I], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                if (result is bool) result = result.ToString().ToUpper();
+                else result = result?.ToString() ?? "NULL";
+                Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+            }
+            else if (line.StartsWith("printC(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(0, line.Length - 2);
+                arg = AfterChar(arg, "printC(");
+                string[] argSS = arg.Split(',');
+                dynamic result = GetValue(argSS[0], line);
+                byte[] color = new byte[3];
+                for (int I = 1; I < argSS.Length; I++)
+                {
+                    try
+                    {
+                        color[I - 1] = Convert.ToByte(GetValue(argSS[I], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                if (result is bool) result = result.ToString().ToUpper();
+                else result = result?.ToString() ?? "NULL";
+                Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+            }
             else if (line == "continue;")
             {
                 firstthing = 1;
