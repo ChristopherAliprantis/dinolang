@@ -390,11 +390,16 @@ namespace dinolang.interpreter
                         }
                         catch
                         {
-                            Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255 or just -1, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                             Environment.Exit(1);
                         }
                     }
                     if (color is [-1, -1, -1]) Globals.TEXTbackgroundcolor = null;
+                    else if (Array.Exists(color, x => x < 0))
+                    {
+                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255 or just -1, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     else Globals.TEXTbackgroundcolor = (byte[])(Array)color;
                 }
                 else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
