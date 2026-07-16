@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows.Markup;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Markup;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace dinolang.interpreter
 {
     public partial class Interpreter
@@ -406,7 +407,10 @@ namespace dinolang.interpreter
                     dynamic result = GetValue(arg, line);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
-                    Console.Write(result);
+                    if (Globals.TEXTbackgroundcolor != null) Console.Write(result);
+                    if (Globals.TEXTbackgroundcolor == null) Console.Write($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+
+
                 }
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
@@ -415,7 +419,8 @@ namespace dinolang.interpreter
                     dynamic result = GetValue(arg, line);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
-                    Console.WriteLine(result);
+                    if (Globals.TEXTbackgroundcolor != null) Console.WriteLine(result);
+                    if (Globals.TEXTbackgroundcolor == null) Console.WriteLine($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
                 }
                 else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
                 {
@@ -438,7 +443,9 @@ namespace dinolang.interpreter
                     }
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
-                    Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+                    if (Globals.TEXTbackgroundcolor == null)  Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+                    else Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]};48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+
                 }
                 else if (line.StartsWith("printC(") && line.EndsWith(");"))
                 {
@@ -461,7 +468,35 @@ namespace dinolang.interpreter
                     }
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
-                    Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+                    if (Globals.TEXTbackgroundcolor == null)  Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+                    else Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]};48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+                }
+                else if (line.StartsWith("setBGColor(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(0, line.Length - 2);
+                    arg = AfterChar(arg, "setBGColor(");
+                    string[] argSS = arg.Split(',');
+                    if (argSS.Length != 3)
+                    {
+                        Console.WriteLine($"Expected 3 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    sbyte[] color = new sbyte[3];
+
+                    for (int I = 0; I < argSS.Length; I++)
+                    {
+                        try
+                        {
+                            color[I] = Convert.ToSByte(GetValue(argSS[I], line));
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                    }
+                    if (color is [-1, -1, -1]) Globals.TEXTbackgroundcolor = null;
+                    else Globals.TEXTbackgroundcolor = (byte[])(Array)color;
                 }
                 else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
                 {
