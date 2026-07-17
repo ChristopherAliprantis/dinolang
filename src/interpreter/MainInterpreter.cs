@@ -407,8 +407,8 @@ namespace dinolang.interpreter
                     dynamic result = GetValue(arg, line);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
-                    if (Globals.TEXTbackgroundcolor != null) Console.Write(result);
-                    if (Globals.TEXTbackgroundcolor == null) Console.Write($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+                    if (Globals.TEXTbackgroundcolor == null) Console.Write(result);
+                    if (Globals.TEXTbackgroundcolor != null) Console.Write($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
 
 
                 }
@@ -419,8 +419,8 @@ namespace dinolang.interpreter
                     dynamic result = GetValue(arg, line);
                     if (result is bool) result = result.ToString().ToUpper();
                     else result = result?.ToString() ?? "NULL";
-                    if (Globals.TEXTbackgroundcolor != null) Console.WriteLine(result);
-                    if (Globals.TEXTbackgroundcolor == null) Console.WriteLine($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+                    if (Globals.TEXTbackgroundcolor == null) Console.WriteLine(result);
+                    if (Globals.TEXTbackgroundcolor != null) Console.WriteLine($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
                 }
                 else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
                 {
