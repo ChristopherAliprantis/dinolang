@@ -544,11 +544,11 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
-            /* foreach (var v in FVs)
+            foreach (var v in FVs)
             {
                 Globals.Vars.Remove(v.name);
             }
-            FVs.Clear(); */
+            FVs.Clear(); 
 
             return null;
         }
