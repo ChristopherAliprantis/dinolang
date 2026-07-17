@@ -37,7 +37,20 @@ public partial class GetCode
                     + System.IO.File.ReadAllText(IfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(OfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(TfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "");
-
+        if (args.Length == 1)
+        {
+            Console.WriteLine("Dino 1.5 Interactive Environment"+ Environment.NewLine);
+            while (true)
+            {
+                Console.Write(">> ");
+                string input = Console.ReadLine();
+                if (input == "exit") Environment.Exit(0);
+                code += input;
+                dinolang.interpreter.Globals.Code = ToReadableLines(code);
+                interpreter.Interpreter.Interpret(interpreter.Globals.Code);
+                code = "";
+            }
+        }
         Parser.Default.ParseArguments<GetCode>(args)
             .WithParsed(opt =>
             {
