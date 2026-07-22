@@ -377,6 +377,7 @@ public partial class Interpreter
                 var a = BeforeChar(AfterChar(line, $"{b}="), ';');
                 if (a.StartsWith("(R!)"))
                 {
+                    a = a.Substring(4);
                     value = true;
                 }
                 if (Globals.Vars.ContainsKey(b) && Globals.Vars[b].RO == true)
