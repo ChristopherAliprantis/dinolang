@@ -417,8 +417,6 @@ namespace dinolang.interpreter
                     else result = result?.ToString() ?? "NULL";
                     if (Globals.TEXTbackgroundcolor == null) Console.Write(result);
                     if (Globals.TEXTbackgroundcolor != null) Console.Write($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
-
-
                 }
                 else if (line.StartsWith("print(") && line.EndsWith(");"))
                 {
