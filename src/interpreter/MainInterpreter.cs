@@ -505,12 +505,28 @@ namespace dinolang.interpreter
                 }
                 else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
                 {
+                    bool value = false;
                     var b = BeforeChar(line, '=');
                     var a = BeforeChar(AfterChar(line, $"{b}="), ';');
+                    if (a.StartsWith("(R!)"))
+                    {
+                        value = true;
+                    }
+                    if  (Globals.Vars.ContainsKey(b) && Globals.Vars[b].RO == true)
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    if (!Globals.Vars.ContainsKey(b))
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
                         value = GetValue(a, line),
-                        name = b
+                        name = b,
+                        RO = value
                     };
                     if (dinolang.interpreter.Globals.Vars[b].value is string) dinolang.interpreter.Globals.Vars[b].type = "string";
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";

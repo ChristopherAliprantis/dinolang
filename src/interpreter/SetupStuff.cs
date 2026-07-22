@@ -19,6 +19,7 @@ public class Variable
     public dynamic? value = null;
     public string? type = "";
     public string? name = "";
+    public bool RO  =false;
 }
 
 public class Function
