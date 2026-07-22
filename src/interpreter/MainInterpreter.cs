@@ -26,6 +26,14 @@ namespace dinolang.interpreter
                 newlines.Add(line);
             }
             lines = newlines;
+            foreach (string l in lines)
+            {
+                if (!l.EndsWith(";"))
+                {
+                    Console.WriteLine($"Expected semicolon, Line {l} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             bool mf = false;
             List<string> mfl = new();
             List<string> mfp = new List<string>(0);
