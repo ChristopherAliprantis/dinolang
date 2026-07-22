@@ -39,7 +39,7 @@ public partial class GetCode
                     + System.IO.File.ReadAllText(TfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "");
         if (args.Length == 0)
         {
-            Console.WriteLine("Dino 1.5 Interactive Environment"+ Environment.NewLine);
+            Console.WriteLine("Dino Interactive Environment"+ Environment.NewLine);
             while (true)
             {
                 Console.Write(">> ");
