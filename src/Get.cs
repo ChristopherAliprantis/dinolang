@@ -45,7 +45,7 @@ public partial class GetCode
                 Console.Write(">> ");
                 string? input = Console.ReadLine();
                 if (input == "exit") Environment.Exit(0);
-                code += input;
+                code += input.Replace("\r", "").Replace("\n", "");
                 dinolang.interpreter.Globals.Code = ToReadableLines(code);
                 interpreter.Interpreter.Interpret(interpreter.Globals.Code);
                 code = "";
