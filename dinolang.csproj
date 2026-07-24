@@ -9,6 +9,7 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	  <PublishReadyToRun>true</PublishReadyToRun>
+	  <PublishTrimmed>true</PublishTrimmed>
 	  <TieredPGO>true</TieredPGO>
 	  <Optimize>true</Optimize>
 	  <AssemblyName>Dino</AssemblyName>
@@ -47,6 +48,10 @@
     <Content Include="src\interpreter\Time.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".github\copilot-instructions.md" />
   </ItemGroup>
 
   <ItemGroup>

@@ -33,12 +33,12 @@
 #endfunc;
 
 #func <(a, b)d;
-    a0 = ==(a, 0);
-    b0 = ==(b, 0);
-    #if (and(a0, b0));
-        return(false);
+    b1 = !(==(GetType(a), :num:));
+    b2 = !(==(GetType(b), :num:));
+    #if (or(b1, b2));
+        Derr(:Cannot compare a non-numeric value:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
     #endif;
-    OUT = >(a, b);
-    OUT = !(OUT);
-    return(OUT);
+    a_gt_b = >(a, b);
+    a_eq_b = ==(a, b);
+    return( and( !(a_gt_b), !(a_eq_b) ) );
 #endfunc;
