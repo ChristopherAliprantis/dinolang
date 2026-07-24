@@ -9,7 +9,6 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	  <PublishReadyToRun>true</PublishReadyToRun>
-	  <PublishTrimmed>true</PublishTrimmed>
 	  <TieredPGO>true</TieredPGO>
 	  <Optimize>true</Optimize>
 	  <AssemblyName>Dino</AssemblyName>
