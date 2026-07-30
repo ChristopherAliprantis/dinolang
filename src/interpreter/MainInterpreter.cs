@@ -746,6 +746,20 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
             }
+            if (val.StartsWith("Llen(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(5, val.Length - 6);
+                var result = GetValue(arg, line);
+                if (result is List<dynamic>)
+                {
+                    return ((List<dynamic>)result).Count;
+                }
+                else
+                {
+                    Console.WriteLine($"Expected a list, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             if (val.StartsWith("ToNum(") && val.EndsWith(")"))
             {
                 string arg = "";
