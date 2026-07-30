@@ -27,6 +27,11 @@ namespace dinolang.interpreter
                 string val = vals[i];
                 if (Globals.Vars.ContainsKey(p[i]))
                 {
+                    if (Globals.Vars[p[i]].RO == true || p[i] == "TextBGColor" || p[i] == "dline")
+                    {
+                        Console.WriteLine($"Cannot name a parameter the same as a value, Line {startline} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     Nvs[p[i]] = Globals.Vars[p[i]];
                     Nvsk.Add(p[i]);
                     dinolang.interpreter.Globals.Vars[p[i]] = new Variable
@@ -510,6 +515,11 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     if (b == "dline")
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    if (b == "TextBGColor")
                     {
                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);

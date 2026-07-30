@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Markup;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace dinolang.interpreter
@@ -529,6 +530,11 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
+                    if (b == "TextBGColor")
+                    {
+                        Console.WriteLine($"Invalid Value, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
                         value = GetValue(a, line),
@@ -595,6 +601,15 @@ namespace dinolang.interpreter
                 return value1;
             }
             catch { }
+            if (val == "TextBGColor")
+            {
+                List<dynamic>? bg = new List<dynamic>();
+                foreach (byte b in Globals.TEXTbackgroundcolor)
+                {
+                    bg.Add(b);
+                }
+                return bg;
+            }
             if (val == "false") return false;
             if (val == "true") return true;
             if (val == "null") return null;
