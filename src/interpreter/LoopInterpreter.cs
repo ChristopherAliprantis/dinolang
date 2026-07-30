@@ -278,6 +278,31 @@ public partial class Interpreter
                     if (!string.IsNullOrEmpty(errors)) Console.WriteLine(errors);
                 }
             }
+            else if (line.StartsWith("RemoveAtLIndex(") && line.EndsWith(")"))
+            {
+                string[] VALS = line.Substring(15, line.Length - 16).Split(',');
+                if (VALS.Length != 2)
+                {
+                    Console.WriteLine($"Need 2 parameters to remove list item, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                var list = GetValue(VALS[0], line);
+                var index = GetValue(VALS[1], line);
+                if (index >= list.Count || index < 0)
+                {
+                    Console.WriteLine($"Out of range, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (list is List<dynamic> || index is int)
+                {
+                    ((List<dynamic>)list).RemoveAt((int)index);
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid Value(s) {VALS[0]} or {VALS[1]}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(0, line.Length - 2);
