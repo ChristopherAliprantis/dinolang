@@ -400,6 +400,8 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                 else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                 else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
+                else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
+                if (Globals.Vars.ContainsKey(b)) LVs.Add(dinolang.interpreter.Globals.Vars[b]);
             }
             else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
             {

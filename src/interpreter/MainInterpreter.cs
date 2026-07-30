@@ -539,6 +539,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is decimal) dinolang.interpreter.Globals.Vars[b].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -606,6 +607,19 @@ namespace dinolang.interpreter
                 value2 = val.Substring(1, val.Length - 2);
                 return value2;
             }
+            if (val.StartsWith("{") && val.EndsWith("}"))
+            {
+                string content = val.Substring(1, val.Length - 2);
+                string[] valss = content.Split(',');
+                dynamic[] VALSS = new dynamic[valss.Length];
+                int i = 0;
+                foreach (string v in valss)
+                {
+                    VALSS[i] = GetValue(v, line);
+                    i++;
+                }
+                return VALSS.ToList();
+            }
             if (val == "NL") return Environment.NewLine;
             if (val == "COLON")
             {
@@ -664,6 +678,7 @@ namespace dinolang.interpreter
                 else if (result is decimal) type = "num";
                 else if (result is bool) type = "bool";
                 else if (result is null) type = "null";
+                else if (result is List<dynamic>) type = "list";
                 return type;
             }
             if (val.StartsWith("GetAppdataPath(") && val.EndsWith(")"))
