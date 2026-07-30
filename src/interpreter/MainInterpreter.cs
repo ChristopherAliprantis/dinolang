@@ -1044,13 +1044,40 @@ namespace dinolang.interpreter
                     Console.WriteLine($"Out of range, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-                if (list is List<dynamic> && index is int)
+                if (list is List<dynamic> || index is int)
                 {
                     return ((List<dynamic>)list)[(int)index];
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid Values {VALS[0]} and {VALS[1]}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Invalid Value(s) {VALS[0]} or {VALS[1]}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
+            if (val.StartsWith("AssignAtLIndex(") && val.EndsWith(")"))
+            {
+                string[] VALS = val.Substring(10, val.Length - 11).Split(',');
+                if (VALS.Length != 3)
+                {
+                    Console.WriteLine($"Need 3 parameters to assign to list item, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                var list = GetValue(VALS[0], line);
+                var index = GetValue(VALS[1], line);
+                var value = GetValue(VALS[2], line);
+                if (index >= list.Count)
+                {
+                    Console.WriteLine($"Out of range, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (list is List<dynamic> || index is int)
+                {
+                    ((List<dynamic>)list)[(int)index] = value;
+                    return value;
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid Value(s) {VALS[0]} or {VALS[1]}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
             }
