@@ -308,6 +308,26 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                 }
+                else if (line.StartsWith("addtolist(") && line.EndsWith(")"))
+                {
+                    string[] VALS = line.Substring(10, line.Length - 11).Split(',');
+                    if (VALS.Length != 2)
+                    {
+                        Console.WriteLine($"Need 2 parameters to add to list, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    var list = GetValue(VALS[0], line);
+                    var item = GetValue(VALS[1], line);
+                    if (list is List<dynamic>)
+                    {
+                        ((List<dynamic>)list).Add(item);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Invalid Value {VALS[0]}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
                 else if (line.StartsWith("Exit(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(5, line.Length - 7);
