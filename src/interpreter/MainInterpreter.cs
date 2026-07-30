@@ -1039,7 +1039,7 @@ namespace dinolang.interpreter
                 }
                 var list = GetValue(VALS[0], line);
                 var index = GetValue(VALS[1], line);
-                if (index >= list.Count)
+                if (index >= list.Count|| index < 0)
                 {
                     Console.WriteLine($"Out of range, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
@@ -1065,7 +1065,7 @@ namespace dinolang.interpreter
                 var list = GetValue(VALS[0], line);
                 var index = GetValue(VALS[1], line);
                 var value = GetValue(VALS[2], line);
-                if (index >= list.Count)
+                if (index >= list.Count || index < 0)
                 {
                     Console.WriteLine($"Out of range, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
