@@ -217,6 +217,13 @@ public partial class Interpreter
                 arg = AfterChar(arg, "printnnl(");
                 dynamic result = GetValue(arg, line);
                 if (result is bool) result = result.ToString().ToUpper();
+                else if (result is List<dynamic>)
+                {
+                    result = string.Join(", ", ((List<dynamic>)result).Select(x =>
+                        x is bool ? x.ToString().ToUpper() : (x?.ToString() ?? "NULL")
+                    ));
+
+                }
                 else result = result?.ToString() ?? "NULL";
                 if (Globals.TEXTbackgroundcolor == null) Console.Write(result);
                 if (Globals.TEXTbackgroundcolor != null) Console.Write($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
@@ -229,9 +236,79 @@ public partial class Interpreter
                 arg = AfterChar(arg, "print(");
                 dynamic result = GetValue(arg, line);
                 if (result is bool) result = result.ToString().ToUpper();
+                else if (result is List<dynamic>)
+                {
+                    result = string.Join(", ", ((List<dynamic>)result).Select(x =>
+                        x is bool ? x.ToString().ToUpper() : (x?.ToString() ?? "NULL")
+                    ));
+
+                }
                 else result = result?.ToString() ?? "NULL";
                 if (Globals.TEXTbackgroundcolor == null) Console.WriteLine(result);
                 if (Globals.TEXTbackgroundcolor != null) Console.WriteLine($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+            }
+            else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(0, line.Length - 2);
+                arg = AfterChar(arg, "printnnlC(");
+                string[] argSS = arg.Split(',');
+                dynamic result = GetValue(argSS[0], line);
+                byte[] color = new byte[3];
+                for (int I = 1; I < argSS.Length; I++)
+                {
+                    try
+                    {
+                        color[I - 1] = Convert.ToByte(GetValue(argSS[I], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                if (result is bool) result = result.ToString().ToUpper();
+                else if (result is List<dynamic>)
+                {
+                    result = string.Join(", ", ((List<dynamic>)result).Select(x =>
+                        x is bool ? x.ToString().ToUpper() : (x?.ToString() ?? "NULL")
+                    ));
+
+                }
+                else result = result?.ToString() ?? "NULL";
+                if (Globals.TEXTbackgroundcolor == null) Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+                else Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]};48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
+
+            }
+            else if (line.StartsWith("printC(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(0, line.Length - 2);
+                arg = AfterChar(arg, "printC(");
+                string[] argSS = arg.Split(',');
+                dynamic result = GetValue(argSS[0], line);
+                byte[] color = new byte[3];
+                for (int I = 1; I < argSS.Length; I++)
+                {
+                    try
+                    {
+                        color[I - 1] = Convert.ToByte(GetValue(argSS[I], line));
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                if (result is bool) result = result.ToString().ToUpper();
+                else if (result is List<dynamic>)
+                {
+                    result = string.Join(", ", ((List<dynamic>)result).Select(x =>
+                        x is bool ? x.ToString().ToUpper() : (x?.ToString() ?? "NULL")
+                    ));
+
+                }
+                else result = result?.ToString() ?? "NULL";
+                if (Globals.TEXTbackgroundcolor == null) Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
+                else Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]};48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
             }
             else if (line.StartsWith("wait(") && line.EndsWith(");"))
             {
@@ -322,55 +399,6 @@ public partial class Interpreter
                     Console.WriteLine($"Invalid Value {VALS[0]}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
-            }
-            else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
-            {
-                string arg = line.Substring(0, line.Length - 2);
-                arg = AfterChar(arg, "printnnlC(");
-                string[] argSS = arg.Split(',');
-                dynamic result = GetValue(argSS[0], line);
-                byte[] color = new byte[3];
-                for (int I = 1; I < argSS.Length; I++)
-                {
-                    try
-                    {
-                        color[I - 1] = Convert.ToByte(GetValue(argSS[I], line));
-                    }
-                    catch
-                    {
-                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                        Environment.Exit(1);
-                    }
-                }
-                if (result is bool) result = result.ToString().ToUpper();
-                else result = result?.ToString() ?? "NULL";
-                if (Globals.TEXTbackgroundcolor == null) Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
-                else Console.Write($"\x1b[38;2;{color[0]};{color[1]};{color[2]};48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
-
-            }
-            else if (line.StartsWith("printC(") && line.EndsWith(");"))
-            {
-                string arg = line.Substring(0, line.Length - 2);
-                arg = AfterChar(arg, "printC(");
-                string[] argSS = arg.Split(',');
-                dynamic result = GetValue(argSS[0], line);
-                byte[] color = new byte[3];
-                for (int I = 1; I < argSS.Length; I++)
-                {
-                    try
-                    {
-                        color[I - 1] = Convert.ToByte(GetValue(argSS[I], line));
-                    }
-                    catch
-                    {
-                        Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                        Environment.Exit(1);
-                    }
-                }
-                if (result is bool) result = result.ToString().ToUpper();
-                else result = result?.ToString() ?? "NULL";
-                if (Globals.TEXTbackgroundcolor == null) Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]}m{result}\x1b[0m");
-                else Console.WriteLine($"\x1b[38;2;{color[0]};{color[1]};{color[2]};48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
             }
             else if (line.StartsWith("setBGColor(") && line.EndsWith(");"))
             {
