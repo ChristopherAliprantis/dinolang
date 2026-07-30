@@ -30,13 +30,15 @@ public partial class GetCode
         string TfilePath = Path.Combine(baseDir, "interpreter", "Time.dno");
         string OfilePath = Path.Combine(baseDir, "interpreter", "Output.dno");
         string BfilePath = Path.Combine(baseDir, "interpreter", "Bool.dno");
+        string LfilePath = Path.Combine(baseDir, "interpreter", "Lists.dno");
 
         string code = System.IO.File.ReadAllText(SfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(MfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(BfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(IfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
                     + System.IO.File.ReadAllText(OfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
-                    + System.IO.File.ReadAllText(TfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "");
+                    + System.IO.File.ReadAllText(TfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "")
+                    + System.IO.File.ReadAllText(LfilePath, Encoding.UTF8).Replace("\r", "").Replace("\n", "");
         if (args.Length == 0)
         {
             Console.WriteLine("Dino Interactive Environment"+ Environment.NewLine);

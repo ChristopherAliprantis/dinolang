@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <None Remove="src\interpreter\Bool.dno" />
+    <None Remove="src\interpreter\Lists.dno" />
     <None Remove="src\interpreter\Math.dno" />
     <None Remove="src\interpreter\Output.dno" />
     <None Remove="src\interpreter\Time.dno" />
@@ -33,6 +34,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="src\interpreter\Input.dno">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="src\interpreter\Lists.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="src\interpreter\Math.dno">
