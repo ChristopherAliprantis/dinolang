@@ -8,6 +8,7 @@
         AssignAtLIndex(LIST, i, new);
         i = +(i, 1);
     #endloop;
+    return(LIST);
 #endfunc;
 
 #func Ssplitandkeeponleft(value, splitter);
@@ -20,4 +21,18 @@
         AssignAtLIndex(LIST, i, new);
         i = +(i, 1);
     #endloop;
+    return(LIST);
+#endfunc;
+
+#func Lcontains(LIST, value);
+    len = Llen(LIST);
+    i = 0;
+    #loop(len);
+        here = AtLIndex(LIST, i);
+        if (==(here, value));
+            return(true);
+        #endif;
+        i = +(i, 1);
+    #endloop;
+    return(false);
 #endfunc;

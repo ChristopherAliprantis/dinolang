@@ -2,3 +2,16 @@
     print(+(message, COMMA, : :, :Line :, DLine, : :, after));
     Exit(1);
 #endfunc;
+
+#func CheckType(type, var)d;
+    t = GetType(var);
+    types = { :num:, :string:, :bool:, :null:, :list:};
+    #if (Lcontains(types, type));
+        message = +(:Type :, type, : does not exist:);
+        Derr(message, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
+    #endif;
+    #if (==(type, t));
+        return(true);
+    #endif;
+    return(false);
+#endfunc;
