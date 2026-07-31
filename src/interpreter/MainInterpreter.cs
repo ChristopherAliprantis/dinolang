@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -678,11 +679,7 @@ namespace dinolang.interpreter
             catch { }
             if (val == "TextBGColor")
             {
-                List<dynamic>? bg = new List<dynamic>();
-                foreach (byte b in Globals.TEXTbackgroundcolor)
-                {
-                    bg.Add(b);
-                }
+                List<dynamic> bg = ((IEnumerable)Globals.TEXTbackgroundcolor).Cast<dynamic>().ToList();
                 return bg;
             }
             if (val == "false") return false;
@@ -773,6 +770,36 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
+            if (val.StartsWith("Lsplit(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(7, val.Length - 8);
+                string[] ARGS = arg.Split(',');
+                if (ARGS.Length != 2)
+                {
+                    Console.WriteLine($"Expected 1 parameter, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                string by = "";
+                try
+                {
+                    by = GetValue(ARGS[1], line);
+                }
+                catch 
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                } 
+                var result = GetValue(arg, line);
+                if (result is string)
+                {
+                    return ((string)result).Split(by).ToList<dynamic>();
+                }
+                else
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             if (val.StartsWith("GetType(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(8, val.Length - 9);
@@ -821,6 +848,12 @@ namespace dinolang.interpreter
                 string arg = val.Substring(9, val.Length - 10);
                 var result = GetValue(arg, line);
                 if (result is bool) result = result.ToString().ToUpper();
+                else if (result is List<dynamic>)
+                {
+                    result = string.Join(", ", ((List<dynamic>)result).Select(x =>
+                        x is bool ? x.ToString().ToUpper() : (x?.ToString() ?? "NULL")
+                    ));
+                }
                 return result?.ToString() ?? "NULL";
             }
             if (val == "ReadLine()")
