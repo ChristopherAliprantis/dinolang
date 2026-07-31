@@ -6,6 +6,10 @@
         existing = AtLIndex(LIST, i);
         new = +(existing, splitter);
         AssignAtLIndex(LIST, i, new);
+        l1 = -(len, 1);
+        #if (==(i, l1))
+            break;
+        #endif
         i = +(i, 1);
     #endloop;
 #endfunc;
@@ -18,6 +22,10 @@
         existing = AtLIndex(LIST, i);
         new = +(splitter, existing);
         AssignAtLIndex(LIST, i, new);
+        l1 = -(len, 1);
+        #if (==(i, l1))
+            break;
+        #endif
         i = +(i, 1);
     #endloop;
 #endfunc;
