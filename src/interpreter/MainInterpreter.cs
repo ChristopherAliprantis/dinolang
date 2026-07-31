@@ -770,7 +770,7 @@ namespace dinolang.interpreter
                 }
                 return result;
             }
-            if (val.StartsWith("Lsplit(") && val.EndsWith(")"))
+            if (val.StartsWith("Ssplit(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(7, val.Length - 8);
                 string[] ARGS = arg.Split(',');
