@@ -1,0 +1,23 @@
+#func Ssplitandkeeponright(value, splitter);
+    LIST = Ssplit(value, splitter);
+    len = Llen(LIST);
+    i = 0;
+    #loop(len);
+        existing = AtLIndex(LIST, i);
+        new = +(existing, splitter);
+        AssignAtLIndex(LIST, i, new);
+        i = +(i, 1);
+    #endloop;
+#endfunc;
+
+#func Ssplitandkeeponleft(value, splitter);
+    LIST = Ssplit(value, splitter);
+    len = Llen(LIST);
+    i = 0;
+    #loop(len);
+        existing = AtLIndex(LIST, i);
+        new = +(splitter, existing);
+        AssignAtLIndex(LIST, i, new);
+        i = +(i, 1);
+    #endloop;
+#endfunc;
