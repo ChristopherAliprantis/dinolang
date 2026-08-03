@@ -749,7 +749,8 @@ namespace dinolang.interpreter
                 var result = GetValue(arg, line);
                 if (result is List<dynamic>)
                 {
-                    return ((List<dynamic>)result).Count;
+                    var r = ((decimal)(((List<dynamic>)result).Count));
+                    return r;
                 }
                 else
                 {
