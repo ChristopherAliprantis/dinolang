@@ -749,6 +749,31 @@ namespace dinolang.interpreter
                 }
                 return GetValue(argSS[0], line).Replace(GetValue(argSS[1], line), GetValue(argSS[2], line));
             }
+            if (val.StartsWith("StringToListWithNums(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(21, val.Length - 22);
+                var result = GetValue(arg, line);
+                if (result is string)
+                {
+                    List<dynamic> args = new List<dynamic> { result };
+                    fname = "StringToList";
+                    List<dynamic> list = ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
+                    int i = 0;
+                    foreach (var item in list)
+                    {
+                        char ITEM = (char)item;
+                        list[i] = Convert.ToDecimal(ITEM);
+                        i++;
+                    }
+                    return (List<dynamic>)list;
+                }
+
+                else
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             if (val.StartsWith("Llen(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(5, val.Length - 6);
