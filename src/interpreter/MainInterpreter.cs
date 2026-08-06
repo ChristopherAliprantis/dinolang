@@ -738,6 +738,17 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
             }
+            if (val.StartsWith("Replace(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(8, val.Length - 9);
+                string[] argSS = arg.Split(',');
+                if (argSS.Length != 3)
+                {
+                    Console.WriteLine($"Expected 3 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                return GetValue(argSS[0], line).Replace(GetValue(argSS[1], line), GetValue(argSS[2], line));
+            }
             if (val.StartsWith("Llen(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(5, val.Length - 6);
