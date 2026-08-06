@@ -26,8 +26,8 @@
 
 #func SubString(s, start, end)d;
     len = Slen(s);
-    #if (<(start, 0)); Derr(:Expected parameter 2 to be a non-negative integer:, :Try going on https://github.com for help:);#endif;
-    #if (<(end, start)); Derr(:Expected parameter 3 to be greater or equal to parameter 2:, :Try going on https://github.com for help:);#endif;
+    #if (<(start, 0)); Derr(:Expected parameter 2 to be a non-negative integer:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
+    #if (<(end, start)); Derr(:Expected parameter 3 to be greater or equal to parameter 2:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);#endif;
     #if (>(end, len)); end = len;#endif;
     count = -(end, start);
     result = ::;
@@ -60,4 +60,20 @@
     #endloop;
             
     return(false);
+#endfunc;
+
+#func StringToList(str)d;
+    list = {};
+    typeisstr = CheckType(:string:, str);
+    #if (!(typeisstr))
+        Derr(:Expected a string:, :Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help:);
+    #endif;
+    len = Slen(str);
+    i = 0;
+    #loop(len);
+        char = charat(str, i);
+        list = +(list, char);
+        i = +(i, 1);
+    #endloop;
+    return(list);
 #endfunc;
