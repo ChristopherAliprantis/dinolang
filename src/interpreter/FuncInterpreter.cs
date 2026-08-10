@@ -266,6 +266,27 @@ namespace dinolang.interpreter
                     if (Globals.TEXTbackgroundcolor == null) Console.WriteLine(result);
                     if (Globals.TEXTbackgroundcolor != null) Console.WriteLine($"\x1b[48;2;{Globals.TEXTbackgroundcolor[0]};{Globals.TEXTbackgroundcolor[1]};{Globals.TEXTbackgroundcolor[2]}m{result}\x1b[0m");
                 }
+                else if (line.StartsWith("Run(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(4, line.Length - 6);
+                    try
+                    {
+                        arg = GetValue(arg, line);
+                        if (arg == null)
+                        {
+                            Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    List<string> l = dinolang.GetCode.ToReadableLines(arg);
+                    Interpret(l);
+
+                }
                 else if (line.StartsWith("printnnlC(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);

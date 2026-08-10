@@ -123,6 +123,27 @@ public partial class Interpreter
                     Environment.Exit(1);
                 }
             }
+            else if (line.StartsWith("Run(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(4, line.Length - 6);
+                try
+                {
+                    arg = GetValue(arg, line);
+                    if (arg == null)
+                    {
+                        Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                List<string> l = dinolang.GetCode.ToReadableLines(arg);
+                Interpret(l);
+
+            }
             else if (line.StartsWith("CreateFile(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(11, line.Length - 13);
