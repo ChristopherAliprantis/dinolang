@@ -883,8 +883,7 @@ namespace dinolang.interpreter
                 if (Directory.Exists(path))
                 {
                     string[] allPaths = Directory.GetFileSystemEntries(path);
-                    string formattedstrpaths = string.Join(Environment.NewLine, allPaths);
-                    return formattedstrpaths;
+                    return allPaths.ToList<dynamic>();
                 }
                 else if (File.Exists(path))
                 {
