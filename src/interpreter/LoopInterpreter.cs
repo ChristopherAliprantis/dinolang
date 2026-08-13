@@ -232,6 +232,19 @@ public partial class Interpreter
                     Environment.Exit(1);
                 }
             }
+            else if (line.StartsWith("RemoveDKey(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(12, line.Length - 14);
+                string[] ARGS = arg.Split(',');
+                if (ARGS.Length != 2)
+                {
+                    Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                Dictionary<string, dynamic> dict = GetValue(ARGS[0], line);
+                string key = GetValue(ARGS[1], line);
+                dict.Remove(key);
+            }
             else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
             {
                 string arg = line.Substring(0, line.Length - 2);
