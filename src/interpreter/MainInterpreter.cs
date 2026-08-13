@@ -607,6 +607,22 @@ namespace dinolang.interpreter
                     }
                     else Globals.TEXTbackgroundcolor = (byte[])(Array)color;
                 }
+                else if (line.StartsWith("SetDKey(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(0, line.Length - 2);
+                    arg = AfterChar(arg, "SetDKey(");
+                    string[] argSS = arg.Split(',');
+                    if (argSS.Length != 3)
+                    {
+                        Console.WriteLine($"Expected 3 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    Dictionary<string, dynamic> dict = GetValue(argSS[0], line);
+                    string key = GetValue(argSS[1], line);
+                    string value = GetValue(argSS[2], line);
+                    dict[key] = value;
+                }
+                
                 else if ((line.Contains('=')) && (BeforeChar(line, '=').Length > 0) && (AfterChar(line, '=').Length > 1))
                 {
                     bool value = false;
@@ -759,6 +775,25 @@ namespace dinolang.interpreter
                     }
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
+            }
+            if (line.StartsWith("GetDKey(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(0, line.Length - 2);
+                arg = AfterChar(arg, "GetDKey(");
+                string[] argSS = arg.Split(',');
+                if (argSS.Length != 2)
+                {
+                    Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                Dictionary<string, dynamic> dict = GetValue(argSS[0], line);
+                string key = GetValue(argSS[1], line);
+                if (!dict.ContainsKey(key))
+                {
+                    Console.WriteLine($"Key not found: {key}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                return dict[key];
             }
             if (val.StartsWith("MakeDictionary(") && val.EndsWith(")"))
             {

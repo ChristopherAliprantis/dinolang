@@ -230,6 +230,21 @@ namespace dinolang.interpreter
                 {
                     Console.Clear();
                 }
+                else if (line.StartsWith("SetDKey(") && line.EndsWith(");"))
+                {
+                    string arg = line.Substring(0, line.Length - 2);
+                    arg = AfterChar(arg, "SetDKey(");
+                    string[] argSS = arg.Split(',');
+                    if (argSS.Length != 3)
+                    {
+                        Console.WriteLine($"Expected 3 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    Dictionary<string, dynamic> dict = GetValue(argSS[0], line);
+                    string key = GetValue(argSS[1], line);
+                    string value = GetValue(argSS[2], line);
+                    dict[key] = value;
+                }
                 else if (line.StartsWith("printnnl(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(0, line.Length - 2);
