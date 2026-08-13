@@ -638,6 +638,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                     else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<string, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -759,6 +760,11 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
             }
+            if (val.StartsWith("MakeDictionary(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(15, val.Length - 16);
+                return new Dictionary<string, dynamic>();
+            }
             if (val.StartsWith("Replace(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(8, val.Length - 9);
@@ -863,6 +869,7 @@ namespace dinolang.interpreter
                 else if (result is bool) type = "bool";
                 else if (result is null) type = "null";
                 else if (result is List<dynamic>) type = "list";
+                else if (result is Dictionary<string, dynamic>) type = "dictionary";
                 return type;
             }
             if (val.StartsWith("GetAppdataPath(") && val.EndsWith(")"))
