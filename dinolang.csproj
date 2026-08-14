@@ -22,6 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\DinoLogo.ico" />
     <None Remove="src\interpreter\Bool.dno" />
     <None Remove="src\interpreter\Lists.dno" />
     <None Remove="src\interpreter\Math.dno" />
@@ -30,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\DinoLogo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="src\interpreter\Bool.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

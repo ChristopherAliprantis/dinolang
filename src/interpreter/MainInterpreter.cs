@@ -365,6 +365,7 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
+
                     Dictionary<string, dynamic> dict = GetValue(ARGS[0], line);
                     string key = GetValue(ARGS[1], line);
                     dict.Remove(key);
