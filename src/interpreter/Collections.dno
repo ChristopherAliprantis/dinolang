@@ -36,3 +36,9 @@
     #endloop;
     return(false);
 #endfunc;
+
+#func PopDKey(d, k);
+    v = GetDKey(d, k);
+    RemoveDKey(d, k);
+    return(v);
+#endfunc;
