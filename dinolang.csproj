@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<AssemblyTitle>Dino</AssemblyTitle>
-	<Version>1.7</Version>
+	<Version>1.8</Version>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 	<Copyright>No Copyright</Copyright>
 	  <PublishReadyToRun>true</PublishReadyToRun>
@@ -24,7 +24,6 @@
   <ItemGroup>
     <None Remove="Assets\DinoLogo.ico" />
     <None Remove="src\interpreter\Bool.dno" />
-    <None Remove="src\interpreter\Lists.dno" />
     <None Remove="src\interpreter\Math.dno" />
     <None Remove="src\interpreter\Output.dno" />
     <None Remove="src\interpreter\Time.dno" />
@@ -40,7 +39,7 @@
     <Content Include="src\interpreter\Input.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="src\interpreter\Lists.dno">
+    <Content Include="src\interpreter\Collections.dno">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="src\interpreter\Math.dno">
