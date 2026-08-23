@@ -526,6 +526,20 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<string, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
                 if (!Globals.Vars.ContainsKey(b)) LVs.Add(dinolang.interpreter.Globals.Vars[b]);
             }
+            else if (line.StartsWith("DeleteVar(") && line.EndsWith(");"))
+            {
+                string varName = BeforeChar(AfterChar(line, "DeleteVar("), ");");
+                varName = GetValue(varName, line);
+                if (Globals.Vars.ContainsKey(varName))
+                {
+                    Globals.Vars.Remove(varName);
+                }
+                else
+                {
+                    Console.WriteLine($"Variable {varName} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+            }
             else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))
             {
                 string arg = BeforeChar(AfterChar(line, '('), ");");

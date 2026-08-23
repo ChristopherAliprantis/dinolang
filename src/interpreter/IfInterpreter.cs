@@ -357,6 +357,20 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                 }
+                else if (line.StartsWith("DeleteVar(") && line.EndsWith(");"))
+                {
+                    string varName = BeforeChar(AfterChar(line, "DeleteVar("), ");");
+                    varName = GetValue(varName, line);
+                    if (Globals.Vars.ContainsKey(varName))
+                    {
+                        Globals.Vars.Remove(varName);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Variable {varName} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                }
                 else if (line.StartsWith("addtolist(") && line.EndsWith(")"))
                 {
                     string[] VALS = line.Substring(10, line.Length - 11).Split(',');
