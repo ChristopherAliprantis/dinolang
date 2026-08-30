@@ -935,6 +935,13 @@ namespace dinolang.interpreter
                 else if (result is Dictionary<string, dynamic>) type = "dictionary";
                 return type;
             }
+            else if (line.StartsWith("JSONSerialize(") && line.EndsWith(");"))
+            {
+                string arg = line.Substring(14, line.Length - 16);
+                dynamic value = GetValue(arg, line);
+                string json = JsonSerializer.Serialize(value);
+                return json;
+            }
             if (val.StartsWith("GetAppdataPath(") && val.EndsWith(")"))
             {
                 string localappdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
