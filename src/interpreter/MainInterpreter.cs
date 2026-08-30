@@ -935,12 +935,26 @@ namespace dinolang.interpreter
                 else if (result is Dictionary<string, dynamic>) type = "dictionary";
                 return type;
             }
-            else if (line.StartsWith("JSONSerialize(") && line.EndsWith(");"))
+            if (val.StartsWith("JSONSerialize(") && val.EndsWith(")"))
             {
-                string arg = line.Substring(14, line.Length - 16);
+                string arg = val.Substring(14, val.Length - 15);
                 dynamic value = GetValue(arg, line);
                 string json = JsonSerializer.Serialize(value);
                 return json;
+            }
+            if (val.StartsWith("JSONDeserialize(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(16, val.Length - 17);
+                dynamic value = GetValue(arg, line);
+                if (value is string)
+                {
+                    return JsonSerializer.Deserialize<dynamic>((string)value);
+                }
+                else
+                {
+                    Console.WriteLine($"Expected a string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
             }
             if (val.StartsWith("GetAppdataPath(") && val.EndsWith(")"))
             {
