@@ -269,8 +269,8 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Expected 3 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    Dictionary<string, dynamic> dict = GetValue(argSS[0], line);
-                    string key = GetValue(argSS[1], line);
+                    Dictionary<dynamic, dynamic> dict = GetValue(argSS[0], line);
+                    dynamic key = GetValue(argSS[1], line);
                     string value = GetValue(argSS[2], line);
                     dict[key] = value;
                 }
@@ -284,7 +284,7 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     Dictionary<string, dynamic> dict = GetValue(ARGS[0], line);
-                    string key = GetValue(ARGS[1], line);
+                    dynamic key = GetValue(ARGS[1], line);
                     dict.Remove(key);
                 }
                 else if (line.StartsWith("wait(") && line.EndsWith(");"))
@@ -573,7 +573,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                     else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
-                    else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<string, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
                     if (!Globals.Vars.ContainsKey(b)) IVs.Add(dinolang.interpreter.Globals.Vars[b]);
                 }
                 else if (infunc && (line.StartsWith("return(") && line.EndsWith(");")))

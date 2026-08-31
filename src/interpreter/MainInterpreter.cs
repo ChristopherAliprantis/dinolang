@@ -366,8 +366,8 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
 
-                    Dictionary<string, dynamic> dict = GetValue(ARGS[0], line);
-                    string key = GetValue(ARGS[1], line);
+                    Dictionary<dynamic, dynamic> dict = GetValue(ARGS[0], line);
+                    dynamic key = GetValue(ARGS[1], line);
                     dict.Remove(key);
                 }
                 else if (line.StartsWith("DeleteItem(") && line.EndsWith(");"))
@@ -645,8 +645,8 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Expected 3 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    Dictionary<string, dynamic> dict = GetValue(argSS[0], line);
-                    string key = GetValue(argSS[1], line);
+                    Dictionary<dynamic, dynamic> dict = GetValue(argSS[0], line);
+                    dynamic key = GetValue(argSS[1], line);
                     string value = GetValue(argSS[2], line);
                     dict[key] = value;
                 }
@@ -682,7 +682,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is bool) dinolang.interpreter.Globals.Vars[b].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                     else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
-                    else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<string, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -815,7 +815,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
                 Dictionary<string, dynamic> dict = GetValue(argSS[0], line);
-                string key = GetValue(argSS[1], line);
+                dynamic key = GetValue(argSS[1], line);
                 if (!dict.ContainsKey(key))
                 {
                     Console.WriteLine($"Key not found: {key}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -826,7 +826,7 @@ namespace dinolang.interpreter
             if (val.StartsWith("MakeDictionary(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(15, val.Length - 16);
-                return new Dictionary<string, dynamic>();
+                return new Dictionary<dynamic, dynamic>();
             }
             if (val.StartsWith("Replace(") && val.EndsWith(")"))
             {
@@ -932,7 +932,7 @@ namespace dinolang.interpreter
                 else if (result is bool) type = "bool";
                 else if (result is null) type = "null";
                 else if (result is List<dynamic>) type = "list";
-                else if (result is Dictionary<string, dynamic>) type = "dictionary";
+                else if (result is Dictionary<dynamic, dynamic>) type = "dictionary";
                 return type;
             }
             if (val.StartsWith("JSONSerialize(") && val.EndsWith(")"))
