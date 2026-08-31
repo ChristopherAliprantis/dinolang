@@ -778,6 +778,12 @@ namespace dinolang.interpreter
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
+            if (line.StartsWith("Dlen") && line.EndsWith(")"))
+            {
+                string arg = line.Substring(4, line.Length - 6);
+                Dictionary<dynamic, dynamic> dict = GetValue(arg, line);
+                return dict.Count;
+            }
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
             {
