@@ -782,7 +782,7 @@ namespace dinolang.interpreter
             {
                 string arg = line.Substring(4, line.Length - 6);
                 Dictionary<dynamic, dynamic> dict = GetValue(arg, line);
-                return dict.Count;
+                return (decimal)dict.Count;
             }
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
