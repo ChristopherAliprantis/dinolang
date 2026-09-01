@@ -780,9 +780,23 @@ namespace dinolang.interpreter
             }
             if (line.StartsWith("Dlen") && line.EndsWith(")"))
             {
-                string arg = line.Substring(4, line.Length - 6);
+                string arg = line.Substring(4, line.Length - 5);
                 Dictionary<dynamic, dynamic> dict = GetValue(arg, line);
                 return (decimal)dict.Count;
+            }
+            if (line.StartsWith("AtDIndex(") && line.EndsWith(")"))
+            {
+                string args = line.Substring(10, line.Length - 11);
+                string[] argSS = args.Split(',');
+                if (argSS.Length != 2)
+                {
+                    Console.WriteLine($"Expected 2 parameters, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                Dictionary<dynamic, dynamic> dict = GetValue(argSS[0], line);
+                decimal index = GetValue(argSS[1], line);
+                var valueList = dict.Values.ToList();
+                return valueList[(int)index];
             }
             string fname = BeforeChar(val, '(');
             if (Globals.Funcs.ContainsKey(fname))
