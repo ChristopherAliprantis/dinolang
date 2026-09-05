@@ -29,3 +29,16 @@ public class Function
     public List<string>? code = new();
     public bool addcalllineasdebugline { get; set; }
 }
+
+public struct Struct
+{
+    public List<string> Lines;
+
+    public static Struct CopyStruct(Struct original)
+    {
+        Struct copy = new Struct();
+        copy.Lines = new List<string>(original.Lines);
+        return copy;
+    }
+}
+
