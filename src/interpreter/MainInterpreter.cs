@@ -671,9 +671,18 @@ namespace dinolang.interpreter
                         Console.WriteLine($"Invalid Value {b}, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
+                    var v = GetValue(a, line);
+                    if (Globals.Vars.ContainsKey(b) && v is List<dynamic>)
+                    {
+                        v = new List<dynamic>(v);
+                    }
+                    else if (v is Dictionary<dynamic, dynamic> && Globals.Vars.ContainsKey(b))
+                    {
+                        v = new Dictionary<dynamic, dynamic>(v);
+                    }
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
-                        value = GetValue(a, line),
+                        value = v,
                         name = b,
                         RO = value
                     };
