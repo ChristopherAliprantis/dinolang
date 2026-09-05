@@ -680,10 +680,6 @@ namespace dinolang.interpreter
                     {
                         v = new Dictionary<dynamic, dynamic>(v);
                     }
-                    else if (v is Struct && Globals.Vars.ContainsKey(b))
-                    {
-                        v = Struct.CopyStruct(v);
-                    }
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
                         value = v,
@@ -796,20 +792,6 @@ namespace dinolang.interpreter
                 string arg = line.Substring(4, line.Length - 5);
                 Dictionary<dynamic, dynamic> dict = GetValue(arg, line);
                 return (decimal)dict.Count;
-            }
-            if (line.StartsWith("NewStruct(") && line.EndsWith(")"))
-            {
-                string arg = line.Substring(10, line.Length - 11);
-                arg = GetValue(arg, line);
-                if (Globals.Structs.ContainsKey(arg))
-                {
-                    return new Struct(Globals.Structs[arg]);
-                }
-                else
-                {
-                    Console.WriteLine($"Struct {arg} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
             }
             if (line.StartsWith("AtDIndex(") && line.EndsWith(")"))
             {

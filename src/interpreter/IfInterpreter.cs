@@ -571,10 +571,6 @@ namespace dinolang.interpreter
                     {
                         v = new Dictionary<dynamic, dynamic>(v);
                     }
-                    else if (v is Struct && Globals.Vars.ContainsKey(b))
-                    {
-                        v = Struct.CopyStruct(v);
-                    }
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {
                         value = v,

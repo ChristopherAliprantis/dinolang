@@ -11,7 +11,6 @@ namespace dinolang.interpreter
         public static List<string> Code = new();
         public static string dline = "PLACEHOLDER";
         public static byte[]? TEXTbackgroundcolor = null;
-        public static Dictionary<string, StructBluePrint> Structs = new();
     }
 }
 
