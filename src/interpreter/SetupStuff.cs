@@ -30,33 +30,3 @@ public class Function
     public List<string>? code = new();
     public bool addcalllineasdebugline { get; set; }
 }
-
-public struct Struct
-{
-    public string typename { get; set; }
-    public List<string> Lines;
-
-    public Struct(StructBluePrint blueprint)
-    {
-        Lines = blueprint.Lines;
-        typename = blueprint.Name;
-    }
-
-    public static Struct CopyStruct(Struct original)
-    {
-        Struct copy = new Struct();
-        copy.Lines = new List<string>(original.Lines);
-        return copy;
-    }
-}
-
-public struct StructBluePrint
-{
-    public List<string> Lines;
-    public string Name;
-    public StructBluePrint(string name, List<string> lines)
-    {
-        Name = name;
-        Lines = lines;
-    }
-}
