@@ -11,6 +11,7 @@ namespace dinolang.interpreter
         public static List<string> Code = new();
         public static string dline = "PLACEHOLDER";
         public static byte[]? TEXTbackgroundcolor = null;
+        public static Dictionary<string, StructBluePrint> Structs = new();
     }
 }
 
@@ -32,7 +33,14 @@ public class Function
 
 public struct Struct
 {
+    public string typename { get; set; }
     public List<string> Lines;
+
+    public Struct(StructBluePrint blueprint)
+    {
+        Lines = blueprint.Lines;
+        typename = blueprint.Name;
+    }
 
     public static Struct CopyStruct(Struct original)
     {
@@ -42,3 +50,13 @@ public struct Struct
     }
 }
 
+public struct StructBluePrint
+{
+    public List<string> Lines;
+    public string Name;
+    public StructBluePrint(string name, List<string> lines)
+    {
+        Name = name;
+        Lines = lines;
+    }
+}
