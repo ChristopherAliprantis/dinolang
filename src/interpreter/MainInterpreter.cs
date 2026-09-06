@@ -787,15 +787,20 @@ namespace dinolang.interpreter
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
-            if (line.StartsWith("Dlen") && line.EndsWith(")"))
+            if (val.StartsWith("NewStruct(") && val.EndsWith(")"))
             {
-                string arg = line.Substring(4, line.Length - 5);
+                string arg = val.Substring(10, val.Length - 11);
+                arg = GetValue(arg, line);
+            }
+            if (val.StartsWith("Dlen") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(4, val.Length - 5);
                 Dictionary<dynamic, dynamic> dict = GetValue(arg, line);
                 return (decimal)dict.Count;
             }
-            if (line.StartsWith("AtDIndex(") && line.EndsWith(")"))
+            if (val.StartsWith("AtDIndex(") && val.EndsWith(")"))
             {
-                string args = line.Substring(10, line.Length - 11);
+                string args = val.Substring(10, val.Length - 11);
                 string[] argSS = args.Split(',');
                 if (argSS.Length != 2)
                 {
@@ -833,9 +838,9 @@ namespace dinolang.interpreter
                 }
                 return ProcessFunc(Globals.Funcs[fname], args, $"{fname}({string.Join(", ", Globals.Funcs[fname].parameters)})", line);
             }
-            if (line.StartsWith("GetDKey(") && line.EndsWith(");"))
+            if (val.StartsWith("GetDKey(") && val.EndsWith(");"))
             {
-                string arg = line.Substring(0, line.Length - 2);
+                string arg = val.Substring(0, val.Length - 2);
                 arg = AfterChar(arg, "GetDKey(");
                 string[] argSS = arg.Split(',');
                 if (argSS.Length != 2)
