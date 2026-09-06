@@ -73,7 +73,7 @@ namespace dinolang.interpreter
                 }
                 else if (ms == true)
                 {
-                    sb.Value.fields.Add(line);
+                    sb.Value.fields.Add(BeforeChar(line, ';'));
                 }
                 else if (line == "#endstruct;")
                 {
