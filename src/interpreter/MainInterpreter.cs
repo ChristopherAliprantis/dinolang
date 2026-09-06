@@ -49,6 +49,8 @@ namespace dinolang.interpreter
             bool IF = false;
             bool c = false;
             bool d = false;
+            bool ms = false;
+            StructBlueprint? sb = null;
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
@@ -58,8 +60,39 @@ namespace dinolang.interpreter
                     Globals.dline = lines[i];
                     line = lines[i];
                 }
-                if (line.StartsWith("#func") && mf == false)
+                if (line.StartsWith("#struct"))
                 {
+                    string n = AfterChar(line, "#struct");
+                    n = BeforeChar(n, ';');
+                    ms = true;
+                    sb = new StructBlueprint
+                    {
+                        name = n,
+                        fields = new List<string>(0)
+                    };
+                }
+                else if (ms == true)
+                {
+                    sb.Value.fields.Add(line);
+                }
+                else if (line == "#endstruct;")
+                {
+                    if (ms == false)
+                    {
+                        Console.WriteLine($"No struct in making, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    dinolang.interpreter.Globals.Structs[sb.Value.name] = sb.Value;
+                    ms = false;
+                    sb = null;
+                }
+                else if (line.StartsWith("#func"))
+                {
+                    if (mf == true)
+                    {
+                        Console.WriteLine($"Cannot declare a function in a function, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
                     mf = true;
                     name = BeforeChar(line.Substring(5), '(');
                     string Ps = AfterChar(line, "#func" + name);
@@ -692,6 +725,7 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                     else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
                     else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
+                    else if (dinolang.interpreter.Globals.Vars[b].value is Struct) dinolang.interpreter.Globals.Vars[b].type = dinolang.interpreter.Globals.Vars[b].value.typename;
                 }
                 else if (line.Contains("(") && line.EndsWith(");"))
                 {
@@ -791,6 +825,19 @@ namespace dinolang.interpreter
             {
                 string arg = val.Substring(10, val.Length - 11);
                 arg = GetValue(arg, line);
+                if (Globals.Structs.ContainsKey(arg))
+                {
+                    string IName = BeforeChar(line, '='); 
+                    var s = new Struct(Globals.Structs[arg], line)
+                    {
+                        instancevarname = IName
+                    };
+                }
+                else
+                {
+                    Console.WriteLine($"Struct {arg} not found, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
             }
             if (val.StartsWith("Dlen") && val.EndsWith(")"))
             {
@@ -967,6 +1014,7 @@ namespace dinolang.interpreter
                 else if (result is null) type = "null";
                 else if (result is List<dynamic>) type = "list";
                 else if (result is Dictionary<dynamic, dynamic>) type = "dictionary";
+                else if (result is Struct) type = result.typename;
                 return type;
             }
             if (val.StartsWith("JSONSerialize(") && val.EndsWith(")"))

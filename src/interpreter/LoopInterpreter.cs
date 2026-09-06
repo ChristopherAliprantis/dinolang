@@ -533,6 +533,7 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is null) dinolang.interpreter.Globals.Vars[b].type = "null";
                 else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
                 else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
+                else if (dinolang.interpreter.Globals.Vars[b].value is Struct) dinolang.interpreter.Globals.Vars[b].type = dinolang.interpreter.Globals.Vars[b].value.typename;
                 if (!Globals.Vars.ContainsKey(b)) LVs.Add(dinolang.interpreter.Globals.Vars[b]);
             }
             else if (line.StartsWith("DeleteVar(") && line.EndsWith(");"))
