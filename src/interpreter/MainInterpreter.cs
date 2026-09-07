@@ -705,13 +705,17 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     var v = GetValue(a, line);
-                    if (Globals.Vars.ContainsKey(b) && v is List<dynamic>)
+                    if (v is List<dynamic>)
                     {
                         v = new List<dynamic>(v);
                     }
-                    else if (v is Dictionary<dynamic, dynamic> && Globals.Vars.ContainsKey(b))
+                    else if (v is Dictionary<dynamic, dynamic>)
                     {
                         v = new Dictionary<dynamic, dynamic>(v);
+                    }
+                    else if (v is Struct)
+                    {
+                        v = Struct.CopyStruct(v, b);
                     }
                     dinolang.interpreter.Globals.Vars[b] = new Variable
                     {

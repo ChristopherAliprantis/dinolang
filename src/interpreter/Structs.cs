@@ -17,6 +17,16 @@ public struct Struct
     public string instancevarname;
     public string typename;
 
+    public static Struct CopyStruct(Struct original, string newname)
+    {
+        return new Struct
+        {
+            fields = new List<string>(original.fields),
+            instancevarname = newname,
+            typename = original.typename
+        };
+    }
+
     public Struct(StructBlueprint blueprint, string line)
     { 
         fields = blueprint.fields;
