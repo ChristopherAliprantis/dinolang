@@ -790,6 +790,7 @@ namespace dinolang.interpreter
                 List<dynamic> bg = ((IEnumerable)Globals.TEXTbackgroundcolor).Cast<dynamic>().ToList();
                 return bg;
             }
+
             if (val == "false") return false;
             if (val == "true") return true;
             if (val == "null") return null;
