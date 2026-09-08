@@ -1043,6 +1043,26 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
+            if (val.StartsWith("StructToDictionary(") && val.EndsWith(")"))
+            {
+                string arg = val.Substring(19, val.Length - 20);
+                var result = GetValue(arg, line);
+                if (result is Struct)
+                {
+                    
+                }
+                else
+                {
+                    Console.WriteLine($"Expected a struct, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                Dictionary<dynamic, dynamic> dict = new();
+                foreach (var field in ((Struct)result).fields)
+                {
+                    dict[field] = Globals.Vars[((Struct)result).instancevarname + "." + field];
+                }
+                return dict;
+            }
             if (val.StartsWith("GetAppdataPath(") && val.EndsWith(")"))
             {
                 string localappdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
