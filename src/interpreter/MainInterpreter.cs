@@ -492,6 +492,7 @@ namespace dinolang.interpreter
                         if (!string.IsNullOrEmpty(errors)) Console.WriteLine(errors);
                     }
                 }
+
                 else if (line.StartsWith("RemoveAtLIndex(") && line.EndsWith(")"))
                 {
                     string[] VALS = line.Substring(15, line.Length - 16).Split(',');
