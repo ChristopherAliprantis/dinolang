@@ -250,6 +250,16 @@ public partial class Interpreter
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, "printnnl(");
                 dynamic result = GetValue(arg, line);
+                if (result is Struct)
+                {
+                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (result is Dictionary<dynamic, dynamic>)
+                {
+                    Console.WriteLine($"Cannot convert dictionary to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
                 if (result is bool) result = result.ToString().ToUpper();
                 else if (result is List<dynamic>)
                 {
@@ -284,6 +294,16 @@ public partial class Interpreter
                 string arg = line.Substring(0, line.Length - 2);
                 arg = AfterChar(arg, "print(");
                 dynamic result = GetValue(arg, line);
+                if (result is Struct)
+                {
+                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (result is Dictionary<dynamic, dynamic>)
+                {
+                    Console.WriteLine($"Cannot convert dictionary to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
                 if (result is bool) result = result.ToString().ToUpper();
                 else if (result is List<dynamic>)
                 {
@@ -314,6 +334,16 @@ public partial class Interpreter
                         Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
+                }
+                if (result is Struct)
+                {
+                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (result is Dictionary<dynamic, dynamic>)
+                {
+                    Console.WriteLine($"Cannot convert dictionary to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
                 }
                 if (result is bool) result = result.ToString().ToUpper();
                 else if (result is List<dynamic>)
@@ -346,6 +376,16 @@ public partial class Interpreter
                         Console.WriteLine($"Expected positive num that is an integer and within the limits of 0-255, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
+                }
+                if (result is Struct)
+                {
+                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
+                if (result is Dictionary<dynamic, dynamic>)
+                {
+                    Console.WriteLine($"Cannot convert dictionary to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
                 }
                 if (result is bool) result = result.ToString().ToUpper();
                 else if (result is List<dynamic>)
