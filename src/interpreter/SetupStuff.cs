@@ -15,6 +15,7 @@ namespace dinolang.interpreter
     }
 }
 
+
 public class Variable
 {
     public dynamic? value = null;
