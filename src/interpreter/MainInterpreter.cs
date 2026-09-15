@@ -873,11 +873,12 @@ namespace dinolang.interpreter
                 arg = GetValue(arg, line);
                 if (Globals.Structs.ContainsKey(arg))
                 {
-                    string IName = BeforeChar(line, '='); 
-                    var s = new Struct(Globals.Structs[arg], line)
-                    {
-                        instancevarname = IName
-                    };
+                    string IName = BeforeChar(line, '=').Trim();
+                    var s = new Struct(Globals.Structs[arg], line);
+                    // Initialize per-instance variables now that we know the instance name
+                    s.InitInstance(IName, line);
+                    s.instancevarname = IName;
+                    return s;
                 }
                 else
                 {
@@ -1100,7 +1101,9 @@ namespace dinolang.interpreter
                 Dictionary<dynamic, dynamic> dict = new();
                 foreach (var field in ((Struct)result).fields)
                 {
-                    dict[field] = Globals.Vars[((Struct)result).instancevarname + "." + field];
+                    var key = ((Struct)result).instancevarname + "." + field;
+                    if (Globals.Vars.ContainsKey(key)) dict[field] = Globals.Vars[key].value;
+                    else dict[field] = null;
                 }
                 return dict;
             }

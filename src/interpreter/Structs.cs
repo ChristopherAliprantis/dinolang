@@ -31,7 +31,12 @@ public struct Struct
     { 
         fields = blueprint.fields;
         typename = blueprint.name;
-        foreach (var field in blueprint.fields)
+    }
+
+    public void InitInstance(string instanceName, string line)
+    {
+        instancevarname = instanceName?.Trim() ?? "";
+        foreach (var field in fields)
         {
             string f = instancevarname + "." + field;
             if (!Globals.Vars.ContainsKey(f))
@@ -50,6 +55,5 @@ public struct Struct
                 Environment.Exit(1);
             }
         }
-
     }
 }
