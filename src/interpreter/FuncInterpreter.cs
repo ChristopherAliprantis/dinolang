@@ -75,25 +75,7 @@ namespace dinolang.interpreter
                     Globals.dline = lines[i];
                     line = lines[i];
                 }
-                if ((i == lines.Count - 1 && !line.StartsWith("return(")) && !func.command)
-                {
-                    Console.WriteLine($"Function {name} doesn't return anything Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                else if (line.StartsWith("return(") && line.EndsWith(");"))
-                {
-                    if (func.command ==true)
-                    {
-                        Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                        Environment.Exit(1);
-                    }
-                    string arg = BeforeChar(AfterChar(line, '('), ");");
-                    var th = GetValue(arg, line);
-                    RestoreDI(Nvsk, Nvs);
-
-                    return th;
-                }
-                else if (line.StartsWith("#loop"))
+                if (line.StartsWith("#loop"))
                 {
                     if (AfterChar(line, "#loop") != ";")
                     {
@@ -214,6 +196,24 @@ namespace dinolang.interpreter
                     IfLines.Clear();
                 }
                 else if (IF) IfLines.Add(line);
+                else if (line.StartsWith("return(") && line.EndsWith(");"))
+                {
+                    if (func.command == true)
+                    {
+                        Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Environment.Exit(1);
+                    }
+                    string arg = BeforeChar(AfterChar(line, '('), ");");
+                    var th = GetValue(arg, line);
+                    RestoreDI(Nvsk, Nvs);
+
+                    return th;
+                }
+                else if (!(line.StartsWith("return(") && line.EndsWith(");")) && !func.command && i == lines.Count - 1)
+                {
+                    Console.WriteLine($"Function {name} does not return anything, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
                 else if (line.StartsWith("Exit(") && line.EndsWith(");"))
                 {
                     string arg = line.Substring(5, line.Length - 7);
