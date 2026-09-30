@@ -578,6 +578,11 @@ public partial class Interpreter
                 else if (dinolang.interpreter.Globals.Vars[b].value is List<dynamic>) dinolang.interpreter.Globals.Vars[b].type = "list";
                 else if (dinolang.interpreter.Globals.Vars[b].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[b].type = "dictionary";
                 else if (dinolang.interpreter.Globals.Vars[b].value is Struct) dinolang.interpreter.Globals.Vars[b].type = dinolang.interpreter.Globals.Vars[b].value.typename;
+                else
+                {
+                    Console.WriteLine($"Unknown Dino Type Line {line} Try Reporting Issue In https://github.com/ChristopherAliprantis/dinolang/issues");
+                    Environment.Exit(1);
+                }
                 if (!Globals.Vars.ContainsKey(b)) LVs.Add(dinolang.interpreter.Globals.Vars[b]);
             }
             else if (line.StartsWith("DeleteVar(") && line.EndsWith(");"))

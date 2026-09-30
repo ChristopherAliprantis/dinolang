@@ -1055,6 +1055,11 @@ namespace dinolang.interpreter
                 else if (result is List<dynamic>) type = "list";
                 else if (result is Dictionary<dynamic, dynamic>) type = "dictionary";
                 else if (result is Struct) type = result.typename;
+                else
+                {
+                    Console.WriteLine($"Unknown Dino Type Line {line} Try Reporting Issue In https://github.com/ChristopherAliprantis/dinolang/issues");
+                    Environment.Exit(1);
+                }
                 return type;
             }
             if (val.StartsWith("JSONSerialize(") && val.EndsWith(")"))
