@@ -75,6 +75,11 @@ namespace dinolang.interpreter
                     Globals.dline = lines[i];
                     line = lines[i];
                 }
+                if (!(line.StartsWith("return(") && line.EndsWith(");")) && !func.command && i == lines.Count - 1)
+                {
+                    Console.WriteLine($"Function {name} does not return anything, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Environment.Exit(1);
+                }
                 if (line.StartsWith("#loop"))
                 {
                     if (AfterChar(line, "#loop") != ";")
@@ -186,7 +191,11 @@ namespace dinolang.interpreter
                     }
                     if (thing is System.ValueTuple<int, int>)
                     {
-
+                        if (func.command == true)
+                        {
+                            Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
                     }
                     else
                     {
@@ -208,11 +217,6 @@ namespace dinolang.interpreter
                     RestoreDI(Nvsk, Nvs);
 
                     return th;
-                }
-                else if (!(line.StartsWith("return(") && line.EndsWith(");")) && !func.command && i == lines.Count - 1)
-                {
-                    Console.WriteLine($"Function {name} does not return anything, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
                 }
                 else if (line.StartsWith("Exit(") && line.EndsWith(");"))
                 {
