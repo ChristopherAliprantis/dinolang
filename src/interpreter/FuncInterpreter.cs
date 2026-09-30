@@ -191,14 +191,15 @@ namespace dinolang.interpreter
                     }
                     if (thing is System.ValueTuple<int, int>)
                     {
+                        
+                    }
+                    else
+                    {
                         if (func.command == true)
                         {
                             Console.WriteLine($"Command functions cannot return anything Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                             Environment.Exit(1);
                         }
-                    }
-                    else
-                    {
                         RestoreDI(Nvsk, Nvs);
                         return thing;
                     }
