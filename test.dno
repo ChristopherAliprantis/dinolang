@@ -1,0 +1,131 @@
+//Test file for The Dino Programming Language.;
+
+#func separator(in)a;
+    print();
+    print(:------------------------------:);
+    print(+(in, COLON));
+    print();
+#endfunc;
+
+#func intpower(in, to);
+    current = 1;
+    #loop(to);
+        current = *(current, in);
+    #endloop;
+    return(current);
+#endfunc;
+
+var = :integer exponent(2^8):;
+separator(var);
+
+print(intpower(2, 8));
+
+var = :fibonacci sequence(to the 10th):;
+separator(var);
+
+count = 10;
+now = 0;
+last = 1;
+temp = 0;
+#loop (count);
+    printnnl(now);
+    print(:,:);
+    temp = now;
+    now = +(now, last);
+    last = temp;
+#endloop;
+
+var = :absoluting numbers:;
+separator(var);
+
+printnnl(+(:Enter a number to absolute:, COLON, : :));
+num = ToNum(ReadLine());
+
+printnnl(+(ToString(num),: absoluted is :));
+
+answ = abs(num);
+print(answ);
+
+var = :inputing numbers and adding them:;
+separator(var);
+
+printnnl(+(:enter a number:, COLON, : :));
+num1 = ToNum(ReadLine());
+
+printnnl(+(:enter another number:, COLON, : :));
+num2 = ToNum(ReadLine());
+
+anum = +(num1, num2);
+print(+(ToString(num1), : + :, ToString(num2), : = :, ToString(anum)));
+
+var = :reading a line like a password:;
+separator(var);
+
+printnnl(+(:enter something:, COLON, : :));
+in = ReadLineP();
+print();
+print(+(:you entered :, in));
+
+var = :random integers:;
+separator(var);
+
+printnnl(+(:Range Param1:, COLON, : :));
+num1 = ToNum(ReadLine());
+print();
+printnnl(+(:Range Param2:, COLON, : :));
+num2 = ToNum(ReadLine());
+print();
+
+rand = RandomInt(num1, num2);
+print(rand);
+
+var = +(:microseconds since 12:, COLON, :00 AM January 1st:, COMMA, : 1 AD:);
+
+separator(var);
+
+time = GetN();
+
+t = time;
+
+print(t);
+
+var = :both types of division:;
+
+separator(var);
+
+printnnl(+(:num:, COLON, : :));
+num1 = ToNum(ReadLine());
+printnnl(+(:divided by:, COLON, : :));
+num2 = ToNum(ReadLine());
+
+num = FD(num1, num2);
+remainder = %(num1, num2);
+print(+(ToString(num), : R:, ToString(remainder)));
+num = /(num1, num2);
+print(ToString(num));
+
+var = :printing text but in color:;
+
+separator(var);
+
+printC(:this is blue!:, 66, 84, 219);
+
+var = :Turning a Struct into JSON:;
+
+separator(var);
+
+#struct Person;
+    name;
+    age;
+    gender;
+#endstruct;
+
+p = NewStruct(:Person:);
+p.name = :John Doe:;
+p.age = 30;
+p.gender = :male:;
+
+pd = StructToDictionary(p);
+pd = JSONSerialize(pd);
+
+print(pd);
