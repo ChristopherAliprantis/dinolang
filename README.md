@@ -12,8 +12,8 @@ example:
 
 CODE:
 
-print(+(6, 7));
+print(+(6, 11));
 
 OUTPUT:
 
-13
+17
