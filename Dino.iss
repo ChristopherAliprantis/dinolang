@@ -6,7 +6,7 @@
 #define MyAppVersion "1.9"
 #define MyAppPublisher "Christopher Aliprantis"
 #define MyAppExeName "Dino.exe"
-#define MyAppAssocName MyAppName + " Programming Language Source Code"
+#define MyAppAssocName MyAppName + " Source Code"
 #define MyAppAssocExt ".dno"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
 
@@ -34,7 +34,7 @@ DisableProgramGroupPage=no
 ; Remove the following line to run in administrative install mode (install for all users).
 PrivilegesRequired=lowest
 OutputBaseFilename=Dino-winx64-v{#MyAppVersion}-setup
-SetupIconFile=C:\Users\alipr_1j0dfgh\OneDrive\Desktop\Dino-winx64-v{#MyAppVersion}\Assets\DinoLogo.ico
+SetupIconFile=\Assets\DinoLogo.ico
 SolidCompression=yes
 WizardStyle=classic windows11
 
@@ -45,8 +45,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-;Source: "C:\Users\alipr_1j0dfgh\OneDrive\Desktop\Dino-winx64-v0.5.2\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\alipr_1j0dfgh\OneDrive\Desktop\Dino-winx64-v{#MyAppVersion}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "\bin\release\net10.0\winx64\publish\Dino-winx64-v{#MyAppVersion}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
