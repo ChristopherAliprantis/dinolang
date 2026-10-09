@@ -1,0 +1,12 @@
+BEFORE BUILDING SETUP EXE
+
+output directory is \bin\release\net10.0\winx64\publish\
+
+first run publish.ps1
+
+make sure you have a folder in \bin\release\net10.0\winx64\publish\ called Dino-winx64-v(whatever version this is)
+and move Dino.exe in there, move the assets folder in there, and the interpreter folder which you can get from going into the src folder(all these items are in output directory as is the folder)
+
+then you can run Inno Setup(make sure you have latest version above 7.0)
+
+and the setup exe will appear in the output directory

@@ -3,7 +3,7 @@
 ; Non-commercial use only
 
 #define MyAppName "Dino"
-#define MyAppVersion "1.9"
+#define MyAppVersion "2.0"
 #define MyAppPublisher "Christopher Aliprantis"
 #define MyAppExeName "Dino.exe"
 #define MyAppAssocName MyAppName + " Source Code"
@@ -31,6 +31,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 UninstallDisplayName=Dino
 DisableProgramGroupPage=no
+OutputDir=\bin\release\net10.0\winx64\publish\
 ; Remove the following line to run in administrative install mode (install for all users).
 PrivilegesRequired=lowest
 OutputBaseFilename=Dino-winx64-v{#MyAppVersion}-setup
