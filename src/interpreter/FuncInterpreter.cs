@@ -42,7 +42,14 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is List<dynamic>) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "list";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is List<dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "list";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "dictionary";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is Struct) dinolang.interpreter.Globals.Vars[p[i]].type = dinolang.interpreter.Globals.Vars[p[i]].value.typename;
+                    else
+                    {
+                        Console.WriteLine($"Unknown Dino Type Line {startline} Try Reporting Issue In https://github.com/ChristopherAliprantis/dinolang/issues");
+                        Environment.Exit(1);
+                    }
                 }
                 else
                 {
@@ -55,6 +62,14 @@ namespace dinolang.interpreter
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is List<dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "list";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "dictionary";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is Struct) dinolang.interpreter.Globals.Vars[p[i]].type = dinolang.interpreter.Globals.Vars[p[i]].value.typename;
+                    else
+                    {
+                        Console.WriteLine($"Unknown Dino Type Line {startline} Try Reporting Issue In https://github.com/ChristopherAliprantis/dinolang/issues");
+                        Environment.Exit(1);
+                    }
                     FVs.Add(dinolang.interpreter.Globals.Vars[p[i]]);
                 } 
             }

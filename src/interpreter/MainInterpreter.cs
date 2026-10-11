@@ -41,6 +41,7 @@ namespace dinolang.interpreter
             bool d = false;
             bool ms = false;
             StructBlueprint? sb = null;
+
             for (int i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
