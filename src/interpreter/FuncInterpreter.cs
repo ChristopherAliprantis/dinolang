@@ -38,10 +38,10 @@ namespace dinolang.interpreter
                     {
                         value = GetValue(val, startline)
                     };
-                    if (dinolang.interpreter.Globals.Vars[p[i]].value is string) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "string";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
+                    if (dinolang.interpreter.Globals.Vars[p[i]].value is string) dinolang.interpreter.Globals.Vars[p[i]].type = "string";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[p[i]].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[p[i]].type = "bool";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[p[i]].type = "null";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is List<dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "list";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "dictionary";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is Struct) dinolang.interpreter.Globals.Vars[p[i]].type = dinolang.interpreter.Globals.Vars[p[i]].value.typename;
@@ -58,10 +58,10 @@ namespace dinolang.interpreter
                     {
                         value = GetValue(val, startline)
                     };
-                    if (dinolang.interpreter.Globals.Vars[p[i]].value is string) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "string";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "num";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "bool";
-                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[$"{p[i]}"].type = "null";
+                    if (dinolang.interpreter.Globals.Vars[p[i]].value is string) dinolang.interpreter.Globals.Vars[p[i]].type = "string";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is decimal) dinolang.interpreter.Globals.Vars[p[i]].type = "num";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is bool) dinolang.interpreter.Globals.Vars[p[i]].type = "bool";
+                    else if (dinolang.interpreter.Globals.Vars[p[i]].value is null) dinolang.interpreter.Globals.Vars[p[i]].type = "null";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is List<dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "list";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is Dictionary<dynamic, dynamic>) dinolang.interpreter.Globals.Vars[p[i]].type = "dictionary";
                     else if (dinolang.interpreter.Globals.Vars[p[i]].value is Struct) dinolang.interpreter.Globals.Vars[p[i]].type = dinolang.interpreter.Globals.Vars[p[i]].value.typename;
