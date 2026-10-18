@@ -36,7 +36,23 @@ namespace dinolang.interpreter
                             times = GetValue(args, line);
                             if (times is not bool)
                             {
-                                if (times % 1 == 0) ;
+                                if (times is not decimal)
+                                {
+                                    Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                                }
+                                if (times % 1 == 0)
+                                {
+                                    if (times < 0)
+                                    {
+                                        Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                                        Environment.Exit(1);
+                                    }
+                                    if ((decimal)times > UInt64.MaxValue)
+                                    {
+                                        Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                                        Environment.Exit(1);
+                                    }
+                                }
                                 else
                                 {
                                     Console.WriteLine($"Invalid Loop declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
@@ -67,7 +83,7 @@ namespace dinolang.interpreter
                     if (times is not bool)
                     {
                         times = Convert.ToDecimal(times);
-                        for (long l = 0; l < Convert.ToInt64((decimal)times); l++)
+                        for (ulong l = 0; l < Convert.ToUInt64((decimal)times); l++)
                         {
                             (int, dynamic?) st = ProcessLoop(loopLines, infunc);
                             if (st.Item2 is System.ValueTuple<char, char>)
