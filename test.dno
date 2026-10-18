@@ -24,6 +24,8 @@ var = :fibonacci sequence(to the 10th):;
 separator(var);
 
 count = 10;
+zeroaddedin = 1;
+count = +(count, zeroaddedin);
 now = 0;
 last = 1;
 temp = 0;
