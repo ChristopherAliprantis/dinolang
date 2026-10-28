@@ -39,6 +39,7 @@ namespace dinolang.interpreter
             bool IF = false;
             bool c = false;
             bool d = false;
+            bool t = false;
             bool ms = false;
             StructBlueprint? sb = null;
 
@@ -73,9 +74,10 @@ namespace dinolang.interpreter
                         Console.WriteLine($"No struct in making, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
-                    dinolang.interpreter.Globals.Structs[sb.Value.name] = sb.Value;
+                    dinolang.interpreter.Globals.Structs[sb?.name] = sb.Value;
                     ms = false;
                     sb = null;
+                    Globals.lateststruct = sb?.name;
                 }
                 else if (line.StartsWith("#func"))
                 {
@@ -88,46 +90,41 @@ namespace dinolang.interpreter
                     name = BeforeChar(line.Substring(5), '(');
                     string Ps = AfterChar(line, "#func" + name);
                     Ps = BeforeChar(Ps, ';');
-                    if (Ps.StartsWith('(') && Ps.EndsWith(')'))
+                    string[] validEndings = {
+                        "tda", "tad", "dta", "dat", "atd", "adt",
+                        "td", "ta", "dt", "da", "at", "ad",
+                        "t", "d", "a"
+                    };
+                    if (Ps.StartsWith('('))
                     {
-                        Ps = Ps.Substring(1, Ps.Length - 2);
-                        c = false;
-                        d = false;
-                        if (Ps != "") mfp = Ps.Split(',').ToList();
+                        int matchedIndex = Array.FindIndex(validEndings, suffix => Ps.EndsWith($"){suffix}"));
+
+                        if (matchedIndex != -1) 
+                        {
+                            string matchedSuffix = validEndings[matchedIndex];
+
+                            Ps = Ps.Substring(1, Ps.Length - 2 + matchedSuffix.Length);
+                            if (matchedSuffix.Contains("t")) t = true;
+                            else t = false;
+                            if (matchedSuffix.Contains("a")) c = true;
+                            else c = false;
+                            if (matchedSuffix.Contains("d")) d = true;
+                            else d = false;
+                            mfp = Ps.Split(',').ToList();
+                        }
+                        else if (Ps.EndsWith(')'))
+                        {
+                            c = false;
+                            d = false;
+                            t = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Invalid Function declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
                     }
-                    else if (Ps.StartsWith('(') && Ps.EndsWith(")a"))
-                    {
-                        Ps = Ps.Substring(1, Ps.Length - 3);
-                        c = true;
-                        d = false;
-                        if (Ps != "") mfp = Ps.Split(',').ToList();
-                    }
-                    else if (Ps.StartsWith('(') && Ps.EndsWith(")d"))
-                    {
-                        Ps = Ps.Substring(1, Ps.Length - 3);
-                        d = true;
-                        c = false;
-                        if (Ps != "") mfp = Ps.Split(',').ToList();
-                    }
-                    else if (Ps.StartsWith('(') && Ps.EndsWith(")ad"))
-                    {
-                        Ps = Ps.Substring(1, Ps.Length - 4);
-                        c = true;
-                        d = true;
-                        if (Ps != "") mfp = Ps.Split(',').ToList();
-                    }
-                    else if (Ps.StartsWith('(') && Ps.EndsWith(")da"))
-                    {
-                        Ps = Ps.Substring(1, Ps.Length - 4);
-                        c = true;
-                        d = true;
-                        if (Ps != "") mfp = Ps.Split(',').ToList();
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Invalid Function declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                        Environment.Exit(1);
-                    }
+                    
                 }
                 else if (line == "#endfunc;")
                 {
