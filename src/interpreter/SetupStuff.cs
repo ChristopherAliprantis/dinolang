@@ -13,6 +13,7 @@ namespace dinolang.interpreter
         public static byte[]? TEXTbackgroundcolor = null;
         public static Dictionary<string, StructBlueprint> Structs = new();
         public static string? lateststruct = null;
+        public static List<System.ValueTuple<string, string>> TSsBinds = new();
     }
 }
 
@@ -31,4 +32,5 @@ public class Function
     public bool command { get; set; }
     public List<string>? code = new();
     public bool addcalllineasdebugline { get; set; }
+    public bool t { get; set; }
 }

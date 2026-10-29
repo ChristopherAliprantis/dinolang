@@ -138,15 +138,26 @@ namespace dinolang.interpreter
                         parameters = new List<string>(mfp),
                         code = new List<string>(mfl),
                         command = c,
-                        addcalllineasdebugline = d
+                        addcalllineasdebugline = d,
+                        t = t
                     };
                     //Console.WriteLine($"Function {name} created");
+                    if (dinolang.interpreter.Globals.Funcs[name].t)
+                    {
+                        if (dinolang.interpreter.Globals.Funcs[name].parameters.Count != 1)
+                        {
+                            Console.WriteLine($"Function cannot have 0 or more than 1 parameters if it will be called when structure type is in ToString(type);, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+                        Globals.TSsBinds.Add((name, Globals.lateststruct));
+                    }
                     mf = false;
                     mfl.Clear();
                     mfp.Clear();
                     name = "";
                     c = false;
                     d = false;
+                    t = false;
                 }
                 else if (mf)
                 {
@@ -549,6 +560,14 @@ namespace dinolang.interpreter
                     dynamic result = GetValue(arg, line);
                     if (result is Struct)
                     {
+                        foreach (var bind in Globals.TSsBinds)
+                        {
+                            if (bind.Item2 == ((Struct)result).typename)
+                            {
+                                result = ProcessFunc(Globals.Funcs[bind.Item1], new List<dynamic> { result }, $"{bind.Item1}({string.Join(", ", Globals.Funcs[bind.Item1].parameters)})", line);
+                            }
+                        }
+
                         Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
@@ -578,6 +597,14 @@ namespace dinolang.interpreter
                     dynamic result = GetValue(arg, line);
                     if (result is Struct)
                     {
+                        foreach (var bind in Globals.TSsBinds)
+                        {
+                            if (bind.Item2 == ((Struct)result).typename)
+                            {
+                                result = ProcessFunc(Globals.Funcs[bind.Item1], new List<dynamic> { result }, $"{bind.Item1}({string.Join(", ", Globals.Funcs[bind.Item1].parameters)})", line);
+                            }
+                        }
+
                         Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
@@ -619,6 +646,14 @@ namespace dinolang.interpreter
                     }
                     if (result is Struct)
                     {
+                        foreach (var bind in Globals.TSsBinds)
+                        {
+                            if (bind.Item2 == ((Struct)result).typename)
+                            {
+                                result = ProcessFunc(Globals.Funcs[bind.Item1], new List<dynamic> { result }, $"{bind.Item1}({string.Join(", ", Globals.Funcs[bind.Item1].parameters)})", line);
+                            }
+                        }
+
                         Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
@@ -661,6 +696,14 @@ namespace dinolang.interpreter
                     }
                     if (result is Struct)
                     {
+                        foreach (var bind in Globals.TSsBinds)
+                        {
+                            if (bind.Item2 == ((Struct)result).typename)
+                            {
+                                result =  ProcessFunc(Globals.Funcs[bind.Item1], new List<dynamic> { result }, $"{bind.Item1}({string.Join(", ", Globals.Funcs[bind.Item1].parameters)})", line);
+                            }
+                        }
+
                         Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
@@ -1155,6 +1198,14 @@ namespace dinolang.interpreter
                 var result = GetValue(arg, line);
                 if (result is Struct)
                 {
+                    foreach (var bind in Globals.TSsBinds)
+                    {
+                        if (bind.Item2 == ((Struct)result).typename)
+                        {
+                            return ProcessFunc(Globals.Funcs[bind.Item1], new List<dynamic> { result }, $"{bind.Item1}({string.Join(", ", Globals.Funcs[bind.Item1].parameters)})", line);
+                        }
+                    }
+
                     Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
