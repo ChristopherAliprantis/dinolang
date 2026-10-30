@@ -442,7 +442,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -479,7 +479,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -528,7 +528,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -578,7 +578,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)

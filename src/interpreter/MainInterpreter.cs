@@ -97,19 +97,16 @@ namespace dinolang.interpreter
                     };
                     if (Ps.StartsWith('('))
                     {
-                        int matchedIndex = Array.FindIndex(validEndings, suffix => Ps.EndsWith($"){suffix}"));
-
-                        if (matchedIndex != -1) 
+                        string? suffix = validEndings.FirstOrDefault(e =>
+                                Ps.EndsWith($"){e}", StringComparison.OrdinalIgnoreCase));
+                        if (suffix != null && suffix.Length > 0)
                         {
-                            string matchedSuffix = validEndings[matchedIndex];
-
-                            Ps = Ps.Substring(1, Ps.Length - 2 + matchedSuffix.Length);
-                            if (matchedSuffix.Contains("t")) t = true;
-                            else t = false;
-                            if (matchedSuffix.Contains("a")) c = true;
-                            else c = false;
-                            if (matchedSuffix.Contains("d")) d = true;
-                            else d = false;
+                            suffix = suffix.ToLower();
+                            Ps = Ps.Substring(1, Ps.Length - 2 + suffix.Length);
+                            suffix = suffix.ToLower();
+                            t = suffix.Contains("t");
+                            c = suffix.Contains("a");
+                            d = suffix.Contains("d");
                             mfp = Ps.Split(',').ToList();
                         }
                         else if (Ps.EndsWith(')'))
@@ -149,6 +146,12 @@ namespace dinolang.interpreter
                             Console.WriteLine($"Function cannot have 0 or more than 1 parameters if it will be called when structure type is in ToString(type);, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                             Environment.Exit(1);
                         }
+                        if (dinolang.interpreter.Globals.Funcs[name].command)
+                        {
+                            Console.WriteLine($"Function that will be called if the latest structure type made as of now is in ToString(type); cannot be a command function because they do not return anything, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                            Environment.Exit(1);
+                        }
+
                         Globals.TSsBinds.Add((name, Globals.lateststruct));
                     }
                     mf = false;
@@ -568,7 +571,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -605,7 +608,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -654,7 +657,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -704,7 +707,7 @@ namespace dinolang.interpreter
                             }
                         }
 
-                        Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                        Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                         Environment.Exit(1);
                     }
                     if (result is Dictionary<dynamic, dynamic>)
@@ -1206,7 +1209,7 @@ namespace dinolang.interpreter
                         }
                     }
 
-                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 if (result is Dictionary<dynamic, dynamic>)

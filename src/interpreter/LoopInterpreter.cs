@@ -260,20 +260,7 @@ public partial class Interpreter
                         }
                     }
 
-                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
-                    Environment.Exit(1);
-                }
-                if (result is Struct)
-                {
-                    foreach (var bind in Globals.TSsBinds)
-                    {
-                        if (bind.Item2 == ((Struct)result).typename)
-                        {
-                            result = ProcessFunc(Globals.Funcs[bind.Item1], new List<dynamic> { result }, $"{bind.Item1}({string.Join(", ", Globals.Funcs[bind.Item1].parameters)})", line);
-                        }
-                    }
-
-                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 if (result is bool) result = result.ToString().ToUpper();
@@ -320,7 +307,7 @@ public partial class Interpreter
                         }
                     }
 
-                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 if (result is Dictionary<dynamic, dynamic>)
@@ -369,7 +356,7 @@ public partial class Interpreter
                         }
                     }
 
-                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 if (result is Dictionary<dynamic, dynamic>)
@@ -419,7 +406,7 @@ public partial class Interpreter
                         }
                     }
 
-                    Console.WriteLine($"Cannot convert struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Cannot convert this struct to string, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 if (result is Dictionary<dynamic, dynamic>)
