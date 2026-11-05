@@ -837,6 +837,7 @@ namespace dinolang.interpreter
                     Environment.Exit(1);
                 }
             }
+            RestoreDI(Nvsk, Nvs);
             foreach (var v in FVs)
             {
                 Globals.Vars.Remove(v.name);
