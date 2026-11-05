@@ -881,7 +881,7 @@ namespace dinolang.interpreter
                 return value1;
             }
             catch { }
-            if (val == "TextBGColor")
+            if (val == "TextBGColor")  
             {
                 List<dynamic> bg = ((IEnumerable)Globals.TEXTbackgroundcolor).Cast<dynamic>().ToList();
                 return bg;
