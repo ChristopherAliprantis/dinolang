@@ -918,10 +918,13 @@ namespace dinolang.interpreter
                 return ":";
             }
             if (val == "SC") return ";";
+
+
             if (dinolang.interpreter.Globals.Vars.ContainsKey(val))
             {
                 return dinolang.interpreter.Globals.Vars[val].value;
             }
+
             if (val.StartsWith("NewStruct(") && val.EndsWith(")"))
             {
                 string arg = val.Substring(10, val.Length - 11);
