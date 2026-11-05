@@ -122,10 +122,15 @@ separator(var);
     gender;
 #endstruct;
 
+#func pts(a);
+    return(a.name);
+#endfunc;
+
 p = NewStruct(:Person:);
 p.name = :John Doe:;
 p.age = 30;
 p.gender = :male:;
+
 
 pd = StructToDictionary(p);
 pd = JSONSerialize(pd);
