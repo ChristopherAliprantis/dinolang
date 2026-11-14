@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 
 namespace dinolang.interpreter
@@ -90,7 +91,7 @@ namespace dinolang.interpreter
                 }
                 if (!(line.StartsWith("return(") && line.EndsWith(");")) && !func.command && i == lines.Count - 1)
                 {
-                    Console.WriteLine($"Function {name} does not return anything, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
+                    Console.WriteLine($"Function {name} does not return anything by the last line of the function, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                     Environment.Exit(1);
                 }
                 if (line.StartsWith("#loop"))
@@ -247,6 +248,10 @@ namespace dinolang.interpreter
                     RestoreDI(Nvsk, Nvs);
 
                     return th;
+                }
+                else if (line == "ve;")
+                {
+                    return(null);
                 }
                 else if (line.StartsWith("Exit(") && line.EndsWith(");"))
                 {
