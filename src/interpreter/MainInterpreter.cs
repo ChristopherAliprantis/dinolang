@@ -102,12 +102,9 @@ namespace dinolang.interpreter
                         if (suffix != null && suffix.Length > 0)
                         {
                             suffix = suffix.ToLower();
-                            Ps = Ps.Substring(1, Ps.Length - 2 + suffix.Length);
-                            suffix = suffix.ToLower();
                             t = suffix.Contains("t");
                             c = suffix.Contains("a");
                             d = suffix.Contains("d");
-                            mfp = Ps.Split(',').ToList();
                         }
                         else if (Ps.EndsWith(')'))
                         {
@@ -120,6 +117,9 @@ namespace dinolang.interpreter
                             Console.WriteLine($"Invalid Function declaration, Line {line} Try going on https://github.com/ChristopherAliprantis/dinolang/wiki/ for help");
                             Environment.Exit(1);
                         }
+                        int suffixLength = suffix?.Length ?? 0;
+                        string parameters = Ps.Substring(1, Ps.Length - suffixLength - 2);
+                        mfp = parameters.Length == 0 ? new List<string>() : parameters.Split(',').ToList();
                     }
                     
                 }
