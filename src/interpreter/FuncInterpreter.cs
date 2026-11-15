@@ -52,7 +52,6 @@ namespace dinolang.interpreter
                 }
                 else
                 {
-                    
                     dinolang.interpreter.Globals.Vars[p[i]] = new Variable
                     {
                         value = GetValue(val, startline)
