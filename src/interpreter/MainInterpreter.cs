@@ -55,17 +55,13 @@ namespace dinolang.interpreter
                 if (line.StartsWith("#struct"))
                 {
                     string n = AfterChar(line, "#struct");
-                    n = BeforeChar(n, ';');
+                    n = BeforeChar(n, ';').Trim();
                     ms = true;
                     sb = new StructBlueprint
                     {
                         name = n,
                         fields = new List<string>(0)
                     };
-                }
-                else if (ms == true)
-                {
-                    sb.Value.fields.Add(BeforeChar(line, ';'));
                 }
                 else if (line == "#endstruct;")
                 {
@@ -75,9 +71,13 @@ namespace dinolang.interpreter
                         Environment.Exit(1);
                     }
                     dinolang.interpreter.Globals.Structs[sb?.name] = sb.Value;
+                    Globals.lateststruct = sb.Value.name;
                     ms = false;
                     sb = null;
-                    Globals.lateststruct = sb?.name;
+                }
+                else if (ms == true)
+                {
+                    sb.Value.fields.Add(BeforeChar(line, ';').Trim());
                 }
                 else if (line.StartsWith("#func"))
                 {
@@ -1169,7 +1169,7 @@ namespace dinolang.interpreter
                 var result = GetValue(arg, line);
                 if (result is Struct)
                 {
-                    
+
                 }
                 else
                 {
